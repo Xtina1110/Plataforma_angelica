@@ -6,7 +6,7 @@ import fondo from '../assets/FondoPantalladeCargavf.png';
 const PantallaCarga = () => {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
-  const [currentMessage, setCurrentMessage] = useState('');
+  const [currentMessage, setCurrentMessage] = useState(0);
 
   const messages = [
     "Preparando tu espacio sagrado...",
@@ -17,7 +17,7 @@ const PantallaCarga = () => {
     "Los ángeles te están esperando...",
     "Creando un ambiente de paz y amor...",
     "Sintonizando con las frecuencias angelicales...",
-    "Preparando tu encuentro divino..."
+    "Preparando tu encuentro divino...",
   ];
 
   useEffect(() => {
@@ -27,21 +27,22 @@ const PantallaCarga = () => {
 
         if (newProgress < 100) {
           const index = Math.floor(newProgress / 10);
-          if (index < messages.length) {
-            setCurrentMessage(messages[index]);
+          if (index !== currentMessage && index < messages.length) {
+            setCurrentMessage(index);
           }
-        } else {
-          setCurrentMessage("¡Bienvenido a tu transformación!");
+        }
+
+        if (newProgress >= 100) {
           clearInterval(interval);
           setTimeout(() => navigate('/inicio'), 1500);
         }
 
         return newProgress >= 100 ? 100 : newProgress;
       });
-    }, 100);
+    }, 100); // más lento que antes para leer mejor
 
     return () => clearInterval(interval);
-  }, [navigate]);
+  }, [navigate, currentMessage, messages.length]);
 
   return (
     <div
@@ -49,7 +50,7 @@ const PantallaCarga = () => {
       style={{
         backgroundImage: `url(${fondo})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
       }}
     >
       <div className="absolute inset-0 bg-white/70 pointer-events-none"></div>
@@ -62,7 +63,7 @@ const PantallaCarga = () => {
         </h1>
 
         <p className="text-lg italic text-gray-700 mb-12 min-h-[2rem]">
-          {currentMessage}
+          {progress < 100 ? messages[currentMessage] : "¡Bienvenido a tu transformación!"}
         </p>
 
         <div className="w-72 md:w-96 h-5 rounded-full bg-white/80 border border-yellow-300 shadow-inner overflow-hidden mx-auto">
