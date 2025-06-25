@@ -1,7 +1,7 @@
  import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import fondoMarmol from '../assets/Fondomarmoleado.jpg';
-import sanMiguel from '../assets/FondoPantallaInicio.png';
+import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 import LogoAngelico from './LogoAngelico';
 
 const PantallaInicio = () => {
