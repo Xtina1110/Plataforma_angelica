@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import PantallaCarga from './components/PantallaCarga';
 import PantallaInicio from './components/PantallaInicio';
-import './App.css';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -10,8 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PantallaCarga />} />
         <Route path="/inicio" element={<PantallaInicio />} />
-        {/* Puedes agregar más pantallas aquí luego, como login, registro, dashboard, etc */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
