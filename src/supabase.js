@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://tuinstancia.supabase.co'; // Reemplaza con tu URL
-const supabaseKey = 'tu_clave_publica'; // Reemplaza con tu clave pública
+const supabaseUrl = 'https://kolciyzkuvcwzegsomww.supabase.co'; // Reemplaza con tu URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvbGNpeXprdXZjd3plZ3NvbXd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3ODY0NTAsImV4cCI6MjA2NjM2MjQ1MH0.n6HbwCXo3lGW9gBSAUAbOufZf9UBmEvkeEX891dnswg'; // Reemplaza con tu clave pública
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
