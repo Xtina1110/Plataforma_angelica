@@ -33,7 +33,7 @@ const PantallaCarga = () => {
         }
         return next;
       });
-    }, 100);
+    }, 150);
     return () => clearInterval(interval);
   }, []);
 
