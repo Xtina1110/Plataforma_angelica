@@ -1,25 +1,49 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import logo from '../assets/Logosinfondo.png'; // Asegúrate de tener este archivo
+import facebook from '../icons/facebook.png';
+import instagram from '../icons/instagram.png';
+import youtube from '../icons/youtube.png';
 
 const FooterLegal = () => {
+  const navigate = useNavigate();
+
   return (
-    <footer className="bg-transparent text-center py-4 text-sm text-gray-600 z-50">
-      <div className="flex flex-col md:flex-row justify-center gap-4">
-        <a href="/terminos" className="hover:underline">Términos de Uso</a>
-        <a href="/privacidad" className="hover:underline">Política de Privacidad</a>
-        <a href="/contacto" className="hover:underline">Contacto</a>
+    <footer className="bg-white/60 backdrop-blur-md text-gray-700 text-sm px-6 py-4 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-3">
+      
+      {/* Logo con enlaces */}
+      <div className="flex items-center gap-3">
+        <img 
+          src={logo} 
+          alt="Logo Ángelico" 
+          className="h-12 cursor-pointer"
+          onClick={() => navigate('/inicio')}
+        />
+        <div className="flex gap-3 ml-2">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+            <img src={facebook} alt="Facebook" className="h-5 hover:scale-110 transition-transform" />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+            <img src={instagram} alt="Instagram" className="h-5 hover:scale-110 transition-transform" />
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+            <img src={youtube} alt="YouTube" className="h-5 hover:scale-110 transition-transform" />
+          </a>
+        </div>
       </div>
-      <div className="mt-2 flex justify-center gap-4">
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-          <img src="/icons/facebook.jpg" alt="Facebook" className="w-5 h-5 inline" />
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          <img src="/icons/IG.png" alt="Instagram" className="w-5 h-5 inline" />
-        </a>
-        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
-          <img src="/icons/Youtube.jpg" alt="YouTube" className="w-5 h-5 inline" />
-        </a>
+
+      {/* Enlaces legales */}
+      <div className="flex gap-4">
+        <button onClick={() => navigate('/terminos')} className="hover:underline text-purple-700">
+          Términos de Uso
+        </button>
+        <button onClick={() => navigate('/politica')} className="hover:underline text-purple-700">
+          Política de Privacidad
+        </button>
+        <button onClick={() => navigate('/contacto')} className="hover:underline text-purple-700">
+          Contacto
+        </button>
       </div>
-      <p className="mt-2 text-xs text-gray-400">© 2025 Plataforma Angélica</p>
     </footer>
   );
 };
