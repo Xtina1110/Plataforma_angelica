@@ -25,7 +25,7 @@ const PantallaInicio = () => {
 
       {/* Imagen San Miguel izquierda */}
       <div 
-        className="absolute top-0 left-[62px] w-3/5 h-full bg-contain bg-center bg-no-repeat opacity-40 z-10"
+        className="absolute top-0 left-[52px] w-3/5 h-full bg-contain bg-center bg-no-repeat opacity-40 z-10"
         
         style={{ 
           backgroundImage: `url(${sanMiguel})`,
