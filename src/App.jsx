@@ -5,11 +5,15 @@ import PantallaCarga from './components/PantallaCarga';
 import PantallaInicio from './components/PantallaInicio';
 import Login from './components/Login';
 import Registro from './components/Registro';
+
+import Dashboard from './components/Dashboard';
+import DashboardAdmin from './components/DashboardAdmin';
+import DashboardTecnico from './components/DashboardTecnico';
+
 import Terminos from './components/Terminos';
 import PoliticaPrivacidad from './components/PoliticaPrivacidad';
 import Contacto from './components/Contacto';
-import Dashboard from './components/Dashboard'; // Si ya lo tienes
-import FooterLegal from './components/FooterLegal'; // Se puede usar como parte de páginas
+import FooterLegal from './components/FooterLegal';
 
 import './App.css';
 
@@ -22,19 +26,25 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<PantallaCarga />} />
-          <Route path="/inicio" element={<PantallaInicio />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/registro" element={<Registro />} />
-          <Route path="/terminos" element={<Terminos />} />
-          <Route path="/privacidad" element={<PoliticaPrivacidad />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<PantallaCarga />} />
+        <Route path="/inicio" element={<PantallaInicio />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/registro" element={<Registro />} />
+
+        {/* Dashboards por rol */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard-admin" element={<DashboardAdmin />} />
+        <Route path="/dashboard-tecnico" element={<DashboardTecnico />} />
+
+        {/* Legales */}
+        <Route path="/terminos" element={<Terminos />} />
+        <Route path="/privacidad" element={<PoliticaPrivacidad />} />
+        <Route path="/contacto" element={<Contacto />} />
+
+        {/* Ruta no encontrada redirige a carga */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Router>
   );
 }
