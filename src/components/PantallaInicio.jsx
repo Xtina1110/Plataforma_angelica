@@ -1,8 +1,9 @@
- import React from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import fondoMarmol from '../assets/Fondomarmoleado.jpg';
 import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 import LogoAngelico from './LogoAngelico';
+import FooterLegal from './FooterLegal';
 
 const PantallaInicio = () => {
   const navigate = useNavigate();
@@ -16,10 +17,13 @@ const PantallaInicio = () => {
         backgroundPosition: 'center'
       }}
     >
+      {/* Capa de transparencia */}
       <div className="absolute inset-0 bg-white/60 z-0"></div>
 
+      {/* Logo */}
       <LogoAngelico />
 
+      {/* Imagen San Miguel izquierda */}
       <div 
         className="absolute top-0 left-0 w-3/5 h-full bg-contain bg-center bg-no-repeat opacity-40 z-10"
         style={{ 
@@ -29,6 +33,7 @@ const PantallaInicio = () => {
         }}
       />
 
+      {/* Contenido del panel derecho */}
       <div className="flex-1 flex items-center justify-end pr-8 md:pr-16 relative z-20">
         <div className="bg-white/95 rounded-3xl shadow-xl p-8 md:p-10 max-w-md w-full backdrop-blur-sm hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out hover:bg-white/98">
           <p className="text-xl md:text-2xl text-purple-700 font-semibold mb-6 text-center italic">
@@ -59,6 +64,11 @@ const PantallaInicio = () => {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Footer legal */}
+      <div className="absolute bottom-0 left-0 right-0 z-30">
+        <FooterLegal />
       </div>
     </div>
   );
