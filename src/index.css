@@ -1,7 +1,23 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// 📁 src/index.css
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Importar fuentes angelicales */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fdfdfd;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+input, button, select, textarea {
+  font-family: 'Inter', sans-serif;
 }
