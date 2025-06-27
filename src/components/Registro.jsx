@@ -1,246 +1,143 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
-import paises from '../data/paises';
-import idiomas from '../data/idiomas';
-import LogoAngelico from './LogoAngelico';
-import fondo from '../assets/FondoPantallaIniciovf.png';
+import Fondo from '../assets/FondoPantallaIniciovf.png';
+import SanMiguel from '../assets/SanMiguelArcangel.png';
+import { useNavigate } from 'react-router-dom';
 
-const Registro = () => {
+function Registro() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  const [formulario, setFormulario] = useState({
     nombre: '',
     apellidos: '',
     email: '',
     password: '',
-    confirmar: '',
+    confirmarPassword: '',
     nacimiento: '',
     idioma: '',
     direccion: '',
     ciudad: '',
     estado: '',
     pais: '',
-    codigoPostal: '',
+    codigo_postal: '',
     telefono: '',
-    contacto: '',
-    aceptaTerminos: false
+    contacto_preferido: '',
   });
-  const [error, setError] = useState('');
-  const [exito, setExito] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  const manejarCambio = (e) => {
+    setFormulario({ ...formulario, [e.target.name]: e.target.value });
   };
 
-  const validarEdad = (fecha) => {
-    const hoy = new Date();
-    const cumple = new Date(fecha);
-    const edad = hoy.getFullYear() - cumple.getFullYear();
-    return edad >= 18;
-  };
-
-  const handleSubmit = async (e) => {
+  const manejarRegistro = async (e) => {
     e.preventDefault();
-    setError('');
-    setExito('');
 
-    const {
-      nombre, apellidos, email, password, confirmar, nacimiento, idioma,
-      direccion, ciudad, estado, pais, codigoPostal, telefono, contacto, aceptaTerminos
-    } = formData;
-
-    if (!aceptaTerminos) {
-      setError('Debes aceptar los términos y condiciones');
+    if (formulario.password !== formulario.confirmarPassword) {
+      alert('Las contraseñas no coinciden');
       return;
     }
 
-    if (!nombre || !apellidos || !email || !password || !confirmar || !nacimiento || !idioma || !contacto) {
-      setError('Todos los campos obligatorios deben estar completos');
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+      email: formulario.email,
+      password: formulario.password,
+    });
+
+    if (signUpError) {
+      alert('Error al registrar: ' + signUpError.message);
       return;
     }
 
-    if (password !== confirmar) {
-      setError('Las contraseñas no coinciden');
+    const user = signUpData.user;
+    if (!user) {
+      alert('No se pudo obtener el usuario autenticado.');
       return;
     }
 
-    if (!validarEdad(nacimiento)) {
-      setError('Debes ser mayor de edad para registrarte');
+    const { error: insertError } = await supabase.from('usuarios').insert([
+      {
+        id: user.id,
+        nombre: formulario.nombre,
+        apellidos: formulario.apellidos,
+        email: formulario.email,
+        nacimiento: formulario.nacimiento,
+        idioma: formulario.idioma,
+        direccion: formulario.direccion,
+        ciudad: formulario.ciudad,
+        estado: formulario.estado,
+        pais: formulario.pais,
+        codigo_postal: formulario.codigo_postal,
+        telefono: formulario.telefono,
+        contacto_preferido: formulario.contacto_preferido,
+        rol: 'usuario',
+      },
+    ]);
+
+    if (insertError) {
+      alert('Error al guardar datos: ' + insertError.message);
       return;
     }
 
-    try {
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password
-      });
-
-      if (authError) throw authError;
-
-      const { error: dbError } = await supabase.from('usuarios').insert([{
-        nombre,
-        apellidos,
-        email,
-        nacimiento,
-        idioma,
-        direccion,
-        ciudad,
-        estado,
-        pais,
-        codigo_postal: codigoPostal,
-        telefono,
-        contacto_preferido: contacto,
-        rol: 'usuario' // Valor por defecto al registrarse
-      }]);
-
-      if (dbError) throw dbError;
-
-      setExito('Registro exitoso. Redirigiendo...');
-      setTimeout(() => navigate('/dashboard'), 2000);
-    } catch (err) {
-      setError(err.message);
-    }
+    alert('Registro exitoso. Verifica tu correo para confirmar.');
+    navigate('/login');
   };
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative overflow-y-auto"
-      style={{ backgroundImage: `url(${fondo})` }}
+      className="min-h-screen flex flex-col items-center justify-center relative bg-cover bg-center"
+      style={{ backgroundImage: `url(${Fondo})` }}
     >
-      <img
-        src={fondo}
-        alt="San Miguel Arcángel"
-        className="absolute inset-0 w-full h-full object-contain opacity-30 z-0 mx-auto"
-        style={{ maxWidth: '700px' }}
-      />
-      <div className="absolute inset-0 bg-white/70 z-0" />
-      <LogoAngelico />
+      <button onClick={() => navigate('/')} className="absolute top-4 left-4 text-xl text-gray-800 hover:text-red-600">⮌ Volver</button>
+      <div className="absolute top-4 right-4 text-xl text-gray-800 cursor-pointer" onClick={() => navigate('/')}>✖</div>
 
-      <button
-        onClick={() => navigate('/')}
-        className="absolute top-4 right-4 text-red-600 text-3xl font-bold z-30"
-      >
-        ✖
-      </button>
+      <div className="bg-white bg-opacity-90 p-8 rounded-xl shadow-xl w-full max-w-3xl relative flex gap-6">
+        <img
+          src={SanMiguel}
+          alt="San Miguel Arcángel"
+          className="w-1/3 object-contain hidden md:block"
+        />
 
-      <button
-        onClick={() => navigate('/')}
-        className="absolute top-4 left-4 text-blue-700 underline z-30"
-      >
-        Volver al Inicio
-      </button>
-
-      <div className="relative z-10 max-w-4xl mx-auto mt-24 bg-white/90 p-8 rounded-3xl shadow-xl">
-        <h2 className="text-3xl font-bold text-yellow-600 mb-6 text-center">Registro</h2>
-
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label>Nombre</label>
-            <input name="nombre" value={formData.nombre} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-          <div>
-            <label>Apellidos</label>
-            <input name="apellidos" value={formData.apellidos} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-
-          <div>
-            <label>Correo electrónico</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-          <div>
-            <label>Fecha de nacimiento</label>
-            <input type="date" name="nacimiento" value={formData.nacimiento} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-
-          <div>
-            <label>Contraseña</label>
-            <input type="password" name="password" value={formData.password} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-          <div>
-            <label>Confirmar contraseña</label>
-            <input type="password" name="confirmar" value={formData.confirmar} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-
-          <div>
-            <label>Idioma preferente</label>
-            <select name="idioma" value={formData.idioma} onChange={handleChange} className="w-full border rounded-lg p-2">
-              <option value="">Selecciona un idioma</option>
-              {idiomas.map((idioma, i) => (
-                <option key={i} value={idioma}>{idioma}</option>
-              ))}
+        <form onSubmit={manejarRegistro} className="flex-1 overflow-y-auto max-h-[80vh]">
+          <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Registro</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input name="nombre" placeholder="Nombre" value={formulario.nombre} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input name="apellidos" placeholder="Apellidos" value={formulario.apellidos} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input type="email" name="email" placeholder="Correo electrónico" value={formulario.email} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input type="date" name="nacimiento" placeholder="Nacimiento" value={formulario.nacimiento} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input type="password" name="password" placeholder="Contraseña" value={formulario.password} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input type="password" name="confirmarPassword" placeholder="Confirmar contraseña" value={formulario.confirmarPassword} onChange={manejarCambio} className="p-2 border rounded" required />
+            <select name="idioma" value={formulario.idioma} onChange={manejarCambio} className="p-2 border rounded" required>
+              <option value="">Idioma preferente</option>
+              <option value="Español">Español</option>
+              <option value="Inglés">Inglés</option>
+              <option value="Portugués">Portugués</option>
+              <option value="Francés">Francés</option>
             </select>
-          </div>
-          <div>
-            <label>Teléfono</label>
-            <input name="telefono" value={formData.telefono} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-
-          <div>
-            <label>Dirección</label>
-            <input name="direccion" value={formData.direccion} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-          <div>
-            <label>Ciudad</label>
-            <input name="ciudad" value={formData.ciudad} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-
-          <div>
-            <label>Estado / Provincia</label>
-            <input name="estado" value={formData.estado} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-          <div>
-            <label>Código Postal</label>
-            <input name="codigoPostal" value={formData.codigoPostal} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-
-          <div>
-            <label>País</label>
-            <select name="pais" value={formData.pais} onChange={handleChange} className="w-full border rounded-lg p-2">
-              <option value="">Selecciona un país</option>
-              {paises.map((pais, i) => (
-                <option key={i} value={pais}>{pais}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Medio de contacto preferido</label>
-            <select name="contacto" value={formData.contacto} onChange={handleChange} className="w-full border rounded-lg p-2">
-              <option value="">Selecciona medio de contacto</option>
-              <option value="email">Correo electrónico</option>
-              <option value="whatsapp">WhatsApp</option>
-              <option value="telegram">Telegram</option>
+            <input name="telefono" placeholder="Teléfono" value={formulario.telefono} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input name="direccion" placeholder="Dirección" value={formulario.direccion} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input name="ciudad" placeholder="Ciudad" value={formulario.ciudad} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input name="estado" placeholder="Estado / Provincia" value={formulario.estado} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input name="codigo_postal" placeholder="Código Postal" value={formulario.codigo_postal} onChange={manejarCambio} className="p-2 border rounded" required />
+            <input name="pais" placeholder="País" value={formulario.pais} onChange={manejarCambio} className="p-2 border rounded" required />
+            <select name="contacto_preferido" value={formulario.contacto_preferido} onChange={manejarCambio} className="p-2 border rounded" required>
+              <option value="">Medio de contacto preferido</option>
+              <option value="Correo electrónico">Correo electrónico</option>
+              <option value="Teléfono">Teléfono</option>
+              <option value="WhatsApp">WhatsApp</option>
             </select>
           </div>
 
-          <div className="col-span-2 flex items-center">
-            <input type="checkbox" name="aceptaTerminos" checked={formData.aceptaTerminos} onChange={handleChange} />
-            <label className="ml-2 text-sm">
-              Acepto los <a href="/terminos" className="text-purple-600 underline">Términos y condiciones</a> y la <a href="/privacidad" className="text-purple-600 underline">Política de privacidad</a>.
-            </label>
+          <div className="flex items-center mt-4">
+            <input type="checkbox" required className="mr-2" />
+            <label>Acepto los <a href="/terminos" className="underline">Términos y condiciones</a> y la <a href="/privacidad" className="underline">Política de privacidad</a>.</label>
           </div>
 
-          {error && <p className="col-span-2 text-red-600 text-sm">{error}</p>}
-          {exito && <p className="col-span-2 text-green-600 text-sm">{exito}</p>}
-
-          <button
-            type="submit"
-            className="col-span-2 bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition"
-          >
+          <button type="submit" className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded font-semibold">
             Registrarse
           </button>
-        </form>
 
-        <p className="text-center mt-4">
-          ¿Ya tienes cuenta?{' '}
-          <a href="/login" className="text-purple-600 underline">Inicia sesión aquí</a>
-        </p>
+          <p className="mt-4 text-center">¿Ya tienes cuenta? <a href="/login" className="text-blue-600 underline">Inicia sesión aquí</a></p>
+        </form>
       </div>
     </div>
   );
-};
+}
 
 export default Registro;
