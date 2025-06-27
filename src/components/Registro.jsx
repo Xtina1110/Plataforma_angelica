@@ -5,7 +5,6 @@ import paises from '../data/paises';
 import idiomas from '../data/idiomas';
 import LogoAngelico from './LogoAngelico';
 import fondo from '../assets/FondoPantallaIniciovf.png';
-import sanMiguel from '../assets/SanMiguelArcangel.png';
 
 const Registro = () => {
   const navigate = useNavigate();
@@ -95,7 +94,7 @@ const Registro = () => {
         codigo_postal: codigoPostal,
         telefono,
         contacto_preferido: contacto,
-        rol: 'usuario' // Valor explícito por seguridad
+        rol: 'usuario' // Valor por defecto al registrarse
       }]);
 
       if (dbError) throw dbError;
@@ -113,7 +112,7 @@ const Registro = () => {
       style={{ backgroundImage: `url(${fondo})` }}
     >
       <img
-        src={sanMiguel}
+        src={fondo}
         alt="San Miguel Arcángel"
         className="absolute inset-0 w-full h-full object-contain opacity-30 z-0 mx-auto"
         style={{ maxWidth: '700px' }}
