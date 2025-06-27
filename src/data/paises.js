@@ -1,5 +1,5 @@
-// src/components/data/paises.js
-export const paises = [
+// src/data/paises.js
+const paises = [
   "Afganistán", "Alemania", "Argentina", "Australia", "Austria", "Bélgica",
   "Bolivia", "Brasil", "Canadá", "Chile", "China", "Colombia", "Corea del Sur",
   "Costa Rica", "Cuba", "Dinamarca", "Ecuador", "Egipto", "El Salvador",
@@ -12,3 +12,5 @@ export const paises = [
   "Rumania", "Rusia", "Singapur", "Sudáfrica", "Suecia", "Suiza", "Tailandia",
   "Turquía", "Ucrania", "Uruguay", "Venezuela", "Vietnam"
 ];
+
+export default paises;
