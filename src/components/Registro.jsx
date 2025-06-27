@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
+import paises from '../data/paises';
+import idiomas from '../data/idiomas';
 import LogoAngelico from './LogoAngelico';
 import fondo from '../assets/FondoPantallaIniciovf.png';
-import { paises } from '../data/paises';
 
 const Registro = () => {
   const navigate = useNavigate();
@@ -23,19 +23,22 @@ const Registro = () => {
     codigoPostal: '',
     telefono: '',
     contacto: '',
-    aceptaTerminos: false,
+    aceptaTerminos: false
   });
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
 
   const validarEdad = (fecha) => {
-    const cumple = new Date(fecha);
     const hoy = new Date();
+    const cumple = new Date(fecha);
     const edad = hoy.getFullYear() - cumple.getFullYear();
     return edad >= 18;
   };
@@ -46,9 +49,8 @@ const Registro = () => {
     setExito('');
 
     const {
-      nombre, apellidos, email, password, confirmar,
-      nacimiento, idioma, direccion, ciudad, estado,
-      pais, codigoPostal, telefono, contacto, aceptaTerminos
+      nombre, apellidos, email, password, confirmar, nacimiento, idioma,
+      direccion, ciudad, estado, pais, codigoPostal, telefono, contacto, aceptaTerminos
     } = formData;
 
     if (!aceptaTerminos) {
@@ -56,7 +58,7 @@ const Registro = () => {
       return;
     }
 
-    if (!nombre || !apellidos || !email || !password || !confirmar || !nacimiento || !idioma || !pais || !contacto) {
+    if (!nombre || !apellidos || !email || !password || !confirmar || !nacimiento || !idioma || !contacto) {
       setError('Todos los campos obligatorios deben estar completos');
       return;
     }
@@ -74,12 +76,15 @@ const Registro = () => {
     try {
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
-        password,
+        password
       });
 
       if (authError) throw authError;
 
+      const userId = authData?.user?.id;
+
       const { error: dbError } = await supabase.from('usuarios').insert([{
+        id: userId,
         nombre,
         apellidos,
         email,
@@ -97,7 +102,7 @@ const Registro = () => {
       if (dbError) throw dbError;
 
       setExito('Registro exitoso. Redirigiendo...');
-      setTimeout(() => navigate('/dashboard'), 1500);
+      setTimeout(() => navigate('/dashboard'), 2000);
     } catch (err) {
       setError(err.message);
     }
@@ -105,75 +110,123 @@ const Registro = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative flex items-center justify-center px-4"
+      className="min-h-screen bg-cover bg-center relative overflow-y-auto"
       style={{ backgroundImage: `url(${fondo})` }}
     >
-      <div className="absolute inset-0 bg-white/60 z-0" />
+      <div className="absolute inset-0 bg-white/70 z-0" />
       <LogoAngelico />
 
-      <div className="absolute top-6 right-6 z-30">
-        <button onClick={() => navigate('/')} className="text-2xl font-bold text-red-500">✖</button>
-      </div>
+      {/* Botón cerrar */}
+      <button
+        onClick={() => navigate('/')}
+        className="absolute top-4 right-4 text-red-600 text-3xl font-bold z-30"
+      >
+        ✖
+      </button>
 
-      <div className="relative z-10 bg-white/90 p-6 md:p-8 rounded-3xl shadow-xl w-full max-w-2xl">
+      {/* Volver */}
+      <button
+        onClick={() => navigate('/')}
+        className="absolute top-4 left-4 text-blue-700 underline z-30"
+      >
+        Volver al Inicio
+      </button>
+
+      <div className="relative z-10 max-w-3xl mx-auto mt-24 bg-white/90 p-8 rounded-3xl shadow-xl">
         <h2 className="text-3xl font-bold text-yellow-600 mb-6 text-center">Registro</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input name="apellidos" placeholder="Apellidos" value={formData.apellidos} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input type="password" name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input type="password" name="confirmar" placeholder="Confirmar contraseña" value={formData.confirmar} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input type="date" name="nacimiento" value={formData.nacimiento} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <select name="idioma" value={formData.idioma} onChange={handleChange} className="px-4 py-2 border rounded-lg">
-              <option value="">Idioma Preferido</option>
-              <option value="Español">Español</option>
-              <option value="Inglés">Inglés</option>
-              <option value="Portugués">Portugués</option>
-              <option value="Francés">Francés</option>
-              <option value="Otro">Otro</option>
-            </select>
-            <input name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input name="ciudad" placeholder="Ciudad" value={formData.ciudad} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input name="estado" placeholder="Estado" value={formData.estado} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <input name="codigoPostal" placeholder="Código Postal" value={formData.codigoPostal} onChange={handleChange} className="px-4 py-2 border rounded-lg" />
-            <select name="pais" value={formData.pais} onChange={handleChange} className="px-4 py-2 border rounded-lg">
-              <option value="">Selecciona un país</option>
-              {paises.map((pais, index) => (
-                <option key={index} value={pais}>{pais}</option>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label>Nombre</label>
+            <input name="nombre" value={formData.nombre} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Apellidos</label>
+            <input name="apellidos" value={formData.apellidos} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Correo electrónico</label>
+            <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Contraseña</label>
+            <input type="password" name="password" value={formData.password} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Confirmar contraseña</label>
+            <input type="password" name="confirmar" value={formData.confirmar} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Fecha de nacimiento</label>
+            <input type="date" name="nacimiento" value={formData.nacimiento} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Idioma preferente</label>
+            <select name="idioma" value={formData.idioma} onChange={handleChange} className="w-full border rounded-lg p-2">
+              <option value="">Selecciona un idioma</option>
+              {idiomas.map((idioma, i) => (
+                <option key={i} value={idioma}>{idioma}</option>
               ))}
             </select>
-            <select name="contacto" value={formData.contacto} onChange={handleChange} className="px-4 py-2 border rounded-lg">
-              <option value="">Medio de contacto preferido</option>
+          </div>
+          <div>
+            <label>Teléfono</label>
+            <input name="telefono" value={formData.telefono} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Dirección</label>
+            <input name="direccion" value={formData.direccion} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Ciudad</label>
+            <input name="ciudad" value={formData.ciudad} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Estado / Provincia</label>
+            <input name="estado" value={formData.estado} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>Código Postal</label>
+            <input name="codigoPostal" value={formData.codigoPostal} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
+            <label>País</label>
+            <select name="pais" value={formData.pais} onChange={handleChange} className="w-full border rounded-lg p-2">
+              <option value="">Selecciona un país</option>
+              {paises.map((pais, i) => (
+                <option key={i} value={pais}>{pais}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Medio de contacto preferido</label>
+            <select name="contacto" value={formData.contacto} onChange={handleChange} className="w-full border rounded-lg p-2">
+              <option value="">Selecciona medio de contacto</option>
               <option value="email">Correo electrónico</option>
               <option value="whatsapp">WhatsApp</option>
               <option value="telegram">Telegram</option>
             </select>
           </div>
-
-          <div className="flex items-center gap-2 mt-4">
+          <div className="col-span-2 flex items-center">
             <input type="checkbox" name="aceptaTerminos" checked={formData.aceptaTerminos} onChange={handleChange} />
-            <span className="text-sm">
-              Acepto los <a href="/terminos" className="text-blue-600 underline">Términos y condiciones</a> y la <a href="/politica" className="text-blue-600 underline">Política de privacidad</a>.
-            </span>
+            <label className="ml-2 text-sm">
+              Acepto los <a href="/terminos" className="text-purple-600 underline">Términos y condiciones</a> y la <a href="/privacidad" className="text-purple-600 underline">Política de privacidad</a>.
+            </label>
           </div>
+          {error && <p className="col-span-2 text-red-600 text-sm">{error}</p>}
+          {exito && <p className="col-span-2 text-green-600 text-sm">{exito}</p>}
 
-          {error && <p className="text-red-600 mt-2">{error}</p>}
-          {exito && <p className="text-green-600 mt-2">{exito}</p>}
-
-          <button type="submit" className="w-full mt-4 bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded-lg font-medium">
+          <button
+            type="submit"
+            className="col-span-2 bg-yellow-500 text-white py-3 rounded-lg font-semibold hover:bg-yellow-600 transition"
+          >
             Registrarse
           </button>
         </form>
 
-        <p className="text-center text-sm mt-4">
-          ¿Ya tienes cuenta? <a href="/login" className="text-purple-700 underline">Inicia sesión aquí</a>
-        </p>
-
-        <p className="text-center text-sm mt-2">
-          <a href="/" className="text-blue-600 underline">Volver al Inicio</a>
+        <p className="text-center mt-4">
+          ¿Ya tienes cuenta?{' '}
+          <a href="/login" className="text-purple-600 underline">Inicia sesión aquí</a>
         </p>
       </div>
     </div>
