@@ -1,4 +1,4 @@
-const idiomas = [ /* lista */ ];
+const idiomas = [
   "Español",
   "Inglés",
   "Francés",
@@ -32,7 +32,7 @@ const idiomas = [ /* lista */ ];
   "Swahili",
   "Zulu",
   "Ucraniano",
-  "Persa (Farsi)",
-];
+  "Persa (Farsi)"
+]; // ← ESTA LÍNEA ES LA CLAVE: CIERRA EL ARRAY
 
 export default idiomas;
