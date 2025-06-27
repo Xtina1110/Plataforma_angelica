@@ -94,7 +94,8 @@ const Registro = () => {
         pais,
         codigo_postal: codigoPostal,
         telefono,
-        contacto_preferido: contacto
+        contacto_preferido: contacto,
+        rol: 'usuario' // Valor explícito por seguridad
       }]);
 
       if (dbError) throw dbError;
