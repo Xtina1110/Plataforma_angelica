@@ -4,7 +4,7 @@ import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
 import LogoAngelico from './LogoAngelico';
-import fondo from '../assets/FondoPantallaIniciovf.png';
+import fondo from '../assets/Fondomarmoleado.jpg';
 
 const Registro = () => {
   const navigate = useNavigate();
@@ -116,7 +116,6 @@ const Registro = () => {
       <div className="absolute inset-0 bg-white/70 z-0" />
       <LogoAngelico />
 
-      {/* Botón cerrar */}
       <button
         onClick={() => navigate('/')}
         className="absolute top-4 right-4 text-red-600 text-3xl font-bold z-30"
@@ -124,7 +123,6 @@ const Registro = () => {
         ✖
       </button>
 
-      {/* Volver */}
       <button
         onClick={() => navigate('/')}
         className="absolute top-4 left-4 text-blue-700 underline z-30"
@@ -132,7 +130,7 @@ const Registro = () => {
         Volver al Inicio
       </button>
 
-      <div className="relative z-10 max-w-3xl mx-auto mt-24 bg-white/90 p-8 rounded-3xl shadow-xl">
+      <div className="relative z-10 max-w-4xl mx-auto mt-24 bg-white/90 p-8 rounded-3xl shadow-xl">
         <h2 className="text-3xl font-bold text-yellow-600 mb-6 text-center">Registro</h2>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -149,16 +147,16 @@ const Registro = () => {
             <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
           <div>
+            <label>Fecha de nacimiento</label>
+            <input type="date" name="nacimiento" value={formData.nacimiento} onChange={handleChange} className="w-full border rounded-lg p-2" />
+          </div>
+          <div>
             <label>Contraseña</label>
             <input type="password" name="password" value={formData.password} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
           <div>
             <label>Confirmar contraseña</label>
             <input type="password" name="confirmar" value={formData.confirmar} onChange={handleChange} className="w-full border rounded-lg p-2" />
-          </div>
-          <div>
-            <label>Fecha de nacimiento</label>
-            <input type="date" name="nacimiento" value={formData.nacimiento} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
           <div>
             <label>Idioma preferente</label>
