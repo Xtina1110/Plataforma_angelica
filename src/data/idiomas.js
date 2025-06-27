@@ -1,4 +1,4 @@
-const idiomas = [
+const idiomas = [ /* lista */ ];
   "Español",
   "Inglés",
   "Francés",
