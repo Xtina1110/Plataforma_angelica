@@ -4,7 +4,8 @@ import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
 import LogoAngelico from './LogoAngelico';
-import fondo from '../assets/Fondomarmoleado.jpg';
+import fondo from '../assets/FondoPantallaIniciovf.png';
+import sanMiguel from '../assets/SanMiguelArcangel.png';
 
 const Registro = () => {
   const navigate = useNavigate();
@@ -81,10 +82,7 @@ const Registro = () => {
 
       if (authError) throw authError;
 
-      const userId = authData?.user?.id;
-
       const { error: dbError } = await supabase.from('usuarios').insert([{
-        id: userId,
         nombre,
         apellidos,
         email,
@@ -113,6 +111,12 @@ const Registro = () => {
       className="min-h-screen bg-cover bg-center relative overflow-y-auto"
       style={{ backgroundImage: `url(${fondo})` }}
     >
+      <img
+        src={sanMiguel}
+        alt="San Miguel Arcángel"
+        className="absolute inset-0 w-full h-full object-contain opacity-30 z-0 mx-auto"
+        style={{ maxWidth: '700px' }}
+      />
       <div className="absolute inset-0 bg-white/70 z-0" />
       <LogoAngelico />
 
@@ -142,6 +146,7 @@ const Registro = () => {
             <label>Apellidos</label>
             <input name="apellidos" value={formData.apellidos} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
+
           <div>
             <label>Correo electrónico</label>
             <input type="email" name="email" value={formData.email} onChange={handleChange} className="w-full border rounded-lg p-2" />
@@ -150,6 +155,7 @@ const Registro = () => {
             <label>Fecha de nacimiento</label>
             <input type="date" name="nacimiento" value={formData.nacimiento} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
+
           <div>
             <label>Contraseña</label>
             <input type="password" name="password" value={formData.password} onChange={handleChange} className="w-full border rounded-lg p-2" />
@@ -158,6 +164,7 @@ const Registro = () => {
             <label>Confirmar contraseña</label>
             <input type="password" name="confirmar" value={formData.confirmar} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
+
           <div>
             <label>Idioma preferente</label>
             <select name="idioma" value={formData.idioma} onChange={handleChange} className="w-full border rounded-lg p-2">
@@ -171,6 +178,7 @@ const Registro = () => {
             <label>Teléfono</label>
             <input name="telefono" value={formData.telefono} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
+
           <div>
             <label>Dirección</label>
             <input name="direccion" value={formData.direccion} onChange={handleChange} className="w-full border rounded-lg p-2" />
@@ -179,6 +187,7 @@ const Registro = () => {
             <label>Ciudad</label>
             <input name="ciudad" value={formData.ciudad} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
+
           <div>
             <label>Estado / Provincia</label>
             <input name="estado" value={formData.estado} onChange={handleChange} className="w-full border rounded-lg p-2" />
@@ -187,6 +196,7 @@ const Registro = () => {
             <label>Código Postal</label>
             <input name="codigoPostal" value={formData.codigoPostal} onChange={handleChange} className="w-full border rounded-lg p-2" />
           </div>
+
           <div>
             <label>País</label>
             <select name="pais" value={formData.pais} onChange={handleChange} className="w-full border rounded-lg p-2">
@@ -205,12 +215,14 @@ const Registro = () => {
               <option value="telegram">Telegram</option>
             </select>
           </div>
+
           <div className="col-span-2 flex items-center">
             <input type="checkbox" name="aceptaTerminos" checked={formData.aceptaTerminos} onChange={handleChange} />
             <label className="ml-2 text-sm">
               Acepto los <a href="/terminos" className="text-purple-600 underline">Términos y condiciones</a> y la <a href="/privacidad" className="text-purple-600 underline">Política de privacidad</a>.
             </label>
           </div>
+
           {error && <p className="col-span-2 text-red-600 text-sm">{error}</p>}
           {exito && <p className="col-span-2 text-green-600 text-sm">{exito}</p>}
 
