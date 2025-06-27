@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import LogoAngelico from './LogoAngelico';
 import fondo from '../assets/FondoPantallaIniciovf.png';
-import { paises } from './data/paises';
+import { paises } from '../data/paises';
 
 const Registro = () => {
   const navigate = useNavigate();
