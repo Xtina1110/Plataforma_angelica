@@ -32,7 +32,7 @@ const idiomas = [ /* lista */ ];
   "Swahili",
   "Zulu",
   "Ucraniano",
-  "Persa (Farsi)"
+  "Persa (Farsi)";
 ];
 
 export default idiomas;
