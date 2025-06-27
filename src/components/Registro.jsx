@@ -1,17 +1,17 @@
+// 📁 src/components/Registro.jsx
 import React, { useState } from 'react';
 import { supabase } from '../supabase';
+import paises from '../data/paises';
+import idiomas from '../data/idiomas';
 import Fondo from '../assets/FondoPantallaIniciovf.png';
-import SanMiguel from '../assets/SanMiguelArcangel.png';
-import { useNavigate } from 'react-router-dom';
 
-function Registro() {
-  const navigate = useNavigate();
-  const [formulario, setFormulario] = useState({
+export default function Registro({ onNavigate }) {
+  const [formData, setFormData] = useState({
     nombre: '',
     apellidos: '',
     email: '',
-    password: '',
-    confirmarPassword: '',
+    contrasena: '',
+    confirmarContrasena: '',
     nacimiento: '',
     idioma: '',
     direccion: '',
@@ -21,123 +21,123 @@ function Registro() {
     codigo_postal: '',
     telefono: '',
     contacto_preferido: '',
+    rol: 'usuario',
   });
 
-  const manejarCambio = (e) => {
-    setFormulario({ ...formulario, [e.target.name]: e.target.value });
+  const [error, setError] = useState('');
+  const [exito, setExito] = useState('');
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const manejarRegistro = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    setError('');
+    setExito('');
 
-    if (formulario.password !== formulario.confirmarPassword) {
-      alert('Las contraseñas no coinciden');
+    if (formData.contrasena !== formData.confirmarContrasena) {
+      setError('Las contraseñas no coinciden');
       return;
     }
 
-    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
-      email: formulario.email,
-      password: formulario.password,
+    const { email, contrasena } = formData;
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password: contrasena,
     });
 
     if (signUpError) {
-      alert('Error al registrar: ' + signUpError.message);
-      return;
-    }
-
-    const user = signUpData.user;
-    if (!user) {
-      alert('No se pudo obtener el usuario autenticado.');
+      setError(signUpError.message);
       return;
     }
 
     const { error: insertError } = await supabase.from('usuarios').insert([
       {
-        id: user.id,
-        nombre: formulario.nombre,
-        apellidos: formulario.apellidos,
-        email: formulario.email,
-        nacimiento: formulario.nacimiento,
-        idioma: formulario.idioma,
-        direccion: formulario.direccion,
-        ciudad: formulario.ciudad,
-        estado: formulario.estado,
-        pais: formulario.pais,
-        codigo_postal: formulario.codigo_postal,
-        telefono: formulario.telefono,
-        contacto_preferido: formulario.contacto_preferido,
-        rol: 'usuario',
+        id: data.user.id,
+        nombre: formData.nombre,
+        apellidos: formData.apellidos,
+        email: formData.email,
+        Contraseña: formData.contrasena,
+        nacimiento: formData.nacimiento,
+        idioma: formData.idioma,
+        direccion: formData.direccion,
+        ciudad: formData.ciudad,
+        estado: formData.estado,
+        pais: formData.pais,
+        codigo_postal: formData.codigo_postal,
+        telefono: formData.telefono,
+        contacto_preferido: formData.contacto_preferido,
+        rol: formData.rol,
       },
     ]);
 
     if (insertError) {
-      alert('Error al guardar datos: ' + insertError.message);
-      return;
+      setError(insertError.message);
+    } else {
+      setExito('Registro exitoso. Revisa tu correo para confirmar la cuenta.');
     }
-
-    alert('Registro exitoso. Verifica tu correo para confirmar.');
-    navigate('/login');
   };
 
   return (
-    <div
-      className="min-h-screen flex flex-col items-center justify-center relative bg-cover bg-center"
-      style={{ backgroundImage: `url(${Fondo})` }}
-    >
-      <button onClick={() => navigate('/')} className="absolute top-4 left-4 text-xl text-gray-800 hover:text-red-600">⮌ Volver</button>
-      <div className="absolute top-4 right-4 text-xl text-gray-800 cursor-pointer" onClick={() => navigate('/')}>✖</div>
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8" style={{ backgroundImage: `url(${Fondo})` }}>
+      <form onSubmit={handleSubmit} className="bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-semibold text-gray-800">Registro de Usuario</h2>
+          <button type="button" onClick={() => onNavigate('inicio')} className="text-gray-600 hover:text-red-600 text-lg font-bold">✖</button>
+        </div>
 
-      <div className="bg-white bg-opacity-90 p-8 rounded-xl shadow-xl w-full max-w-3xl relative flex gap-6">
-        <img
-          src={SanMiguel}
-          alt="San Miguel Arcángel"
-          className="w-1/3 object-contain hidden md:block"
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required className="input" />
+          <input name="apellidos" placeholder="Apellidos" value={formData.apellidos} onChange={handleChange} required className="input" />
 
-        <form onSubmit={manejarRegistro} className="flex-1 overflow-y-auto max-h-[80vh]">
-          <h2 className="text-2xl font-bold mb-4 text-center text-gray-800">Registro</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input name="nombre" placeholder="Nombre" value={formulario.nombre} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input name="apellidos" placeholder="Apellidos" value={formulario.apellidos} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input type="email" name="email" placeholder="Correo electrónico" value={formulario.email} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input type="date" name="nacimiento" placeholder="Nacimiento" value={formulario.nacimiento} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input type="password" name="password" placeholder="Contraseña" value={formulario.password} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input type="password" name="confirmarPassword" placeholder="Confirmar contraseña" value={formulario.confirmarPassword} onChange={manejarCambio} className="p-2 border rounded" required />
-            <select name="idioma" value={formulario.idioma} onChange={manejarCambio} className="p-2 border rounded" required>
-              <option value="">Idioma preferente</option>
-              <option value="Español">Español</option>
-              <option value="Inglés">Inglés</option>
-              <option value="Portugués">Portugués</option>
-              <option value="Francés">Francés</option>
-            </select>
-            <input name="telefono" placeholder="Teléfono" value={formulario.telefono} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input name="direccion" placeholder="Dirección" value={formulario.direccion} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input name="ciudad" placeholder="Ciudad" value={formulario.ciudad} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input name="estado" placeholder="Estado / Provincia" value={formulario.estado} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input name="codigo_postal" placeholder="Código Postal" value={formulario.codigo_postal} onChange={manejarCambio} className="p-2 border rounded" required />
-            <input name="pais" placeholder="País" value={formulario.pais} onChange={manejarCambio} className="p-2 border rounded" required />
-            <select name="contacto_preferido" value={formulario.contacto_preferido} onChange={manejarCambio} className="p-2 border rounded" required>
-              <option value="">Medio de contacto preferido</option>
-              <option value="Correo electrónico">Correo electrónico</option>
-              <option value="Teléfono">Teléfono</option>
-              <option value="WhatsApp">WhatsApp</option>
-            </select>
-          </div>
+          <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} required className="input" />
+          <input type="date" name="nacimiento" placeholder="Fecha de nacimiento" value={formData.nacimiento} onChange={handleChange} required className="input" />
 
-          <div className="flex items-center mt-4">
-            <input type="checkbox" required className="mr-2" />
-            <label>Acepto los <a href="/terminos" className="underline">Términos y condiciones</a> y la <a href="/privacidad" className="underline">Política de privacidad</a>.</label>
-          </div>
+          <input type="password" name="contrasena" placeholder="Contraseña" value={formData.contrasena} onChange={handleChange} required className="input" />
+          <input type="password" name="confirmarContrasena" placeholder="Confirmar contraseña" value={formData.confirmarContrasena} onChange={handleChange} required className="input" />
 
-          <button type="submit" className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 rounded font-semibold">
-            Registrarse
-          </button>
+          <select name="idioma" value={formData.idioma} onChange={handleChange} required className="input">
+            <option value="">Idioma preferente</option>
+            {idiomas.map((idioma, index) => (
+              <option key={index} value={idioma}>{idioma}</option>
+            ))}
+          </select>
+          <input name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required className="input" />
 
-          <p className="mt-4 text-center">¿Ya tienes cuenta? <a href="/login" className="text-blue-600 underline">Inicia sesión aquí</a></p>
-        </form>
-      </div>
+          <input name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleChange} required className="input" />
+          <input name="ciudad" placeholder="Ciudad" value={formData.ciudad} onChange={handleChange} required className="input" />
+
+          <input name="estado" placeholder="Estado / Provincia" value={formData.estado} onChange={handleChange} required className="input" />
+          <input name="codigo_postal" placeholder="Código Postal" value={formData.codigo_postal} onChange={handleChange} required className="input" />
+
+          <select name="pais" value={formData.pais} onChange={handleChange} required className="input">
+            <option value="">Selecciona un país</option>
+            {paises.map((pais, index) => (
+              <option key={index} value={pais}>{pais}</option>
+            ))}
+          </select>
+
+          <select name="contacto_preferido" value={formData.contacto_preferido} onChange={handleChange} required className="input">
+            <option value="">Medio de contacto preferido</option>
+            <option value="Correo electrónico">Correo electrónico</option>
+            <option value="Teléfono">Teléfono</option>
+          </select>
+        </div>
+
+        <div className="mt-4 flex items-start">
+          <input type="checkbox" required className="mr-2" />
+          <p className="text-sm">Acepto los <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la <a href="/privacidad" target="_blank" className="text-blue-600 underline">Política de privacidad</a>.</p>
+        </div>
+
+        {error && <p className="text-red-600 mt-2 text-sm font-semibold">{error}</p>}
+        {exito && <p className="text-green-600 mt-2 text-sm font-semibold">{exito}</p>}
+
+        <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-lg font-bold mt-4 hover:bg-yellow-600">Registrarse</button>
+
+        <p className="text-sm mt-4 text-center">¿Ya tienes cuenta? <button type="button" onClick={() => onNavigate('login')} className="text-blue-600 underline">Inicia sesión aquí</button></p>
+      </form>
     </div>
   );
 }
-
-export default Registro;
