@@ -33,6 +33,6 @@ const idiomas = [
   "Zulu",
   "Ucraniano",
   "Persa (Farsi)"
-]; // ← ESTA LÍNEA ES LA CLAVE: CIERRA EL ARRAY
+];
 
 export default idiomas;
