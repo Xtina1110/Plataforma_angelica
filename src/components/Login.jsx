@@ -37,6 +37,7 @@ const Login = () => {
       className="login-bg min-h-screen flex items-center justify-center bg-cover bg-center relative"
       style={{ backgroundImage: `url(${fondoMarmol})` }}
     >
+      {/* Fondo translúcido y San Miguel */}
       <div className="absolute inset-0 bg-white/60 z-0" />
       <div
         className="absolute inset-0 bg-no-repeat bg-center bg-contain opacity-40 z-10"
@@ -45,7 +46,17 @@ const Login = () => {
 
       <LogoAngelico />
 
-      <div className="login-card z-20 mx-4 mt-20">
+      {/* Panel Login */}
+      <div className="login-card z-20 mx-4 mt-20 relative">
+        {/* Botón cerrar */}
+        <button
+          type="button"
+          onClick={() => navigate('/inicio')}
+          className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold"
+        >
+          ✖
+        </button>
+
         <h2 className="login-title">Iniciar Sesión</h2>
         <p className="login-subtitle">Bienvenido a Plataforma Angélica</p>
 
@@ -78,7 +89,14 @@ const Login = () => {
           </button>
         </form>
 
+        {/* Enlaces extra */}
         <div className="login-footer">
+          <p>
+            ¿No tienes cuenta?{' '}
+            <span className="register-link" onClick={() => navigate('/registro')}>
+              Regístrate aquí
+            </span>
+          </p>
           <p className="forgot-password-link">¿Olvidaste tu contraseña?</p>
         </div>
       </div>
