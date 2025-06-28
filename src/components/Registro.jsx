@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
-import Fondo from '../assets/SanMiguelArcangelFondo.png';
+import Fondo from '../assets/FondoPantalladeCargavf.png';
 import Logo from '../assets/Logosinfondo.png';
 
 export default function Registro() {
@@ -74,7 +74,7 @@ export default function Registro() {
       className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8 relative"
       style={{ backgroundImage: `url(${Fondo})` }}
     >
-      <img src={Logo} alt="Logo" className="absolute top-4 left-4 h-10" />
+      <img src={Logo} alt="Logo" className="absolute top-4 left-4 h-12" />
 
       <form onSubmit={handleSubmit} className="bg-white bg-opacity-80 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
         <button
