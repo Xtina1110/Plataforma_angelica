@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
-import Fondo from '../assets/Fondomarmoleado.jpg';
+import Fondo from '../assets/SanMiguelArcangelFondo.png';
 import Logo from '../assets/Logosinfondo.png';
 
 export default function Registro() {
@@ -74,7 +74,7 @@ export default function Registro() {
       className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8 relative"
       style={{ backgroundImage: `url(${Fondo})` }}
     >
-      <img src={Logo} alt="Logo" className="absolute top-4 left-4 h-12" />
+      <img src={Logo} alt="Logo" className="absolute top-4 left-4 h-10" />
 
       <form onSubmit={handleSubmit} className="bg-white bg-opacity-80 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
         <button
@@ -135,8 +135,8 @@ export default function Registro() {
           <input type="checkbox" required className="mr-2 mt-1" />
           <p className="text-sm">
             Acepto los{' '}
-            <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la{' '}
-            <a href="/privacidad" target="_blank" className="text-blue-600 underline">Política de privacidad</a>.
+            <a href="/terminos" className="text-blue-600 underline">Términos y condiciones</a> y la{' '}
+            <a href="/privacidad" className="text-blue-600 underline">Política de privacidad</a>.
           </p>
         </div>
 
