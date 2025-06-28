@@ -6,7 +6,7 @@ import fondo from '../assets/FondoPantallaIniciovf.png';
 const Privacidad = () => {
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative px-6 pt-28 pb-16"
+      className="min-h-screen flex flex-col items-center justify-center bg-contain bg-no-repeat bg-center relative"
       style={{ backgroundImage: `url(${fondo})` }}
     >
       <div className="absolute inset-0 bg-white/60 z-0" />
