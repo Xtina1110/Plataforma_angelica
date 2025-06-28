@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
-import fondo from '../assets/FondoPantallaIniciovf.png';
+import fondoMarmol from '../assets/Fondomarmoleado.jpg';
+import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 import LogoAngelico from './LogoAngelico';
 import FooterLegal from './FooterLegal';
 
@@ -23,14 +24,23 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center bg-contain bg-no-repeat bg-center relative"
-      style={{ backgroundImage: `url(${fondo})` }}
+      className="min-h-screen flex relative bg-cover bg-center"
+      style={{ backgroundImage: `url(${fondoMarmol})` }}
     >
+      {/* Capa blanca translúcida */}
       <div className="absolute inset-0 bg-white/60 z-0"></div>
 
+      {/* Fondo con imagen de San Miguel */}
+      <div
+        className="absolute top-0 left-[72px] w-[60%] h-full bg-contain bg-no-repeat bg-left opacity-40 z-10"
+        style={{ backgroundImage: `url(${sanMiguel})` }}
+      ></div>
+
+      {/* Logo institucional */}
       <LogoAngelico />
 
-      <div className="z-10 bg-white/95 p-8 rounded-3xl shadow-xl backdrop-blur-sm max-w-md w-full mx-4">
+      {/* Panel de login */}
+      <div className="z-20 bg-white/95 p-8 rounded-3xl shadow-xl backdrop-blur-sm max-w-md w-full mx-auto mt-24">
         <h2 className="text-yellow-700 text-3xl font-bold mb-4 text-center">Iniciar Sesión</h2>
 
         {errorMsg && <p className="text-red-600 text-sm mb-2 text-center">{errorMsg}</p>}
@@ -61,6 +71,7 @@ const Login = () => {
         </form>
       </div>
 
+      {/* Footer legal */}
       <div className="absolute bottom-0 left-0 right-0 z-30">
         <FooterLegal />
       </div>
