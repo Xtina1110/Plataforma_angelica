@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
-import Fondo from '../assets/FondoPantallaIniciovf.png';
+import Fondo from '../assets/Fondomarmoleado.jpg'; // Asegúrate de que esta ruta sea correcta
+import Logo from '../assets/Logosinfondo.png'; // Asegúrate de que esta ruta sea correcta
 
 export default function Registro({ onNavigate }) {
   const [formData, setFormData] = useState({
@@ -21,7 +22,6 @@ export default function Registro({ onNavigate }) {
     rol: 'usuario',
   });
 
-  // Nuevos estados para manejar las contraseñas por separado
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -33,7 +33,6 @@ export default function Registro({ onNavigate }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Manejadores específicos para las contraseñas
   const handlePasswordChange = e => {
     setPassword(e.target.value);
   };
@@ -55,7 +54,7 @@ export default function Registro({ onNavigate }) {
     const { email } = formData;
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
-      password: password,
+      password,
     });
 
     if (signUpError) {
@@ -69,7 +68,6 @@ export default function Registro({ onNavigate }) {
     console.log('ID del usuario recién registrado (data.user.id):', data.user.id);
     // --- FIN DE LA SECCIÓN DE DEPURACIÓN ---
 
-    // Si el registro de autenticación fue exitoso, insertamos los datos del perfil
     const { error: insertError } = await supabase.from('usuarios').insert([
       {
         id: data.user.id, // Usamos el ID del usuario recién creado por Supabase Auth
@@ -91,11 +89,8 @@ export default function Registro({ onNavigate }) {
 
     if (insertError) {
       setError(insertError.message);
-      // Es importante que si la inserción del perfil falla, sepas que el usuario
-      // ya existe en Supabase Auth, pero no en tu tabla 'usuarios'.
-      // Podrías considerar un mecanismo para limpiar el usuario de auth.users
-      // si el perfil no se puede crear, o informar al usuario de que hubo un problema
-      // y que contacte con soporte.
+      // Si la inserción del perfil falla, el usuario ya existe en Supabase Auth,
+      // pero no en tu tabla 'usuarios'. Esto puede requerir manejo adicional.
     } else {
       setExito('Registro exitoso. Revisa tu correo para confirmar la cuenta.');
     }
@@ -103,10 +98,21 @@ export default function Registro({ onNavigate }) {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8"
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8 relative"
       style={{ backgroundImage: `url(${Fondo})` }}
     >
-      <form onSubmit={handleSubmit} className="bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen">
+      <img src={Logo} alt="Logo" className="absolute top-4 left-4 h-12" />
+
+      <form onSubmit={handleSubmit} className="bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
+        <button
+          type="button"
+          onClick={() => onNavigate('inicio')}
+          className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold"
+        >
+          ✖
+        </button>
+
+        {/* Este botón "Volver" parece redundante con el botón "✖" de arriba, considera eliminar uno */}
         <div className="flex justify-between items-center mb-4">
           <button type="button" onClick={() => onNavigate('inicio')} className="text-gray-600 hover:text-purple-600 font-bold flex items-center">
             <span className="text-xl mr-1">←</span> Volver
@@ -122,7 +128,6 @@ export default function Registro({ onNavigate }) {
           <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} required className="input" />
           <input type="date" name="nacimiento" placeholder="Fecha de nacimiento" value={formData.nacimiento} onChange={handleChange} required className="input" />
 
-          {/* Campos de contraseña ahora usan sus propios estados */}
           <input type="password" name="password" placeholder="Contraseña" value={password} onChange={handlePasswordChange} required className="input" />
           <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" value={confirmPassword} onChange={handleConfirmPasswordChange} required className="input" />
 
