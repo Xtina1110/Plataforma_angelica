@@ -9,23 +9,33 @@ const Terminos = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center relative px-6 pt-28 pb-16"
+      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center relative"
       style={{ backgroundImage: `url(${fondo})` }}
     >
       <div className="absolute inset-0 bg-white/60 z-0" />
 
       <LogoAngelico />
 
-      <button
-        type="button"
-        onClick={() => navigate(-1)}
-        className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold z-20"
-      >
-        ✖
-      </button>
+      <div className="z-10 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
+        <button
+          type="button"
+          onClick={() => navigate('/inicio')}
+          className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold"
+        >
+          ✖
+        </button>
 
-      <div className="relative z-10 max-w-3xl mx-auto bg-white/90 p-8 rounded-3xl shadow-xl backdrop-blur-md">
-        <h1 className="text-3xl font-bold text-yellow-700 mb-4">Términos de Uso</h1>
+        <div className="flex justify-between items-center mb-4">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="text-gray-600 hover:text-purple-600 font-bold flex items-center"
+          >
+            <span className="text-xl mr-1">←</span> Volver
+          </button>
+        </div>
+
+        <h1 className="text-3xl font-bold text-yellow-700 mb-4 text-center">Términos de Uso</h1>
         <p className="text-gray-700 mb-6">
           Bienvenido a la Plataforma Angélica. Al acceder y utilizar nuestro sitio web, aceptas cumplir con los siguientes términos y condiciones...
         </p>
