@@ -1,3 +1,4 @@
+// 📁 src/components/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
@@ -5,73 +6,83 @@ import fondoMarmol from '../assets/Fondomarmoleado.jpg';
 import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 import LogoAngelico from './LogoAngelico';
 import FooterLegal from './FooterLegal';
+import './Login.css';
+import { Mail, Lock, LogIn } from 'lucide-react';
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErrorMsg('');
+
     const { error } = await supabase.auth.signInWithPassword({ email, password });
+
     if (error) {
-      setErrorMsg('Credenciales inválidas');
+      setErrorMsg('Credenciales inválidas. Inténtalo de nuevo.');
     } else {
-      navigate('/dashboard');
+      navigate('/dashboard-redirect');
     }
+
+    setLoading(false);
   };
 
   return (
     <div
-      className="min-h-screen flex relative bg-cover bg-center"
+      className="login-bg min-h-screen flex items-center justify-center bg-cover bg-center relative"
       style={{ backgroundImage: `url(${fondoMarmol})` }}
     >
-      {/* Capa blanca translúcida */}
-      <div className="absolute inset-0 bg-white/60 z-0"></div>
-
-      {/* Fondo con imagen de San Miguel */}
+      <div className="absolute inset-0 bg-white/60 z-0" />
       <div
-        className="absolute top-0 left-[72px] w-[60%] h-full bg-contain bg-no-repeat bg-left opacity-40 z-10"
+        className="absolute inset-0 bg-no-repeat bg-center bg-contain opacity-40 z-10"
         style={{ backgroundImage: `url(${sanMiguel})` }}
-      ></div>
+      />
 
-      {/* Logo institucional */}
       <LogoAngelico />
 
-      {/* Panel de login */}
-      <div className="z-20 bg-white/95 p-8 rounded-3xl shadow-xl backdrop-blur-sm max-w-md w-full mx-auto mt-24">
-        <h2 className="text-yellow-700 text-3xl font-bold mb-4 text-center">Iniciar Sesión</h2>
+      <div className="login-card z-20 mx-4 mt-20">
+        <h2 className="login-title">Iniciar Sesión</h2>
+        <p className="login-subtitle">Bienvenido a Plataforma Angélica</p>
 
-        {errorMsg && <p className="text-red-600 text-sm mb-2 text-center">{errorMsg}</p>}
+        {errorMsg && <p className="error-message">{errorMsg}</p>}
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="p-3 rounded-lg border border-gray-300 focus:outline-none"
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="p-3 rounded-lg border border-gray-300 focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-full font-semibold transition duration-300"
-          >
-            Entrar
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="input-group">
+            <Mail size={20} className="input-icon" />
+            <input
+              type="email"
+              placeholder="Correo Electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <Lock size={20} className="input-icon" />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? 'Cargando...' : <><LogIn size={20} /> Iniciar Sesión</>}
           </button>
         </form>
+
+        <div className="login-footer">
+          <p className="forgot-password-link">¿Olvidaste tu contraseña?</p>
+        </div>
       </div>
 
-      {/* Footer legal */}
       <div className="absolute bottom-0 left-0 right-0 z-30">
         <FooterLegal />
       </div>
