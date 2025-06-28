@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
-import Fondo from '../assets/Fondomarmoleado.jpg'; // Asegúrate de que esta ruta sea correcta
-import Logo from '../assets/Logosinfondo.png'; // Asegúrate de que esta ruta sea correcta
+import Fondo from '../assets/Fondomarmoleado.jpg';
+import Logo from '../assets/Logosinfondo.png';
 
 export default function Registro({ onNavigate }) {
   const [formData, setFormData] = useState({
@@ -62,15 +62,9 @@ export default function Registro({ onNavigate }) {
       return;
     }
 
-    // --- INICIO DE LA SECCIÓN DE DEPURACIÓN ---
-    // Este console.log te mostrará el ID del usuario que Supabase acaba de crear.
-    // Verifica que sea un UUID válido (una cadena larga de letras y números con guiones).
-    console.log('ID del usuario recién registrado (data.user.id):', data.user.id);
-    // --- FIN DE LA SECCIÓN DE DEPURACIÓN ---
-
     const { error: insertError } = await supabase.from('usuarios').insert([
       {
-        id: data.user.id, // Usamos el ID del usuario recién creado por Supabase Auth
+        id: data.user.id,
         nombre: formData.nombre,
         apellidos: formData.apellidos,
         email: formData.email,
@@ -89,8 +83,6 @@ export default function Registro({ onNavigate }) {
 
     if (insertError) {
       setError(insertError.message);
-      // Si la inserción del perfil falla, el usuario ya existe en Supabase Auth,
-      // pero no en tu tabla 'usuarios'. Esto puede requerir manejo adicional.
     } else {
       setExito('Registro exitoso. Revisa tu correo para confirmar la cuenta.');
     }
@@ -112,7 +104,6 @@ export default function Registro({ onNavigate }) {
           ✖
         </button>
 
-        {/* Este botón "Volver" parece redundante con el botón "✖" de arriba, considera eliminar uno */}
         <div className="flex justify-between items-center mb-4">
           <button type="button" onClick={() => onNavigate('inicio')} className="text-gray-600 hover:text-purple-600 font-bold flex items-center">
             <span className="text-xl mr-1">←</span> Volver
