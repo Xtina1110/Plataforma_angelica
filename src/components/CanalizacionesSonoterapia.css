@@ -1,0 +1,294 @@
+.canalizaciones-sonoterapia-container {
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.canalizaciones-sonoterapia-container h2 {
+  font-size: 2.5rem;
+  color: #6a0dad;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.canalizaciones-sonoterapia-container .subtitle {
+  font-size: 1.1rem;
+  color: #777;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.canalizaciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.canalizacion-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.canalizacion-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-image-container {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.canalizacion-card:hover .card-image {
+  transform: scale(1.05);
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(106, 13, 173, 0.5); /* Color lavanda con transparencia */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.canalizacion-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.play-button {
+  background: white;
+  color: #6a0dad;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.1);
+}
+
+.card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-content h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+
+.card-content .descripcion {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 10px;
+}
+
+.card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Audio Player Flotante */
+.audio-player-floating {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #6a0dad; /* Lavanda */
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.controles-reproductor {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.btn-control {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progreso-audio {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.progreso-audio::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.progreso-audio::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.tiempo-audio {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.volumen-audio {
+  width: 80px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volumen-audio::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.volumen-audio::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .canalizaciones-grid {
+    grid-template-columns: 1fr;
+  }
+  .canalizacion-card {
+    flex-direction: row;
+    text-align: left;
+  }
+  .card-image-container {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+  }
+  .card-content {
+    padding: 15px;
+  }
+  .card-content h3 {
+    font-size: 1.3rem;
+  }
+  .audio-player-floating {
+    padding: 10px;
+  }
+  .player-info {
+    font-size: 0.9rem;
+  }
+  .controles-reproductor {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tiempo-audio {
+    order: 1; /* Mueve el tiempo al final en pantallas pequeñas */
+    width: 100%;
+    text-align: center;
+  }
+  .progreso-audio {
+    order: 2;
+  }
+  .volumen-audio {
+    order: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .canalizaciones-sonoterapia-container h2 {
+    font-size: 2rem;
+  }
+  .play-button {
+    width: 50px;
+    height: 50px;
+  }
+}
