@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
-import Fondo from '../assets/FondoPantalladeCargavf.png';
-import Logo from '../assets/Logosinfondo.png';
+import fondo from '../assets/FondoPantallaIniciovf.png';
+import LogoAngelico from './LogoAngelico';
+import FooterLegal from './FooterLegal';
 
 export default function Registro() {
   const navigate = useNavigate();
@@ -71,12 +72,14 @@ export default function Registro() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8 relative"
-      style={{ backgroundImage: `url(${Fondo})` }}
+      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${fondo})` }}
     >
-      <img src={Logo} alt="Logo" className="absolute top-4 left-4 h-12" />
+      <div className="absolute inset-0 bg-white/60 z-0"></div>
 
-      <form onSubmit={handleSubmit} className="bg-white bg-opacity-80 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
+      <LogoAngelico />
+
+      <form onSubmit={handleSubmit} className="z-10 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
         <button
           type="button"
           onClick={() => navigate('/inicio')}
@@ -154,6 +157,10 @@ export default function Registro() {
           </button>
         </p>
       </form>
+
+      <div className="absolute bottom-0 left-0 right-0 z-30">
+        <FooterLegal />
+      </div>
     </div>
   );
 }
