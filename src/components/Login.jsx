@@ -23,7 +23,7 @@ const Login = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center relative"
+      className="min-h-screen flex flex-col items-center justify-center bg-contain bg-no-repeat bg-center relative"
       style={{ backgroundImage: `url(${fondo})` }}
     >
       <div className="absolute inset-0 bg-white/60 z-0"></div>
