@@ -103,7 +103,7 @@ export default function Registro() {
           <span className="text-xl mr-1">←</span> Volver
         </button>
 
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-6 font-serif">Registro de Usuario</h2>
+        <h2 className="text-3xl font-bold text-center text-purple-700 mb-6 font-serif">Registro de Usuario</h2>
 
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -145,13 +145,13 @@ export default function Registro() {
           {error && <p className="text-red-600 mt-2 text-sm font-semibold">{error}</p>}
           {exito && <p className="text-green-600 mt-2 text-sm font-semibold">{exito}</p>}
 
-          <button type="submit" className="w-full bg-yellow-500 text-white py-3 rounded-lg font-bold mt-6 hover:bg-yellow-600 transition-all">
+          <button type="submit" className="w-full bg-purple-700 text-white py-3 rounded-lg font-bold mt-6 hover:bg-purple-800 transition-all">
             Registrarse
           </button>
 
           <p className="text-sm mt-4 text-center text-gray-700">
             ¿Ya tienes cuenta?{' '}
-            <button type="button" onClick={() => navigate('/login')} className="text-blue-700 underline font-semibold">
+            <button type="button" onClick={() => navigate('/login')} className="text-purple-700 underline font-semibold">
               Inicia sesión aquí
             </button>
           </p>
