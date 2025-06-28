@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import LogoAngelico from './LogoAngelico';
 import FooterLegal from './FooterLegal';
 import fondo from '../assets/FondoPantallaIniciovf.png';
 
 const Privacidad = () => {
+  const navigate = useNavigate();
+
   return (
     <div
       className="min-h-screen flex flex-col items-center justify-center bg-contain bg-no-repeat bg-center relative"
@@ -13,10 +16,32 @@ const Privacidad = () => {
 
       <LogoAngelico />
 
-      <div className="relative z-10 max-w-3xl mx-auto bg-white/90 p-8 rounded-3xl shadow-xl backdrop-blur-md">
-        <h1 className="text-3xl font-bold text-yellow-700 mb-4">Política de Privacidad</h1>
+      <div className="z-10 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
+        {/* Botón de cierre ✖ */}
+        <button
+          type="button"
+          onClick={() => navigate('/inicio')}
+          className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold"
+        >
+          ✖
+        </button>
+
+        {/* Botón de volver */}
+        <div className="flex justify-between items-center mb-4">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="text-gray-600 hover:text-purple-600 font-bold flex items-center"
+          >
+            <span className="text-xl mr-1">←</span> Volver
+          </button>
+        </div>
+
+        {/* Contenido principal */}
+        <h1 className="text-3xl font-bold text-yellow-700 mb-4 text-center">Política de Privacidad</h1>
         <p className="text-gray-700 mb-6">
-          En Plataforma Angélica valoramos profundamente tu privacidad y nos comprometemos a proteger tu información personal. Esta política explica cómo recopilamos, usamos y protegemos tus datos:
+          En Plataforma Angélica valoramos profundamente tu privacidad y nos comprometemos a proteger tu información personal.
+          Esta política explica cómo recopilamos, usamos y protegemos tus datos:
         </p>
 
         <ul className="list-disc pl-6 text-gray-700 space-y-3">
