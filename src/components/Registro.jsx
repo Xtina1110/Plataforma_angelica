@@ -9,8 +9,8 @@ export default function Registro({ onNavigate }) {
     nombre: '',
     apellidos: '',
     email: '',
-    contrasena: '',
-    confirmarContrasena: '',
+    // contrasena: '', // Eliminado de formData
+    // confirmarContrasena: '', // Eliminado de formData
     nacimiento: '',
     idioma: '',
     direccion: '',
@@ -23,6 +23,10 @@ export default function Registro({ onNavigate }) {
     rol: 'usuario',
   });
 
+  // Nuevos estados para manejar las contraseñas por separado
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
 
@@ -31,20 +35,29 @@ export default function Registro({ onNavigate }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Manejadores específicos para las contraseñas
+  const handlePasswordChange = e => {
+    setPassword(e.target.value);
+  };
+
+  const handleConfirmPasswordChange = e => {
+    setConfirmPassword(e.target.value);
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
     setExito('');
 
-    if (formData.contrasena !== formData.confirmarContrasena) {
+    if (password !== confirmPassword) {
       setError('Las contraseñas no coinciden');
       return;
     }
 
-    const { email, contrasena } = formData;
+    const { email } = formData; // Ya no se usa formData.contrasena
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
-      password: contrasena,
+      password: password, // Usamos el estado 'password'
     });
 
     if (signUpError) {
@@ -52,13 +65,14 @@ export default function Registro({ onNavigate }) {
       return;
     }
 
+    // Si el registro de autenticación fue exitoso, insertamos los datos del perfil
     const { error: insertError } = await supabase.from('usuarios').insert([
       {
-        id: data.user.id,
+        id: data.user.id, // Usamos el ID del usuario recién creado por Supabase Auth
         nombre: formData.nombre,
         apellidos: formData.apellidos,
         email: formData.email,
-        contrasena: formData.contrasena, // nombre corregido: todo en minúsculas
+        // contrasena: formData.contrasena, // ¡ESTA LÍNEA HA SIDO ELIMINADA!
         nacimiento: formData.nacimiento,
         idioma: formData.idioma,
         direccion: formData.direccion,
@@ -74,6 +88,9 @@ export default function Registro({ onNavigate }) {
 
     if (insertError) {
       setError(insertError.message);
+      // Opcional: Si la inserción del perfil falla, podrías considerar eliminar el usuario de auth.users
+      // para evitar usuarios "huérfanos". Esto requeriría una función de administrador o un trigger.
+      // Por ahora, el usuario de auth.users existe, pero su perfil en 'usuarios' no.
     } else {
       setExito('Registro exitoso. Revisa tu correo para confirmar la cuenta.');
     }
@@ -100,8 +117,9 @@ export default function Registro({ onNavigate }) {
           <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} required className="input" />
           <input type="date" name="nacimiento" placeholder="Fecha de nacimiento" value={formData.nacimiento} onChange={handleChange} required className="input" />
 
-          <input type="password" name="contrasena" placeholder="Contraseña" value={formData.contrasena} onChange={handleChange} required className="input" />
-          <input type="password" name="confirmarContrasena" placeholder="Confirmar contraseña" value={formData.confirmarContrasena} onChange={handleChange} required className="input" />
+          {/* Campos de contraseña ahora usan sus propios estados */}
+          <input type="password" name="password" placeholder="Contraseña" value={password} onChange={handlePasswordChange} required className="input" />
+          <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" value={confirmPassword} onChange={handleConfirmPasswordChange} required className="input" />
 
           <select name="idioma" value={formData.idioma} onChange={handleChange} required className="input">
             <option value="">Idioma preferente</option>
