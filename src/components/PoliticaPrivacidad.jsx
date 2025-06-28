@@ -5,7 +5,7 @@ import FooterLegal from './FooterLegal';
 import fondoMarmol from '../assets/Fondomarmoleado.jpg';
 import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 
-const Privacidad = () => {
+const PoliticaPrivacidad = () => {
   const navigate = useNavigate();
 
   return (
