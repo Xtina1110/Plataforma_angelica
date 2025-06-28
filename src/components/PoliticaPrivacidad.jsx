@@ -2,22 +2,32 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoAngelico from './LogoAngelico';
 import FooterLegal from './FooterLegal';
-import fondo from '../assets/FondoPantallaIniciovf.png';
+import fondoMarmol from '../assets/Fondomarmoleado.jpg';
+import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 
 const Privacidad = () => {
   const navigate = useNavigate();
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center bg-contain bg-no-repeat bg-center relative"
-      style={{ backgroundImage: `url(${fondo})` }}
+      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${fondoMarmol})` }}
     >
+      {/* Capa translúcida blanca sobre el fondo marmoleado */}
       <div className="absolute inset-0 bg-white/60 z-0" />
 
+      {/* Imagen de San Miguel centrada, con transparencia */}
+      <div
+        className="absolute inset-0 bg-no-repeat bg-center bg-contain opacity-40 z-10"
+        style={{ backgroundImage: `url(${sanMiguel})` }}
+      />
+
+      {/* Logo institucional */}
       <LogoAngelico />
 
-      <div className="z-10 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
-        {/* Botón de cierre ✖ */}
+      {/* Contenedor de contenido */}
+      <div className="z-10 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative mx-4">
+        {/* Botón ✖ */}
         <button
           type="button"
           onClick={() => navigate('/inicio')}
@@ -26,7 +36,7 @@ const Privacidad = () => {
           ✖
         </button>
 
-        {/* Botón de volver */}
+        {/* Botón ← Volver */}
         <div className="flex justify-between items-center mb-4">
           <button
             type="button"
@@ -37,7 +47,7 @@ const Privacidad = () => {
           </button>
         </div>
 
-        {/* Contenido principal */}
+        {/* Contenido de la política */}
         <h1 className="text-3xl font-bold text-yellow-700 mb-4 text-center">Política de Privacidad</h1>
         <p className="text-gray-700 mb-6">
           En Plataforma Angélica valoramos profundamente tu privacidad y nos comprometemos a proteger tu información personal.
@@ -53,6 +63,7 @@ const Privacidad = () => {
         </ul>
       </div>
 
+      {/* Footer Legal */}
       <div className="absolute bottom-0 left-0 right-0 z-30">
         <FooterLegal />
       </div>
@@ -60,4 +71,4 @@ const Privacidad = () => {
   );
 };
 
-export default Privacidad;
+export default PoliticaPrivacidad;
