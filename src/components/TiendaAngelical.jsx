@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './TiendaAngelica.css';
+import './TiendaAngelical.css';
 import { ShoppingCart, Star, Heart, Eye, Filter, Search } from 'lucide-react';
 
 const productos = [
