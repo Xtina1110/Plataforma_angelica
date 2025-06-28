@@ -1,16 +1,19 @@
 // 📁 src/components/Registro.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
 import Fondo from '../assets/FondoPantallaIniciovf.png';
+import SanMiguel from '../assets/sanmiguelarcangel.png';
 
-export default function Registro({ onNavigate }) {
+export default function Registro() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: '',
     apellidos: '',
     email: '',
-    contraseña: '',
+    contrasena: '',
     confirmarContrasena: '',
     nacimiento: '',
     idioma: '',
@@ -27,25 +30,25 @@ export default function Registro({ onNavigate }) {
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setExito('');
 
-    if (formData.contraseña !== formData.confirmarContrasena) {
+    if (formData.contrasena !== formData.confirmarContrasena) {
       setError('Las contraseñas no coinciden');
       return;
     }
 
-    const { email, contraseña } = formData;
+    const { email, contrasena } = formData;
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
-      password: contraseña,
+      password: contrasena,
     });
 
     if (signUpError) {
@@ -59,7 +62,7 @@ export default function Registro({ onNavigate }) {
         nombre: formData.nombre,
         apellidos: formData.apellidos,
         email: formData.email,
-        contraseña: formData.contraseña,
+        contrasena: formData.contrasena,
         nacimiento: formData.nacimiento,
         idioma: formData.idioma,
         direccion: formData.direccion,
@@ -82,28 +85,31 @@ export default function Registro({ onNavigate }) {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8"
+      className="relative min-h-screen flex justify-center items-center bg-cover bg-center px-4 py-8"
       style={{ backgroundImage: `url(${Fondo})` }}
     >
+      {/* Imagen de San Miguel centrada */}
+      <img
+        src={SanMiguel}
+        alt="San Miguel Arcángel"
+        className="absolute inset-0 mx-auto my-auto opacity-60 w-full max-w-xl z-0"
+      />
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen"
+        className="relative z-10 bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen"
       >
-        {/* Flecha de volver */}
-        <div className="flex items-center justify-start mb-6">
-          <button
-            type="button"
-            onClick={() => onNavigate('inicio')}
-            className="text-gray-700 hover:text-yellow-600 font-semibold flex items-center"
-          >
-            <span className="text-2xl mr-2">←</span> Volver
+        <div className="flex justify-between items-center mb-4">
+          <button type="button" onClick={() => navigate('/inicio')} className="text-lg text-blue-700 font-bold">
+            ← Volver
+          </button>
+          <button type="button" onClick={() => navigate('/inicio')} className="text-gray-600 hover:text-red-600 text-xl font-bold">
+            ✖
           </button>
         </div>
 
-        {/* Título */}
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">Registro de Usuario</h2>
 
-        {/* Campos */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required className="input" />
           <input name="apellidos" placeholder="Apellidos" value={formData.apellidos} onChange={handleChange} required className="input" />
@@ -111,7 +117,7 @@ export default function Registro({ onNavigate }) {
           <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} required className="input" />
           <input type="date" name="nacimiento" placeholder="Fecha de nacimiento" value={formData.nacimiento} onChange={handleChange} required className="input" />
 
-          <input type="password" name="contraseña" placeholder="Contraseña" value={formData.contraseña} onChange={handleChange} required className="input" />
+          <input type="password" name="contrasena" placeholder="Contraseña" value={formData.contrasena} onChange={handleChange} required className="input" />
           <input type="password" name="confirmarContrasena" placeholder="Confirmar contraseña" value={formData.confirmarContrasena} onChange={handleChange} required className="input" />
 
           <select name="idioma" value={formData.idioma} onChange={handleChange} required className="input">
@@ -120,6 +126,7 @@ export default function Registro({ onNavigate }) {
               <option key={index} value={idioma}>{idioma}</option>
             ))}
           </select>
+
           <input name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required className="input" />
 
           <input name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleChange} required className="input" />
@@ -142,29 +149,20 @@ export default function Registro({ onNavigate }) {
           </select>
         </div>
 
-        {/* Términos y Condiciones */}
         <div className="mt-4 flex items-start">
           <input type="checkbox" required className="mr-2" />
           <p className="text-sm">
-            Acepto los <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la <a href="/privacidad" target="_blank" className="text-blue-600 underline">Política de privacidad</a>.
+            Acepto los <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la <a href="/politica" target="_blank" className="text-blue-600 underline">Política de privacidad</a>.
           </p>
         </div>
 
-        {/* Mensajes */}
         {error && <p className="text-red-600 mt-2 text-sm font-semibold">{error}</p>}
         {exito && <p className="text-green-600 mt-2 text-sm font-semibold">{exito}</p>}
 
-        {/* Botón */}
-        <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-lg font-bold mt-4 hover:bg-yellow-600">
-          Registrarse
-        </button>
+        <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-lg font-bold mt-4 hover:bg-yellow-600">Registrarse</button>
 
-        {/* Enlace a login */}
         <p className="text-sm mt-4 text-center">
-          ¿Ya tienes cuenta?{' '}
-          <button type="button" onClick={() => onNavigate('login')} className="text-blue-600 underline">
-            Inicia sesión aquí
-          </button>
+          ¿Ya tienes cuenta? <button type="button" onClick={() => navigate('/login')} className="text-blue-600 underline">Inicia sesión aquí</button>
         </p>
       </form>
     </div>
