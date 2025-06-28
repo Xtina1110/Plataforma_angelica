@@ -9,8 +9,6 @@ export default function Registro({ onNavigate }) {
     nombre: '',
     apellidos: '',
     email: '',
-    // contrasena: '', // Eliminado de formData
-    // confirmarContrasena: '', // Eliminado de formData
     nacimiento: '',
     idioma: '',
     direccion: '',
@@ -54,16 +52,22 @@ export default function Registro({ onNavigate }) {
       return;
     }
 
-    const { email } = formData; // Ya no se usa formData.contrasena
+    const { email } = formData;
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
-      password: password, // Usamos el estado 'password'
+      password: password,
     });
 
     if (signUpError) {
       setError(signUpError.message);
       return;
     }
+
+    // --- INICIO DE LA SECCIÓN DE DEPURACIÓN ---
+    // Este console.log te mostrará el ID del usuario que Supabase acaba de crear.
+    // Verifica que sea un UUID válido (una cadena larga de letras y números con guiones).
+    console.log('ID del usuario recién registrado (data.user.id):', data.user.id);
+    // --- FIN DE LA SECCIÓN DE DEPURACIÓN ---
 
     // Si el registro de autenticación fue exitoso, insertamos los datos del perfil
     const { error: insertError } = await supabase.from('usuarios').insert([
@@ -72,7 +76,6 @@ export default function Registro({ onNavigate }) {
         nombre: formData.nombre,
         apellidos: formData.apellidos,
         email: formData.email,
-        // contrasena: formData.contrasena, // ¡ESTA LÍNEA HA SIDO ELIMINADA!
         nacimiento: formData.nacimiento,
         idioma: formData.idioma,
         direccion: formData.direccion,
@@ -88,9 +91,11 @@ export default function Registro({ onNavigate }) {
 
     if (insertError) {
       setError(insertError.message);
-      // Opcional: Si la inserción del perfil falla, podrías considerar eliminar el usuario de auth.users
-      // para evitar usuarios "huérfanos". Esto requeriría una función de administrador o un trigger.
-      // Por ahora, el usuario de auth.users existe, pero su perfil en 'usuarios' no.
+      // Es importante que si la inserción del perfil falla, sepas que el usuario
+      // ya existe en Supabase Auth, pero no en tu tabla 'usuarios'.
+      // Podrías considerar un mecanismo para limpiar el usuario de auth.users
+      // si el perfil no se puede crear, o informar al usuario de que hubo un problema
+      // y que contacte con soporte.
     } else {
       setExito('Registro exitoso. Revisa tu correo para confirmar la cuenta.');
     }
