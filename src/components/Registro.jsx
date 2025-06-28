@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Mail, Lock, User, Phone, Globe, MapPin, UserPlus } from 'lucide-react';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
@@ -7,8 +8,9 @@ import fondoMarmol from '../assets/Fondomarmoleado.jpg';
 import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 import LogoAngelico from './LogoAngelico';
 import FooterLegal from './FooterLegal';
+import './Registro.css';
 
-export default function Registro() {
+const Registro = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: '',
@@ -31,12 +33,12 @@ export default function Registro() {
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setExito('');
@@ -47,10 +49,7 @@ export default function Registro() {
     }
 
     const { email } = formData;
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+    const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
 
     if (signUpError) {
       setError(signUpError.message);
@@ -73,114 +72,75 @@ export default function Registro() {
 
   return (
     <div
-      className="min-h-screen flex relative bg-cover bg-center"
+      className="registro-fondo"
       style={{ backgroundImage: `url(${fondoMarmol})` }}
     >
-      {/* Capa de transparencia */}
-      <div className="absolute inset-0 bg-white/60 z-0"></div>
-
-      {/* Fondo de San Miguel con opacidad */}
+      <div className="fondo-blanco" />
       <div
-        className="absolute top-0 left-[72px] w-[60%] h-full bg-contain bg-no-repeat bg-left opacity-40 z-10"
+        className="fondo-san-miguel"
         style={{ backgroundImage: `url(${sanMiguel})` }}
-      ></div>
-
-      {/* Logo */}
+      />
       <LogoAngelico />
 
-      {/* Formulario de registro */}
-      <form
-        onSubmit={handleSubmit}
-        className="z-20 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative mx-auto mt-10"
-      >
-        {/* Botón de cerrar */}
-        <button
-          type="button"
-          onClick={() => navigate('/inicio')}
-          className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold"
-        >
-          ✖
-        </button>
-
-        {/* Botón de volver */}
-        <div className="flex justify-between items-center mb-4">
-          <button
-            type="button"
-            onClick={() => navigate(-1)}
-            className="text-gray-600 hover:text-purple-600 font-bold flex items-center"
-          >
-            <span className="text-xl mr-1">←</span> Volver
-          </button>
+      <form onSubmit={handleSubmit} className="registro-card">
+        <button onClick={() => navigate('/inicio')} className="cerrar-btn">✖</button>
+        <div className="volver-container">
+          <button onClick={() => navigate(-1)} className="volver-btn">← Volver</button>
         </div>
 
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">Registro de Usuario</h2>
+        <h2 className="titulo-registro">Registro de Usuario</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required className="input" />
-          <input name="apellidos" placeholder="Apellidos" value={formData.apellidos} onChange={handleChange} required className="input" />
-
-          <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} required className="input" />
-          <input type="date" name="nacimiento" placeholder="Fecha de nacimiento" value={formData.nacimiento} onChange={handleChange} required className="input" />
-
-          <input type="password" name="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} required className="input" />
-          <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required className="input" />
-
-          <select name="idioma" value={formData.idioma} onChange={handleChange} required className="input">
+        <div className="registro-grid">
+          <input name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} required />
+          <input name="apellidos" placeholder="Apellidos" value={formData.apellidos} onChange={handleChange} required />
+          <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} required />
+          <input type="date" name="nacimiento" placeholder="Nacimiento" value={formData.nacimiento} onChange={handleChange} required />
+          <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input type="password" placeholder="Confirmar contraseña" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+          <select name="idioma" value={formData.idioma} onChange={handleChange} required>
             <option value="">Idioma preferente</option>
-            {idiomas.map((idioma, index) => (
-              <option key={index} value={idioma}>{idioma}</option>
-            ))}
+            {idiomas.map((idioma, i) => <option key={i} value={idioma}>{idioma}</option>)}
           </select>
-          <input name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required className="input" />
-
-          <input name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleChange} required className="input" />
-          <input name="ciudad" placeholder="Ciudad" value={formData.ciudad} onChange={handleChange} required className="input" />
-
-          <input name="estado" placeholder="Estado / Provincia" value={formData.estado} onChange={handleChange} required className="input" />
-          <input name="codigo_postal" placeholder="Código Postal" value={formData.codigo_postal} onChange={handleChange} required className="input" />
-
-          <select name="pais" value={formData.pais} onChange={handleChange} required className="input">
+          <input name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required />
+          <input name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleChange} required />
+          <input name="ciudad" placeholder="Ciudad" value={formData.ciudad} onChange={handleChange} required />
+          <input name="estado" placeholder="Estado/Provincia" value={formData.estado} onChange={handleChange} required />
+          <input name="codigo_postal" placeholder="Código Postal" value={formData.codigo_postal} onChange={handleChange} required />
+          <select name="pais" value={formData.pais} onChange={handleChange} required>
             <option value="">Selecciona un país</option>
-            {paises.map((pais, index) => (
-              <option key={index} value={pais}>{pais}</option>
-            ))}
+            {paises.map((pais, i) => <option key={i} value={pais}>{pais}</option>)}
           </select>
-
-          <select name="contacto_preferido" value={formData.contacto_preferido} onChange={handleChange} required className="input">
+          <select name="contacto_preferido" value={formData.contacto_preferido} onChange={handleChange} required>
             <option value="">Medio de contacto preferido</option>
             <option value="Correo electrónico">Correo electrónico</option>
             <option value="Teléfono">Teléfono</option>
           </select>
         </div>
 
-        <div className="mt-4 flex items-start">
+        <div className="checkbox-terminos">
           <input type="checkbox" required className="mr-2 mt-1" />
           <p className="text-sm">
-            Acepto los{' '}
-            <a href="/terminos" className="text-blue-600 underline">Términos y condiciones</a> y la{' '}
-            <a href="/privacidad" className="text-blue-600 underline">Política de privacidad</a>.
+            Acepto los <a href="/terminos">Términos y condiciones</a> y la <a href="/privacidad">Política de privacidad</a>.
           </p>
         </div>
 
-        {error && <p className="text-red-600 mt-2 text-sm font-semibold">{error}</p>}
-        {exito && <p className="text-green-600 mt-2 text-sm font-semibold">{exito}</p>}
+        {error && <p className="mensaje-error">{error}</p>}
+        {exito && <p className="mensaje-exito">{exito}</p>}
 
-        <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-lg font-bold mt-4 hover:bg-yellow-600">
-          Registrarse
+        <button type="submit" className="boton-registrarse">
+          <UserPlus size={20} className="mr-2" /> Registrarse
         </button>
 
-        <p className="text-sm mt-4 text-center">
-          ¿Ya tienes cuenta?{' '}
-          <button type="button" onClick={() => navigate('/login')} className="text-blue-600 underline">
-            Inicia sesión aquí
-          </button>
+        <p className="texto-login">
+          ¿Ya tienes cuenta? <button type="button" onClick={() => navigate('/login')}>Inicia sesión aquí</button>
         </p>
       </form>
 
-      {/* Footer */}
-      <div className="absolute bottom-0 left-0 right-0 z-30">
+      <div className="footer-fijo">
         <FooterLegal />
       </div>
     </div>
   );
-}
+};
+
+export default Registro;
