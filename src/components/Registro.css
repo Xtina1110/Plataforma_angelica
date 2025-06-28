@@ -1,176 +1,65 @@
-.registro-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #e0f7fa, #f0e6fa);
-  padding: 20px;
-  box-sizing: border-box;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ✅ Clase para todos los inputs y selects */
+.input {
+  @apply w-full p-3 border border-gray-300 rounded-md bg-white text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition;
 }
 
-.registro-card {
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 100%;
-  max-width: 450px;
-  animation: fadeIn 0.8s ease-out;
+/* ✅ Botón de registrar */
+.btn-registrarse {
+  @apply w-full bg-yellow-500 text-white py-2 rounded-lg font-bold mt-4 hover:bg-yellow-600 transition duration-200;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ✅ Texto de error */
+.text-error {
+  @apply text-red-600 mt-2 text-sm font-semibold;
 }
 
-.registro-title {
-  font-size: 2.2rem;
-  color: #6a0dad;
-  margin-bottom: 10px;
-  font-weight: 700;
+/* ✅ Texto de éxito */
+.text-success {
+  @apply text-green-600 mt-2 text-sm font-semibold;
 }
 
-.registro-subtitle {
-  font-size: 1rem;
-  color: #888;
-  margin-bottom: 30px;
+/* ✅ Checkbox + texto */
+.terminos-container {
+  @apply mt-4 flex items-start;
 }
 
-.registro-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.terminos-container input[type="checkbox"] {
+  @apply mr-2 mt-1;
 }
 
-.input-group {
-  position: relative;
-  display: flex;
-  align-items: center;
+.terminos-texto {
+  @apply text-sm;
 }
 
-.input-group .input-icon {
-  position: absolute;
-  left: 15px;
-  color: #a0a0a0;
-  z-index: 1;
+.terminos-link {
+  @apply text-blue-600 underline;
 }
 
-.input-group input {
-  width: 100%;
-  padding: 12px 12px 12px 50px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #333;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+/* ✅ Footer fijo al fondo */
+.footer-fijo {
+  @apply absolute bottom-0 left-0 right-0 z-30;
 }
 
-.input-group input:focus {
-  border-color: #6a0dad;
-  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
-  outline: none;
+/* ✅ Encabezado del formulario */
+.titulo-registro {
+  @apply text-2xl font-semibold text-gray-800 mb-4 text-center;
 }
 
-.registro-button {
-  background-color: #6a0dad;
-  color: white;
-  padding: 14px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+/* ✅ Botón cerrar (✖) */
+.boton-cerrar {
+  @apply absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold;
 }
 
-.registro-button:hover {
-  background-color: #5a009d;
-  transform: translateY(-2px);
+/* ✅ Botón volver */
+.boton-volver {
+  @apply text-gray-600 hover:text-purple-600 font-bold flex items-center;
 }
 
-.registro-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.error-message {
-  color: #dc3545;
-  font-size: 0.9rem;
-  margin-top: -10px;
-  margin-bottom: 10px;
-}
-
-.registro-success-message {
-  padding: 20px;
-  background-color: #e6ffe6;
-  border: 1px solid #28a745;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.registro-success-message h3 {
-  color: #28a745;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.registro-success-message p {
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.btn-navigate-login {
-  background-color: #6a0dad;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.btn-navigate-login:hover {
-  background-color: #5a009d;
-}
-
-.registro-footer {
-  margin-top: 30px;
-  font-size: 0.95rem;
-  color: #666;
-}
-
-.login-link {
-  color: #6a0dad;
-  font-weight: 600;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.login-link:hover {
-  color: #5a009d;
-  text-decoration: underline;
-}
-
-@media (max-width: 480px) {
-  .registro-card {
-    padding: 30px 20px;
-  }
-  .registro-title {
-    font-size: 1.8rem;
-  }
-  .registro-button {
-    font-size: 1rem;
-    padding: 12px 15px;
-  }
+/* ✅ Tarjeta de formulario */
+.formulario-card {
+  @apply z-20 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative mx-auto mt-10;
 }
