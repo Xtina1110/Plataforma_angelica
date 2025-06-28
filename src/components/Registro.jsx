@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
 import Fondo from '../assets/Fondomarmoleado.jpg';
 import Logo from '../assets/Logosinfondo.png';
 
-export default function Registro({ onNavigate }) {
+export default function Registro() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: '',
     apellidos: '',
@@ -24,21 +26,12 @@ export default function Registro({ onNavigate }) {
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
 
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handlePasswordChange = e => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmPasswordChange = e => {
-    setConfirmPassword(e.target.value);
   };
 
   const handleSubmit = async e => {
@@ -65,19 +58,7 @@ export default function Registro({ onNavigate }) {
     const { error: insertError } = await supabase.from('usuarios').insert([
       {
         id: data.user.id,
-        nombre: formData.nombre,
-        apellidos: formData.apellidos,
-        email: formData.email,
-        nacimiento: formData.nacimiento,
-        idioma: formData.idioma,
-        direccion: formData.direccion,
-        ciudad: formData.ciudad,
-        estado: formData.estado,
-        pais: formData.pais,
-        codigo_postal: formData.codigo_postal,
-        telefono: formData.telefono,
-        contacto_preferido: formData.contacto_preferido,
-        rol: formData.rol,
+        ...formData,
       },
     ]);
 
@@ -95,17 +76,17 @@ export default function Registro({ onNavigate }) {
     >
       <img src={Logo} alt="Logo" className="absolute top-4 left-4 h-12" />
 
-      <form onSubmit={handleSubmit} className="bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
+      <form onSubmit={handleSubmit} className="bg-white bg-opacity-80 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
         <button
           type="button"
-          onClick={() => onNavigate('inicio')}
+          onClick={() => navigate('/inicio')}
           className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-2xl font-bold"
         >
           ✖
         </button>
 
         <div className="flex justify-between items-center mb-4">
-          <button type="button" onClick={() => onNavigate('inicio')} className="text-gray-600 hover:text-purple-600 font-bold flex items-center">
+          <button type="button" onClick={() => navigate('/inicio')} className="text-gray-600 hover:text-purple-600 font-bold flex items-center">
             <span className="text-xl mr-1">←</span> Volver
           </button>
         </div>
@@ -119,8 +100,8 @@ export default function Registro({ onNavigate }) {
           <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} required className="input" />
           <input type="date" name="nacimiento" placeholder="Fecha de nacimiento" value={formData.nacimiento} onChange={handleChange} required className="input" />
 
-          <input type="password" name="password" placeholder="Contraseña" value={password} onChange={handlePasswordChange} required className="input" />
-          <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" value={confirmPassword} onChange={handleConfirmPasswordChange} required className="input" />
+          <input type="password" name="password" placeholder="Contraseña" value={password} onChange={e => setPassword(e.target.value)} required className="input" />
+          <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required className="input" />
 
           <select name="idioma" value={formData.idioma} onChange={handleChange} required className="input">
             <option value="">Idioma preferente</option>
@@ -151,9 +132,10 @@ export default function Registro({ onNavigate }) {
         </div>
 
         <div className="mt-4 flex items-start">
-          <input type="checkbox" required className="mr-2" />
+          <input type="checkbox" required className="mr-2 mt-1" />
           <p className="text-sm">
-            Acepto los <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la{' '}
+            Acepto los{' '}
+            <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la{' '}
             <a href="/privacidad" target="_blank" className="text-blue-600 underline">Política de privacidad</a>.
           </p>
         </div>
@@ -167,7 +149,7 @@ export default function Registro({ onNavigate }) {
 
         <p className="text-sm mt-4 text-center">
           ¿Ya tienes cuenta?{' '}
-          <button type="button" onClick={() => onNavigate('login')} className="text-blue-600 underline">
+          <button type="button" onClick={() => navigate('/login')} className="text-blue-600 underline">
             Inicia sesión aquí
           </button>
         </p>
