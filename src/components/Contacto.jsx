@@ -1,22 +1,32 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import fondoMarmol from '../assets/Fondomarmoleado.jpg';
+import sanMiguel from '../assets/FondoPantallaIniciovf.png';
 import LogoAngelico from './LogoAngelico';
 import FooterLegal from './FooterLegal';
-import fondo from '../assets/FondoPantallaIniciovf.png';
 
 const Contacto = () => {
   const navigate = useNavigate();
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center bg-contain bg-no-repeat bg-center relative"
-      style={{ backgroundImage: `url(${fondo})` }}
+      className="min-h-screen flex relative bg-cover bg-center"
+      style={{ backgroundImage: `url(${fondoMarmol})` }}
     >
-      <div className="absolute inset-0 bg-white/60 z-0" />
+      {/* Capa blanca translúcida */}
+      <div className="absolute inset-0 bg-white/60 z-0"></div>
 
+      {/* Fondo con imagen de San Miguel */}
+      <div
+        className="absolute top-0 left-[72px] w-[60%] h-full bg-contain bg-no-repeat bg-left opacity-40 z-10"
+        style={{ backgroundImage: `url(${sanMiguel})` }}
+      ></div>
+
+      {/* Logo institucional */}
       <LogoAngelico />
 
-      <div className="z-10 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative">
+      {/* Contenedor de contenido */}
+      <div className="z-20 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative mx-auto mt-24">
         {/* Botón de cierre ✖ */}
         <button
           type="button"
@@ -55,6 +65,7 @@ const Contacto = () => {
         </p>
       </div>
 
+      {/* Footer legal */}
       <div className="absolute bottom-0 left-0 right-0 z-30">
         <FooterLegal />
       </div>
