@@ -10,24 +10,24 @@ const Contacto = () => {
 
   return (
     <div
-      className="min-h-screen flex relative bg-cover bg-center"
+      className="min-h-screen flex flex-col items-center justify-center bg-cover bg-center relative"
       style={{ backgroundImage: `url(${fondoMarmol})` }}
     >
-      {/* Capa blanca translúcida */}
-      <div className="absolute inset-0 bg-white/60 z-0"></div>
+      {/* Fondo translúcido */}
+      <div className="absolute inset-0 bg-white/60 z-0" />
 
-      {/* Imagen de San Miguel centrada */}
+      {/* Imagen San Miguel centrada */}
       <div
         className="absolute inset-0 bg-no-repeat bg-center bg-contain opacity-40 z-10"
         style={{ backgroundImage: `url(${sanMiguel})` }}
-      ></div>
+      />
 
-      {/* Logo institucional */}
+      {/* Logo */}
       <LogoAngelico />
 
-      {/* Contenedor de contenido */}
-      <div className="z-20 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative mx-auto mt-24">
-        {/* Botón de cierre ✖ */}
+      {/* Contenedor reducido como Privacidad */}
+      <div className="z-10 bg-white/95 p-6 rounded-3xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen relative mx-4">
+        {/* Botón cerrar */}
         <button
           type="button"
           onClick={() => navigate('/inicio')}
@@ -36,7 +36,7 @@ const Contacto = () => {
           ✖
         </button>
 
-        {/* Botón de volver */}
+        {/* Botón volver */}
         <div className="flex justify-between items-center mb-4">
           <button
             type="button"
@@ -47,7 +47,7 @@ const Contacto = () => {
           </button>
         </div>
 
-        {/* Contenido principal */}
+        {/* Contenido */}
         <h1 className="text-3xl font-bold text-yellow-700 mb-4 text-center">Contacto</h1>
         <p className="text-gray-700 mb-4 text-center">
           Puedes escribirnos a través de los siguientes medios:
