@@ -1,14 +1,10 @@
-// 📁 src/components/Registro.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase';
 import paises from '../data/paises';
 import idiomas from '../data/idiomas';
 import Fondo from '../assets/FondoPantallaIniciovf.png';
-import SanMiguel from '../assets/sanmiguelarcangel.png';
 
-export default function Registro() {
-  const navigate = useNavigate();
+export default function Registro({ onNavigate }) {
   const [formData, setFormData] = useState({
     nombre: '',
     apellidos: '',
@@ -30,12 +26,12 @@ export default function Registro() {
   const [error, setError] = useState('');
   const [exito, setExito] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setError('');
     setExito('');
@@ -62,7 +58,7 @@ export default function Registro() {
         nombre: formData.nombre,
         apellidos: formData.apellidos,
         email: formData.email,
-        contrasena: formData.contrasena,
+        contrasena: formData.contrasena, // nombre corregido: todo en minúsculas
         nacimiento: formData.nacimiento,
         idioma: formData.idioma,
         direccion: formData.direccion,
@@ -85,26 +81,13 @@ export default function Registro() {
 
   return (
     <div
-      className="relative min-h-screen flex justify-center items-center bg-cover bg-center px-4 py-8"
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex justify-center items-center px-4 py-8"
       style={{ backgroundImage: `url(${Fondo})` }}
     >
-      {/* Imagen de San Miguel centrada */}
-      <img
-        src={SanMiguel}
-        alt="San Miguel Arcángel"
-        className="absolute inset-0 mx-auto my-auto opacity-60 w-full max-w-xl z-0"
-      />
-
-      <form
-        onSubmit={handleSubmit}
-        className="relative z-10 bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen"
-      >
+      <form onSubmit={handleSubmit} className="bg-white bg-opacity-90 p-6 rounded-xl shadow-lg w-full max-w-3xl overflow-auto max-h-screen">
         <div className="flex justify-between items-center mb-4">
-          <button type="button" onClick={() => navigate('/inicio')} className="text-lg text-blue-700 font-bold">
-            ← Volver
-          </button>
-          <button type="button" onClick={() => navigate('/inicio')} className="text-gray-600 hover:text-red-600 text-xl font-bold">
-            ✖
+          <button type="button" onClick={() => onNavigate('inicio')} className="text-gray-600 hover:text-purple-600 font-bold flex items-center">
+            <span className="text-xl mr-1">←</span> Volver
           </button>
         </div>
 
@@ -126,7 +109,6 @@ export default function Registro() {
               <option key={index} value={idioma}>{idioma}</option>
             ))}
           </select>
-
           <input name="telefono" placeholder="Teléfono" value={formData.telefono} onChange={handleChange} required className="input" />
 
           <input name="direccion" placeholder="Dirección" value={formData.direccion} onChange={handleChange} required className="input" />
@@ -152,17 +134,23 @@ export default function Registro() {
         <div className="mt-4 flex items-start">
           <input type="checkbox" required className="mr-2" />
           <p className="text-sm">
-            Acepto los <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la <a href="/politica" target="_blank" className="text-blue-600 underline">Política de privacidad</a>.
+            Acepto los <a href="/terminos" target="_blank" className="text-blue-600 underline">Términos y condiciones</a> y la{' '}
+            <a href="/privacidad" target="_blank" className="text-blue-600 underline">Política de privacidad</a>.
           </p>
         </div>
 
         {error && <p className="text-red-600 mt-2 text-sm font-semibold">{error}</p>}
         {exito && <p className="text-green-600 mt-2 text-sm font-semibold">{exito}</p>}
 
-        <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-lg font-bold mt-4 hover:bg-yellow-600">Registrarse</button>
+        <button type="submit" className="w-full bg-yellow-500 text-white py-2 rounded-lg font-bold mt-4 hover:bg-yellow-600">
+          Registrarse
+        </button>
 
         <p className="text-sm mt-4 text-center">
-          ¿Ya tienes cuenta? <button type="button" onClick={() => navigate('/login')} className="text-blue-600 underline">Inicia sesión aquí</button>
+          ¿Ya tienes cuenta?{' '}
+          <button type="button" onClick={() => onNavigate('login')} className="text-blue-600 underline">
+            Inicia sesión aquí
+          </button>
         </p>
       </form>
     </div>
