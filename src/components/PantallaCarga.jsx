@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LogoAngelico from './LogoAngelico';
-import fondo from '../assets/FondoPantalladeCargavf.png';
+import fondo from '../assets/FondoPantalladeCargavf.png?url'; // importante el ?url
 
 const PantallaCarga = () => {
   const navigate = useNavigate();
@@ -35,21 +35,24 @@ const PantallaCarga = () => {
           clearInterval(interval);
           setTimeout(() => {
             navigate('/inicio');
-          }, 800); // espera un momento antes de redirigir
+          }, 800);
         }
 
         return next;
       });
-    }, 150); // velocidad de animación
+    }, 150);
 
     return () => clearInterval(interval);
   }, [navigate, currentMessage]);
+
+  console.log("🟡 Fondo usado:", fondo); // Verificar que se carga correctamente
 
   return (
     <div
       className="min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center relative"
       style={{
         backgroundImage: `url(${fondo})`,
+        backgroundColor: '#ffffff', // fallback de color si no carga
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
