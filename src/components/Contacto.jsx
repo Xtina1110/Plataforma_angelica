@@ -16,9 +16,9 @@ const Contacto = () => {
       {/* Capa blanca translúcida */}
       <div className="absolute inset-0 bg-white/60 z-0"></div>
 
-      {/* Fondo con imagen de San Miguel */}
+      {/* Imagen de San Miguel centrada */}
       <div
-        className="absolute top-0 left-[72px] w-[60%] h-full bg-contain bg-no-repeat bg-left opacity-40 z-10"
+        className="absolute inset-0 bg-no-repeat bg-center bg-contain opacity-40 z-10"
         style={{ backgroundImage: `url(${sanMiguel})` }}
       ></div>
 
