@@ -1,54 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
 
-/* === Tipografías Angelicales === */
+/* src/components/theme.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@500;700&display=swap');
+
 :root {
-  --font-titulo: 'Playfair Display', serif;
-  --font-texto: 'Inter', sans-serif;
-
-  /* === Paleta Angelical === */
-  --color-morado: #6a0dad;             /* Morado espiritual */
-  --color-dorado: #d4af37;             /* Dorado celestial */
-  --color-lavanda: #e6e6fa;            /* Lavanda suave */
-  --color-blanco-opaco: rgba(255, 255, 255, 0.85); /* Blanco con opacidad */
-
-  /* === Sombras suaves === */
-  --sombra-suave: 0 4px 20px rgba(106, 13, 173, 0.1);
-  --sombra-dorada: 0 0 10px rgba(212, 175, 55, 0.3);
+  --color-morado: #6a0dad;
+  --color-dorado: #d4af37;
+  --color-lavanda: #e6e6fa;
+  --color-blanco-opaco: rgba(255, 255, 255, 0.85);
 }
 
-/* Aplicación global de fuentes */
 body {
-  font-family: var(--font-texto);
+  font-family: 'Inter', sans-serif;
   background-color: var(--color-blanco-opaco);
-  color: #333;
 }
 
-h1, h2, h3, h4, h5 {
-  font-family: var(--font-titulo);
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
   color: var(--color-morado);
-}
-
-/* Botones primarios */
-.btn {
-  background-color: var(--color-morado);
-  color: white;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background-color: #5a029d;
-}
-
-/* Links y textos interactivos */
-a {
-  color: var(--color-morado);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
 }
