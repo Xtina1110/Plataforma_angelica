@@ -1,69 +1,96 @@
 // src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import './Dashboard.css';
+import './theme.css';
 import {
   Home, User, Settings, LogOut, Heart, Star, BookOpen,
-  MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp, Moon, Play
+  MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp
 } from 'lucide-react';
+
+import TiradaAngelical from './TiradaAngelical';
+import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
+import TerapiasLimpiezas from './TerapiasLimpiezas';
+import AcademiaAngelical from './AcademiaAngelical';
+import MensajeDelDia from './MensajeDelDia';
+import BlogPodcast from './BlogPodcast';
+import TiendaAngelical from './TiendaAngelical';
 
 const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
-
-  const userData = {
+  const [userData] = useState({
     nombre: user?.email.split('@')[0] || 'Usuario Angelical',
     rol: 'Miembro Premium',
-    sonoterapiasCompletadas: 15,
-    canalizacionesEscuchadas: 8,
+    sonoterapiasCompletadas: 12,
+    canalizacionesEscuchadas: 25,
     diasConsecutivos: 7,
-    nivelEspiritual: 'Intermedio',
-    puntosDeLuz: 1250,
+    nivelEspiritual: 'Iluminado',
+    puntosDeLuz: 1500,
     cursosFinalizados: 3,
-  };
+  });
 
-  const renderSection = () => (
-    <div className="dashboard-home">
-      <div className="dashboard-card">
-        <h2><Zap size={28} color="#6a0dad" /> Dashboard Personal</h2>
-        <div className="dashboard-metrics">
-          <div className="metric-card blue"><Headphones /><strong>{userData.sonoterapiasCompletadas}</strong><span>Sonoterapias</span></div>
-          <div className="metric-card lavender"><MessageSquare /><strong>{userData.canalizacionesEscuchadas}</strong><span>Canalizaciones</span></div>
-          <div className="metric-card orange"><Calendar /><strong>{userData.diasConsecutivos}</strong><span>Días Consecutivos</span></div>
-          <div className="metric-card green"><Award /><strong>{userData.nivelEspiritual}</strong><span>Nivel</span></div>
-          <div className="metric-card yellow"><Star /><strong>{userData.puntosDeLuz}</strong><span>Puntos de Luz</span></div>
-          <div className="metric-card blue2"><BookOpen /><strong>{userData.cursosFinalizados}</strong><span>Cursos Finalizados</span></div>
-          <div className="metric-card red"><button className="btn-comenzar"><Play size={16} /> Comenzar</button><span>Ritual Matutino</span></div>
-        </div>
-      </div>
-    </div>
-  );
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'tirada': return <TiradaAngelical />;
+      case 'canalizaciones': return <CanalizacionesSonoterapia />;
+      case 'terapias': return <TerapiasLimpiezas />;
+      case 'academia': return <AcademiaAngelical />;
+      case 'mensaje': return <MensajeDelDia />;
+      case 'blog': return <BlogPodcast />;
+      case 'tienda': return <TiendaAngelical />;
+      default:
+        return (
+          <div className="dashboard-home">
+            <div className="bienvenida-usuario">
+              <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
+              <p>Tu camino espiritual continúa evolucionando.</p>
+            </div>
+            <div className="metricas-usuario">
+              <div className="metrica-card"><Headphones /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
+              <div className="metrica-card"><MessageSquare /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
+              <div className="metrica-card"><Calendar /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
+              <div className="metrica-card"><TrendingUp /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
+              <div className="metrica-card"><Star /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
+              <div className="metrica-card"><Award /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
+            </div>
+            <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
+            <div className="grid-aplicaciones">
+              <div className="app-card" onClick={() => setActiveSection('tirada')}><Heart /><h4>Tirada Angelical</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}><Headphones /><h4>Canalizaciones</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('terapias')}><Zap /><h4>Terapias</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('academia')}><BookOpen /><h4>Academia</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('mensaje')}><MessageSquare /><h4>Mensaje del Día</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('blog')}><BookOpen /><h4>Blog & Podcast</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('tienda')}><ShoppingCart /><h4>Tienda Angélica</h4></div>
+            </div>
+          </div>
+        );
+    }
+  };
 
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
         <div className="sidebar-header">
-          <img src="/assets/Logosinfondo.png" alt="Logo" className="sidebar-logo" />
-          <h3 className="titulo-sidebar">Plataforma Angélica</h3>
+          <img src="/assets/Logosinfondo.png" alt="Logo JCA" className="sidebar-logo" />
+          <h3 className="sidebar-title">Plataforma Angélica</h3>
         </div>
-        <nav>
-          <ul>
-            <li className={activeSection === 'home' ? 'active' : ''} onClick={() => setActiveSection('home')}><Home /><span>Inicio</span></li>
-          </ul>
-        </nav>
+        <ul className="sidebar-nav">
+          <li onClick={() => setActiveSection('home')}><Home />Inicio</li>
+          <li onClick={() => setActiveSection('tirada')}><Heart />Tirada</li>
+          <li onClick={() => setActiveSection('canalizaciones')}><Headphones />Canalizaciones</li>
+          <li onClick={() => setActiveSection('terapias')}><Zap />Terapias</li>
+          <li onClick={() => setActiveSection('academia')}><BookOpen />Academia</li>
+          <li onClick={() => setActiveSection('mensaje')}><MessageSquare />Mensaje</li>
+          <li onClick={() => setActiveSection('blog')}><BookOpen />Blog</li>
+          <li onClick={() => setActiveSection('tienda')}><ShoppingCart />Tienda</li>
+        </ul>
         <div className="sidebar-footer">
-          <div className="user-info"><User /><span>{userData.nombre}</span><span className="user-role">{userData.rol}</span></div>
-          <button className="btn-logout" onClick={onLogout}><LogOut /><span>Salir</span></button>
+          <User />
+          <span>{userData.nombre}</span>
+          <button onClick={onLogout}><LogOut />Salir</button>
         </div>
       </aside>
-      <main className="main-content">
-        <header className="main-header">
-          <h1>Dashboard Principal</h1>
-          <div className="header-right">
-            <button className="btn-settings"><Settings /></button>
-            <button className="btn-user-profile"><User /></button>
-          </div>
-        </header>
-        <section className="content-area">{renderSection()}</section>
-      </main>
+      <main className="main-content">{renderSection()}</main>
     </div>
   );
 };
