@@ -1,7 +1,7 @@
 // src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import './Dashboard.css';
-import './theme.css';
+import './styles/theme.css';
 import {
   Home, User, Settings, LogOut, Heart, Star, BookOpen,
   MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp
