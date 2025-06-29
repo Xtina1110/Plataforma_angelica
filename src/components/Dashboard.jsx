@@ -1,5 +1,5 @@
 // src/components/Dashboard.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Dashboard.css';
 import {
   Home, User, Settings, LogOut, Heart, Star, BookOpen,
@@ -12,50 +12,58 @@ import TerapiasLimpiezas from './TerapiasLimpiezas';
 import AcademiaAngelical from './AcademiaAngelical';
 import MensajeDelDia from './MensajeDelDia';
 import BlogPodcast from './BlogPodcast';
-import TiendaAngelical from './TiendaAngelical'; // nombre correcto
+import TiendaAngelical from './TiendaAngelical';
 
 const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
-  const [userData, setUserData] = useState({
-    nombre: user?.email.split('@')[0] || 'Usuario Angelical',
-    rol: 'Miembro Premium',
-    sonoterapiasCompletadas: 12,
-    canalizacionesEscuchadas: 25,
-    diasConsecutivos: 7,
-    nivelEspiritual: 'Iluminado',
-    puntosDeLuz: 1500,
-    cursosFinalizados: 3,
-  });
+
+  const servicios = [
+    {
+      id: "tirada",
+      titulo: "Tirada Angelical",
+      descripcion: "Consulta las cartas angelicales para recibir guía divina",
+      icono: "🔮",
+      color: "from-purple-400 to-pink-400"
+    },
+    {
+      id: "canalizaciones",
+      titulo: "Canalizaciones",
+      descripcion: "Mensajes directos de los ángeles y guías espirituales",
+      icono: "✨",
+      color: "from-blue-400 to-purple-400"
+    },
+    {
+      id: "terapias",
+      titulo: "Terapias Angelicales",
+      descripcion: "Sanación energética y equilibrio espiritual",
+      icono: "🌟",
+      color: "from-pink-400 to-red-400"
+    },
+    {
+      id: "academia",
+      titulo: "Academia Angelical",
+      descripcion: "Aprende a conectar con los ángeles",
+      icono: "📚",
+      color: "from-indigo-400 to-purple-400"
+    },
+    {
+      id: "mensaje",
+      titulo: "Mensaje del Día",
+      descripcion: "Una guía espiritual diaria",
+      icono: "🕊️",
+      color: "from-yellow-400 to-orange-400"
+    },
+    {
+      id: "tienda",
+      titulo: "Tienda Angelical",
+      descripcion: "Productos espirituales bendecidos",
+      icono: "🛍️",
+      color: "from-green-400 to-blue-400"
+    }
+  ];
 
   const renderSection = () => {
     switch (activeSection) {
-      case 'home':
-        return (
-          <div className="dashboard-home">
-            <div className="bienvenida-usuario">
-              <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
-              <p>Tu camino espiritual continúa evolucionando.</p>
-            </div>
-            <div className="metricas-usuario">
-              <div className="metrica-card"><Headphones /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
-              <div className="metrica-card"><MessageSquare /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
-              <div className="metrica-card"><Calendar /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
-              <div className="metrica-card"><TrendingUp /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
-              <div className="metrica-card"><Star /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
-              <div className="metrica-card"><Award /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
-            </div>
-            <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
-            <div className="grid-aplicaciones">
-              <div className="app-card" onClick={() => setActiveSection('tirada')}><Heart /><h4>Tirada Angelical</h4><button className="btn-acceder">Acceder</button></div>
-              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}><Headphones /><h4>Canalizaciones</h4><button className="btn-acceder">Acceder</button></div>
-              <div className="app-card" onClick={() => setActiveSection('terapias')}><Zap /><h4>Terapias</h4><button className="btn-acceder">Acceder</button></div>
-              <div className="app-card" onClick={() => setActiveSection('academia')}><BookOpen /><h4>Academia</h4><button className="btn-acceder">Acceder</button></div>
-              <div className="app-card" onClick={() => setActiveSection('mensaje')}><MessageSquare /><h4>Mensaje del Día</h4><button className="btn-acceder">Acceder</button></div>
-              <div className="app-card" onClick={() => setActiveSection('blog')}><BookOpen /><h4>Blog & Podcast</h4><button className="btn-acceder">Acceder</button></div>
-              <div className="app-card" onClick={() => setActiveSection('tienda')}><ShoppingCart /><h4>Tienda Angélica</h4><button className="btn-acceder">Acceder</button></div>
-            </div>
-          </div>
-        );
       case 'tirada': return <TiradaAngelical />;
       case 'canalizaciones': return <CanalizacionesSonoterapia />;
       case 'terapias': return <TerapiasLimpiezas />;
@@ -63,43 +71,53 @@ const Dashboard = ({ user, onLogout }) => {
       case 'mensaje': return <MensajeDelDia />;
       case 'blog': return <BlogPodcast />;
       case 'tienda': return <TiendaAngelical />;
-      default: return null;
+      default: return (
+        <div className="servicios-container">
+          <h2 className="servicios-titulo">Explora nuestros servicios angelicales</h2>
+          <div className="servicios-grid">
+            {servicios.map((servicio) => (
+              <div
+                key={servicio.id}
+                onClick={() => setActiveSection(servicio.id)}
+                className="servicio-card"
+              >
+                <div className={`servicio-icono ${servicio.color}`}>
+                  {servicio.icono}
+                </div>
+                <h3>{servicio.titulo}</h3>
+                <p>{servicio.descripcion}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
     }
   };
 
   return (
     <div className="dashboard-container">
       <aside className="sidebar">
-        <div className="sidebar-header">
-          <img src="/assets/logo-jca.jpg" alt="Logo JCA" className="sidebar-logo" />
-          <h3>Plataforma Angélica</h3>
-        </div>
-        <nav className="sidebar-nav">
+        <img src="/assets/logo-jca.jpg" alt="Logo" className="sidebar-logo" />
+        <nav>
           <ul>
-            <li className={activeSection === 'home' ? 'active' : ''} onClick={() => setActiveSection('home')}><Home /><span>Inicio</span></li>
-            <li className={activeSection === 'tirada' ? 'active' : ''} onClick={() => setActiveSection('tirada')}><Heart /><span>Tirada</span></li>
-            <li className={activeSection === 'canalizaciones' ? 'active' : ''} onClick={() => setActiveSection('canalizaciones')}><Headphones /><span>Canalizaciones</span></li>
-            <li className={activeSection === 'terapias' ? 'active' : ''} onClick={() => setActiveSection('terapias')}><Zap /><span>Terapias</span></li>
-            <li className={activeSection === 'academia' ? 'active' : ''} onClick={() => setActiveSection('academia')}><BookOpen /><span>Academia</span></li>
-            <li className={activeSection === 'mensaje' ? 'active' : ''} onClick={() => setActiveSection('mensaje')}><MessageSquare /><span>Mensaje</span></li>
-            <li className={activeSection === 'blog' ? 'active' : ''} onClick={() => setActiveSection('blog')}><BookOpen /><span>Blog</span></li>
-            <li className={activeSection === 'tienda' ? 'active' : ''} onClick={() => setActiveSection('tienda')}><ShoppingCart /><span>Tienda</span></li>
+            <li onClick={() => setActiveSection('home')}><Home /> Inicio</li>
+            <li onClick={() => setActiveSection('tirada')}><Heart /> Tirada</li>
+            <li onClick={() => setActiveSection('canalizaciones')}><Headphones /> Canalizaciones</li>
+            <li onClick={() => setActiveSection('terapias')}><Zap /> Terapias</li>
+            <li onClick={() => setActiveSection('academia')}><BookOpen /> Academia</li>
+            <li onClick={() => setActiveSection('mensaje')}><MessageSquare /> Mensaje</li>
+            <li onClick={() => setActiveSection('blog')}><BookOpen /> Blog</li>
+            <li onClick={() => setActiveSection('tienda')}><ShoppingCart /> Tienda</li>
+            <li onClick={onLogout}><LogOut /> Salir</li>
           </ul>
         </nav>
-        <div className="sidebar-footer">
-          <div className="user-info"><User /><span>{userData.nombre}</span><span className="user-role">{userData.rol}</span></div>
-          <button className="btn-logout" onClick={onLogout}><LogOut /><span>Salir</span></button>
-        </div>
       </aside>
-      <main className="main-content">
-        <header className="main-header">
+      <main className="dashboard-main">
+        <header className="dashboard-header">
           <h1>{activeSection === 'home' ? 'Dashboard Principal' : activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}</h1>
-          <div className="header-right">
-            <button className="btn-settings"><Settings /></button>
-            <button className="btn-user-profile"><User /></button>
-          </div>
+          <div><Settings /><User /></div>
         </header>
-        <section className="content-area">{renderSection()}</section>
+        {renderSection()}
       </main>
     </div>
   );
