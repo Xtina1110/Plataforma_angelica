@@ -1,38 +1,30 @@
-/* src/components/Dashboard.css */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap');
 
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
   background: url('/assets/Fondomarmoleado.jpg') no-repeat center center fixed;
   background-size: cover;
-  font-family: 'Inter', sans-serif;
-  color: #333;
 }
 
 .sidebar {
-  width: 240px;
+  width: 250px;
   background-color: rgba(255, 255, 255, 0.85);
-  border-right: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-}
-
-.sidebar-header {
-  text-align: center;
+  padding: 20px;
 }
 
 .sidebar-logo {
-  width: 64px;
-  height: auto;
-  margin: 0 auto 8px;
+  width: 100%;
+  max-width: 120px;
+  margin-bottom: 10px;
 }
 
-.sidebar-header h3 {
+.titulo-sidebar {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 20px;
   font-weight: bold;
   color: #6a0dad;
 }
@@ -40,118 +32,90 @@
 .sidebar-nav ul {
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
+  margin-top: 20px;
 }
 
 .sidebar-nav li {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem;
+  margin-bottom: 15px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.2s;
   color: #6a0dad;
 }
 
-.sidebar-nav li:hover,
-.sidebar-nav .active {
-  background-color: rgba(106, 13, 173, 0.1);
+.sidebar-nav li.active {
+  background-color: #f0e6ff;
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .sidebar-footer {
-  text-align: center;
-  font-size: 0.85rem;
-}
-
-.user-info {
-  margin-bottom: 0.5rem;
-}
-
-.user-role {
-  display: block;
-  font-size: 0.75rem;
-  color: #999;
-}
-
-.btn-logout {
-  background: none;
-  border: none;
+  margin-top: auto;
+  font-size: 14px;
   color: #6a0dad;
-  font-weight: bold;
-  cursor: pointer;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
 }
 
 .main-content {
-  flex-grow: 1;
-  padding: 2rem;
+  flex: 1;
+  padding: 30px;
   background-color: rgba(255, 255, 255, 0.85);
+  overflow-y: auto;
 }
 
-.main-header {
+.titulo-principal {
+  font-family: 'Playfair Display', serif;
+  color: #6a0dad;
+}
+
+.subtitulo-principal {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.bloques-metricas {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: 'Playfair Display', serif;
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: #6a0dad;
-  margin-bottom: 1.5rem;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
-.metricas-usuario {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0;
-}
-
-.metrica-card {
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
+.bloque {
+  flex: 1 1 150px;
+  border-radius: 16px;
+  padding: 15px;
   text-align: center;
-  color: #6a0dad;
-  font-weight: 500;
+  font-weight: bold;
+  color: #fff;
 }
 
-.subtitulo-apps {
-  font-family: 'Playfair Display', serif;
-  color: #6a0dad;
-  margin-top: 2rem;
-}
+.bloque.azul { background-color: #cce4ff; color: #1e40af; }
+.bloque.lavanda { background-color: #f3e8ff; color: #9333ea; }
+.bloque.naranja { background-color: #fef3c7; color: #b45309; }
+.bloque.verde { background-color: #dcfce7; color: #15803d; }
+.bloque.dorado { background-color: #fef9c3; color: #b89d00; }
+.bloque.violeta { background-color: #ede9fe; color: #6d28d9; }
 
 .grid-aplicaciones {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
 }
 
 .app-card {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.95);
   border: 1px solid #d4af37;
-  border-radius: 10px;
-  padding: 1rem;
+  padding: 16px;
+  border-radius: 12px;
   text-align: center;
-  color: #6a0dad;
   cursor: pointer;
-  transition: transform 0.2s;
+  font-weight: 500;
+  transition: transform 0.2s ease;
 }
 
 .app-card:hover {
   transform: scale(1.03);
-}
-
-.btn-acceder {
-  background-color: #6a0dad;
-  color: white;
-  padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
+  background-color: #fdf7ed;
 }
