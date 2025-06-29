@@ -1,121 +1,162 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap');
 
 .dashboard-container {
   display: flex;
   height: 100vh;
   font-family: 'Inter', sans-serif;
-  background: url('/assets/Fondomarmoleado.jpg') no-repeat center center fixed;
-  background-size: cover;
 }
 
 .sidebar {
   width: 250px;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: #fff;
+  padding: 1rem;
+  border-right: 1px solid #eee;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  justify-content: space-between;
+}
+
+.sidebar-header {
+  text-align: center;
 }
 
 .sidebar-logo {
-  width: 100%;
-  max-width: 120px;
-  margin-bottom: 10px;
+  width: 80px;
+  margin-bottom: 0.5rem;
 }
 
 .titulo-sidebar {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #6a0dad;
 }
 
-.sidebar-nav ul {
+.sidebar nav ul {
   list-style: none;
   padding: 0;
-  margin-top: 20px;
 }
 
-.sidebar-nav li {
+.sidebar nav ul li {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  gap: 10px;
+  margin: 12px 0;
   cursor: pointer;
   color: #6a0dad;
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background 0.3s;
 }
 
-.sidebar-nav li.active {
+.sidebar nav ul li.active, .sidebar nav ul li:hover {
   background-color: #f0e6ff;
-  padding: 8px;
-  border-radius: 8px;
 }
 
 .sidebar-footer {
-  margin-top: auto;
   font-size: 14px;
+  color: #333;
+}
+
+.btn-logout {
+  margin-top: 1rem;
+  background-color: transparent;
+  border: none;
   color: #6a0dad;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .main-content {
   flex: 1;
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-image: url('/assets/Fondomarmoleado.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 2rem;
   overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
-.titulo-principal {
-  font-family: 'Playfair Display', serif;
-  color: #6a0dad;
-}
-
-.subtitulo-principal {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.bloques-metricas {
+.main-header {
   display: flex;
-  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 2rem;
+}
+
+.dashboard-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(155, 143, 198, 0.2);
+}
+
+.dashboard-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-metrics {
+  display: flex;
   flex-wrap: wrap;
-  margin-bottom: 30px;
+  gap: 1rem;
 }
 
-.bloque {
-  flex: 1 1 150px;
-  border-radius: 16px;
-  padding: 15px;
+.metric-card {
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem;
+  border-radius: 20px;
   text-align: center;
-  font-weight: bold;
-  color: #fff;
-}
-
-.bloque.azul { background-color: #cce4ff; color: #1e40af; }
-.bloque.lavanda { background-color: #f3e8ff; color: #9333ea; }
-.bloque.naranja { background-color: #fef3c7; color: #b45309; }
-.bloque.verde { background-color: #dcfce7; color: #15803d; }
-.bloque.dorado { background-color: #fef9c3; color: #b89d00; }
-.bloque.violeta { background-color: #ede9fe; color: #6d28d9; }
-
-.grid-aplicaciones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-}
-
-.app-card {
-  background-color: rgba(255, 255, 255, 0.95);
-  border: 1px solid #d4af37;
-  padding: 16px;
-  border-radius: 12px;
-  text-align: center;
-  cursor: pointer;
   font-weight: 500;
-  transition: transform 0.2s ease;
+  color: #333;
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.app-card:hover {
-  transform: scale(1.03);
-  background-color: #fdf7ed;
+.metric-card svg {
+  margin-bottom: 0.5rem;
+  font-size: 24px;
+}
+
+.metric-card strong {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.metric-card span {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 14px;
+}
+
+/* Colores por bloque */
+.metric-card.blue { background-color: #e0f0ff; color: #2c82c9; }
+.metric-card.lavender { background-color: #f3e6ff; color: #9a57d4; }
+.metric-card.orange { background-color: #ffe6cc; color: #e67e22; }
+.metric-card.green { background-color: #e6ffea; color: #27ae60; }
+.metric-card.yellow { background-color: #fff4cc; color: #d4af37; }
+.metric-card.blue2 { background-color: #e6e6ff; color: #6a0dad; }
+.metric-card.red { background-color: #ffe6e6; color: #e74c3c; }
+
+.btn-comenzar {
+  background: linear-gradient(to right, #d63384, #6f42c1);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
 }
