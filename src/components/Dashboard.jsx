@@ -1,4 +1,3 @@
-
 // src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import './Dashboard.css';
@@ -54,10 +53,21 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
-            <div className="contenedor-metricas">
+            {/* Fondo marmoleado decorativo debajo de tarjetas */}
+            <div className="bloque-metricas" style={{
+              backgroundImage: `url(${fondoMarmoleado})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              borderRadius: '16px',
+              padding: '25px',
+              boxShadow: '0 10px 40px rgba(0, 0, 0, 0.12)',
+              marginBottom: '40px',
+              backdropFilter: 'blur(3px)'
+            }}>
               <div className="metricas-usuario">
                 <div className="metrica-card">
-                  <img src={sonoterapia} alt="Sonoterapia" className="icono-aplicacion" />
+                  <img src={sonoterapia} alt="Sonoterapia" className="icono-sonoterapia" />
                   <span>Sonoterapias</span>
                   <strong>{userData.sonoterapiasCompletadas}</strong>
                 </div>
