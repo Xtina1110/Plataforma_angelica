@@ -1,3 +1,4 @@
+
 // src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import './Dashboard.css';
@@ -8,7 +9,7 @@ import sonoterapia from '../assets/Sonoterapia01.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
 
 import {
-  Home, User, Settings, LogOut, Heart, Star, BookOpen,
+  Home, User, LogOut, Heart, Star, BookOpen,
   MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp
 } from 'lucide-react';
 
@@ -34,15 +35,6 @@ const Dashboard = ({ user, onLogout }) => {
     cursosFinalizados: 3,
   });
 
-  const fondoStyle = {
-    backgroundImage: `url(${fondoMarmoleado})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backdropFilter: 'blur(2px)',
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
-  };
-
   const renderSection = () => {
     switch (activeSection) {
       case 'tirada': return <TiradaAngelical />;
@@ -62,36 +54,38 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
-            <div className="metricas-usuario">
-              <div className="metrica-card" style={fondoStyle}>
-                <img src={sonoterapia} alt="Sonoterapia" className="icono-sonoterapia" />
-                <span>Sonoterapias</span>
-                <strong>{userData.sonoterapiasCompletadas}</strong>
-              </div>
-              <div className="metrica-card" style={fondoStyle}>
-                <MessageSquare />
-                <span>Canalizaciones</span>
-                <strong>{userData.canalizacionesEscuchadas}</strong>
-              </div>
-              <div className="metrica-card" style={fondoStyle}>
-                <Calendar />
-                <span>Días consecutivos</span>
-                <strong>{userData.diasConsecutivos}</strong>
-              </div>
-              <div className="metrica-card" style={fondoStyle}>
-                <TrendingUp />
-                <span>Nivel</span>
-                <strong>{userData.nivelEspiritual}</strong>
-              </div>
-              <div className="metrica-card" style={fondoStyle}>
-                <Star />
-                <span>Puntos de luz</span>
-                <strong>{userData.puntosDeLuz}</strong>
-              </div>
-              <div className="metrica-card" style={fondoStyle}>
-                <Award />
-                <span>Cursos</span>
-                <strong>{userData.cursosFinalizados}</strong>
+            <div className="contenedor-metricas">
+              <div className="metricas-usuario">
+                <div className="metrica-card">
+                  <img src={sonoterapia} alt="Sonoterapia" className="icono-aplicacion" />
+                  <span>Sonoterapias</span>
+                  <strong>{userData.sonoterapiasCompletadas}</strong>
+                </div>
+                <div className="metrica-card">
+                  <MessageSquare />
+                  <span>Canalizaciones</span>
+                  <strong>{userData.canalizacionesEscuchadas}</strong>
+                </div>
+                <div className="metrica-card">
+                  <Calendar />
+                  <span>Días consecutivos</span>
+                  <strong>{userData.diasConsecutivos}</strong>
+                </div>
+                <div className="metrica-card">
+                  <TrendingUp />
+                  <span>Nivel</span>
+                  <strong>{userData.nivelEspiritual}</strong>
+                </div>
+                <div className="metrica-card">
+                  <Star />
+                  <span>Puntos de luz</span>
+                  <strong>{userData.puntosDeLuz}</strong>
+                </div>
+                <div className="metrica-card">
+                  <Award />
+                  <span>Cursos</span>
+                  <strong>{userData.cursosFinalizados}</strong>
+                </div>
               </div>
             </div>
 
