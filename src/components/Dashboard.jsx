@@ -56,7 +56,7 @@ const Dashboard = ({ user, onLogout }) => {
 
             {/* Fondo marmoleado decorativo debajo de tarjetas */}
             <div className="bloque-metricas" style={{
-              backgroundImage: `url(${fondoMarmoleado02})`,
+              backgroundImage: `url(${fondoMarmoleado})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
