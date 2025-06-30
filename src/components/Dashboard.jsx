@@ -48,8 +48,8 @@ const Dashboard = ({ user, onLogout }) => {
             </div>
 
             <div className="metricas-usuario">
-              <div className="metrica-card">
-                <Headphones />
+               <div className="metrica-card">
+                <img src="/assets/Sonoterapia01.png" alt="Sonoterapia" className="icono-sonoterapia" />
                 <span>Sonoterapias</span>
                 <strong>{userData.sonoterapiasCompletadas}</strong>
               </div>
