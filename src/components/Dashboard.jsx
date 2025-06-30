@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import './Dashboard.css';
 import '../styles/theme.css';
+
 import logo from '../assets/Logosinfondo.png';
 import sonoterapia from '../assets/Sonoterapia01.png';
+
 import {
   Home, User, Settings, LogOut, Heart, Star, BookOpen,
   MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp
@@ -21,7 +23,7 @@ const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
 
   const [userData] = useState({
-    nombre: user?.email.split('@')[0] || 'Usuario Angelical',
+    nombre: user?.email?.split('@')[0] || 'Usuario Angelical',
     rol: 'Miembro Premium',
     sonoterapiasCompletadas: 12,
     canalizacionesEscuchadas: 25,
@@ -48,9 +50,11 @@ const Dashboard = ({ user, onLogout }) => {
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
+            <h3 className="titulo-dashboard">Dashboard Personal</h3>
+
             <div className="metricas-usuario">
-               <div className="metrica-card">
-                <img src={iconSonoterapia} alt="Sonoterapia" className="icono-aplicacion" />
+              <div className="metrica-card">
+                <img src={sonoterapia} alt="Sonoterapia" className="icono-aplicacion" />
                 <span>Sonoterapias</span>
                 <strong>{userData.sonoterapiasCompletadas}</strong>
               </div>
