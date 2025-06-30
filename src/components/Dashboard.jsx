@@ -6,7 +6,7 @@ import '../styles/theme.css';
 import logo from '../assets/Logosinfondo.png';
 import sonoterapia from '../assets/Sonoterapia01.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
-import fondoMarmoleado02 from '../assets/Fondomarmoleado02.jpg';
+import fondoMarmoleado02 from '../assets/Fondomarmoleado02.png';
 
 import {
   Home, User, LogOut, Heart, Star, BookOpen,
