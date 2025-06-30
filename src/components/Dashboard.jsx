@@ -34,6 +34,15 @@ const Dashboard = ({ user, onLogout }) => {
     cursosFinalizados: 3,
   });
 
+  const fondoStyle = {
+    backgroundImage: `url(${fondoMarmoleado})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backdropFilter: 'blur(2px)',
+    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+  };
+
   const renderSection = () => {
     switch (activeSection) {
       case 'tirada': return <TiradaAngelical />;
@@ -54,32 +63,32 @@ const Dashboard = ({ user, onLogout }) => {
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
             <div className="metricas-usuario">
-              <div className="metrica-card">
-                <img src={sonoterapia} alt="Sonoterapia" className="icono-aplicacion" />
+              <div className="metrica-card" style={fondoStyle}>
+                <img src={sonoterapia} alt="Sonoterapia" className="icono-sonoterapia" />
                 <span>Sonoterapias</span>
                 <strong>{userData.sonoterapiasCompletadas}</strong>
               </div>
-              <div className="metrica-card">
+              <div className="metrica-card" style={fondoStyle}>
                 <MessageSquare />
                 <span>Canalizaciones</span>
                 <strong>{userData.canalizacionesEscuchadas}</strong>
               </div>
-              <div className="metrica-card">
+              <div className="metrica-card" style={fondoStyle}>
                 <Calendar />
                 <span>Días consecutivos</span>
                 <strong>{userData.diasConsecutivos}</strong>
               </div>
-              <div className="metrica-card">
+              <div className="metrica-card" style={fondoStyle}>
                 <TrendingUp />
                 <span>Nivel</span>
                 <strong>{userData.nivelEspiritual}</strong>
               </div>
-              <div className="metrica-card">
+              <div className="metrica-card" style={fondoStyle}>
                 <Star />
                 <span>Puntos de luz</span>
                 <strong>{userData.puntosDeLuz}</strong>
               </div>
-              <div className="metrica-card">
+              <div className="metrica-card" style={fondoStyle}>
                 <Award />
                 <span>Cursos</span>
                 <strong>{userData.cursosFinalizados}</strong>
