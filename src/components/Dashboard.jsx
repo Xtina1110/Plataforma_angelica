@@ -4,7 +4,7 @@ import './Dashboard.css';
 import '../styles/theme.css';
 
 import logo from '../assets/Logosinfondo.png';
-import sonoterapia from '../assets/Sonoterapia01.png';
+import sonoterapia from '../assets/Sonoterapia02.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
 import fondoMarmoleado02 from '../assets/FondoMarmoleado02.png';
 
