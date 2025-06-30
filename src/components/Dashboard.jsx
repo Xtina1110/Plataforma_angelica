@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './Dashboard.css';
 import '../styles/theme.css';
 import logo from '../assets/Logosinfondo.png';
+import sonoterapia from '../assets/Sonoterapia01.png';
 import {
   Home, User, Settings, LogOut, Heart, Star, BookOpen,
   MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp
@@ -49,7 +50,7 @@ const Dashboard = ({ user, onLogout }) => {
 
             <div className="metricas-usuario">
                <div className="metrica-card">
-                <img src="/assets/Sonoterapia01.png" alt="Sonoterapia" className="icono-sonoterapia" />
+                <img src={iconSonoterapia} alt="Sonoterapia" className="icono-aplicacion" />
                 <span>Sonoterapias</span>
                 <strong>{userData.sonoterapiasCompletadas}</strong>
               </div>
