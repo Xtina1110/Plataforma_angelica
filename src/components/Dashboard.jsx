@@ -51,5 +51,122 @@ const Dashboard = ({ user, onLogout }) => {
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
-            <h3 className="titulo-dashboard
+            <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
+            {/* Bloque con fondo marmoleado y métricas */}
+            <div
+              className="bloque-metricas"
+              style={{
+                backgroundImage: `url(${fondoMarmoleado})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                borderRadius: '16px',
+                padding: '25px',
+                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.12)',
+                marginBottom: '40px',
+                backdropFilter: 'blur(3px)'
+              }}
+            >
+              <div className="metricas-usuario">
+                <div className="metrica-card">
+                  <img src={sonoterapia} alt="Sonoterapia" className="icono-sonoterapia" />
+                  <span><strong>Sonoterapias</strong></span>
+                  <strong>{userData.sonoterapiasCompletadas}</strong>
+                </div>
+                <div className="metrica-card">
+                  <MessageSquare />
+                  <span><strong>Canalizaciones</strong></span>
+                  <strong>{userData.canalizacionesEscuchadas}</strong>
+                </div>
+                <div className="metrica-card">
+                  <Calendar />
+                  <span><strong>Días consecutivos</strong></span>
+                  <strong>{userData.diasConsecutivos}</strong>
+                </div>
+                <div className="metrica-card">
+                  <TrendingUp />
+                  <span><strong>Nivel</strong></span>
+                  <strong>{userData.nivelEspiritual}</strong>
+                </div>
+                <div className="metrica-card">
+                  <Star />
+                  <span><strong>Puntos de luz</strong></span>
+                  <strong>{userData.puntosDeLuz}</strong>
+                </div>
+                <div className="metrica-card">
+                  <Award />
+                  <span><strong>Cursos</strong></span>
+                  <strong>{userData.cursosFinalizados}</strong>
+                </div>
+              </div>
+            </div>
+
+            <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
+            <div className="grid-aplicaciones">
+              <div className="app-card" onClick={() => setActiveSection('tirada')}>
+                <Heart />
+                <h4>Tirada Angelical</h4>
+              </div>
+              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}>
+                <Headphones />
+                <h4>Canalizaciones</h4>
+              </div>
+              <div className="app-card" onClick={() => setActiveSection('terapias')}>
+                <Zap />
+                <h4>Terapias</h4>
+              </div>
+              <div className="app-card" onClick={() => setActiveSection('academia')}>
+                <BookOpen />
+                <h4>Academia</h4>
+              </div>
+              <div className="app-card" onClick={() => setActiveSection('mensaje')}>
+                <MessageSquare />
+                <h4>Mensaje del Día</h4>
+              </div>
+              <div className="app-card" onClick={() => setActiveSection('blog')}>
+                <BookOpen />
+                <h4>Blog & Podcast</h4>
+              </div>
+              <div className="app-card" onClick={() => setActiveSection('tienda')}>
+                <ShoppingCart />
+                <h4>Tienda Angélica</h4>
+              </div>
+            </div>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="dashboard-container">
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <img src={logo} alt="Logo JCA" className="sidebar-logo" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <img src={iconoEstrella} alt="Estrella" style={{ width: '24px', height: '24px' }} />
+            <h3 className="sidebar-title">Plataforma Angélica</h3>
+          </div>
+        </div>
+        <ul className="sidebar-nav">
+          <li onClick={() => setActiveSection('home')}><Home />Inicio</li>
+          <li onClick={() => setActiveSection('tirada')}><Heart />Tirada</li>
+          <li onClick={() => setActiveSection('canalizaciones')}><Headphones />Canalizaciones</li>
+          <li onClick={() => setActiveSection('terapias')}><Zap />Terapias</li>
+          <li onClick={() => setActiveSection('academia')}><BookOpen />Academia</li>
+          <li onClick={() => setActiveSection('mensaje')}><MessageSquare />Mensaje</li>
+          <li onClick={() => setActiveSection('blog')}><BookOpen />Blog</li>
+          <li onClick={() => setActiveSection('tienda')}><ShoppingCart />Tienda</li>
+        </ul>
+        <div className="sidebar-footer">
+          <User />
+          <span>{userData.nombre}</span>
+          <button onClick={onLogout}><LogOut />Salir</button>
+        </div>
+      </aside>
+      <main className="main-content">{renderSection()}</main>
+    </div>
+  );
+};
+
+export default Dashboard;
