@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './Dashboard.css';
 import '../styles/theme.css';
+import logo from '../assets/Logosinfondo.png';
 import {
   Home, User, Settings, LogOut, Heart, Star, BookOpen,
   MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp
@@ -119,7 +120,7 @@ const Dashboard = ({ user, onLogout }) => {
     <div className="dashboard-container">
       <aside className="sidebar">
         <div className="sidebar-header">
-          <img src="/assets/Logosinfondo.png" alt="Logo JCA" className="sidebar-logo" />
+          <img src={logo} alt="Logo JCA" className="sidebar-logo" />
           <h3 className="sidebar-title">Plataforma Angélica</h3>
         </div>
         <ul className="sidebar-nav">
