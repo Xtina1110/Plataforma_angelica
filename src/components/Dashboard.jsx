@@ -3,9 +3,13 @@ import './Dashboard.css';
 import '../styles/theme.css';
 
 import logo from '../assets/Logosinfondo.png';
-import iconoEstrella from '../assets/IconoEstrellaDashboard.png';
-import sonoterapia from '../assets/Sonoterapia02.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
+import iconSonoterapia from '../assets/IconoSonoterapia.png';
+import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
+import iconDias from '../assets/IconoDias.png';
+import iconNivel from '../assets/IconoNivel.png';
+import iconPuntos from '../assets/IconoPuntos.png';
+import iconCursos from '../assets/IconoCursos.png';
 
 import {
   Home, User, LogOut, Heart, BookOpen,
@@ -60,46 +64,24 @@ const Dashboard = ({ user, onLogout }) => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                backgroundColor: 'rgba(255,255,255,0.6)',
+                backgroundColor: 'rgba(255,255,255,0.5)',
                 borderRadius: '16px',
-                padding: '25px',
-                boxShadow: '0 10px 40px rgba(0, 0, 0, 0.12)',
+                padding: '20px',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
                 marginBottom: '40px',
-                backdropFilter: 'blur(3px)'
+                backdropFilter: 'blur(4px)',
+                display: 'flex',
+                justifyContent: 'space-around',
+                flexWrap: 'wrap',
+                gap: '20px'
               }}
             >
-              <div className="metricas-usuario">
-                <div className="metrica-card">
-                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
-                  <span style={{ color: '#000', fontWeight: 'bold' }}>Sonoterapias</span>
-                  <strong style={{ color: '#000' }}>{userData.sonoterapiasCompletadas}</strong>
-                </div>
-                <div className="metrica-card">
-                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
-                  <span style={{ color: '#000', fontWeight: 'bold' }}>Canalizaciones</span>
-                  <strong style={{ color: '#000' }}>{userData.canalizacionesEscuchadas}</strong>
-                </div>
-                <div className="metrica-card">
-                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
-                  <span style={{ color: '#000', fontWeight: 'bold' }}>Días consecutivos</span>
-                  <strong style={{ color: '#000' }}>{userData.diasConsecutivos}</strong>
-                </div>
-                <div className="metrica-card">
-                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
-                  <span style={{ color: '#000', fontWeight: 'bold' }}>Nivel</span>
-                  <strong style={{ color: '#000' }}>{userData.nivelEspiritual}</strong>
-                </div>
-                <div className="metrica-card">
-                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
-                  <span style={{ color: '#000', fontWeight: 'bold' }}>Puntos de luz</span>
-                  <strong style={{ color: '#000' }}>{userData.puntosDeLuz}</strong>
-                </div>
-                <div className="metrica-card">
-                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
-                  <span style={{ color: '#000', fontWeight: 'bold' }}>Cursos</span>
-                  <strong style={{ color: '#000' }}>{userData.cursosFinalizados}</strong>
-                </div>
-              </div>
+              <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
+              <div className="metrica-card"><img src={iconCanalizaciones} /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
+              <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
+              <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
+              <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
+              <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
             </div>
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
@@ -122,10 +104,7 @@ const Dashboard = ({ user, onLogout }) => {
       <aside className="sidebar">
         <div className="sidebar-header">
           <img src={logo} alt="Logo JCA" className="sidebar-logo" />
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img src={iconoEstrella} alt="Estrella" style={{ width: '72px', height: '72px' }} />
-            <h3 className="sidebar-title">Plataforma Angélica</h3>
-          </div>
+          <h3 className="sidebar-title">Plataforma Angélica</h3>
         </div>
         <ul className="sidebar-nav">
           <li onClick={() => setActiveSection('home')}><Home />Inicio</li>
