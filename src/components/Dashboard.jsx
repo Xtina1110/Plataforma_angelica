@@ -8,8 +8,8 @@ import sonoterapia from '../assets/Sonoterapia02.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
 
 import {
-  Home, User, LogOut, Heart, Star, BookOpen,
-  MessageSquare, Headphones, Zap, ShoppingCart, Award, Calendar, TrendingUp
+  Home, User, LogOut, Heart, BookOpen,
+  MessageSquare, Headphones, Zap, ShoppingCart
 } from 'lucide-react';
 
 import TiradaAngelical from './TiradaAngelical';
@@ -53,7 +53,6 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
-            {/* Bloque con fondo marmoleado y métricas */}
             <div
               className="bloque-metricas"
               style={{
@@ -61,6 +60,7 @@ const Dashboard = ({ user, onLogout }) => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+                backgroundColor: 'rgba(255,255,255,0.6)',
                 borderRadius: '16px',
                 padding: '25px',
                 boxShadow: '0 10px 40px rgba(0, 0, 0, 0.12)',
@@ -70,68 +70,47 @@ const Dashboard = ({ user, onLogout }) => {
             >
               <div className="metricas-usuario">
                 <div className="metrica-card">
-                  <img src={sonoterapia} alt="Sonoterapia" className="icono-sonoterapia" />
-                  <span><strong>Sonoterapias</strong></span>
-                  <strong>{userData.sonoterapiasCompletadas}</strong>
+                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
+                  <span style={{ color: '#000', fontWeight: 'bold' }}>Sonoterapias</span>
+                  <strong style={{ color: '#000' }}>{userData.sonoterapiasCompletadas}</strong>
                 </div>
                 <div className="metrica-card">
-                  <MessageSquare />
-                  <span><strong>Canalizaciones</strong></span>
-                  <strong>{userData.canalizacionesEscuchadas}</strong>
+                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
+                  <span style={{ color: '#000', fontWeight: 'bold' }}>Canalizaciones</span>
+                  <strong style={{ color: '#000' }}>{userData.canalizacionesEscuchadas}</strong>
                 </div>
                 <div className="metrica-card">
-                  <Calendar />
-                  <span><strong>Días consecutivos</strong></span>
-                  <strong>{userData.diasConsecutivos}</strong>
+                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
+                  <span style={{ color: '#000', fontWeight: 'bold' }}>Días consecutivos</span>
+                  <strong style={{ color: '#000' }}>{userData.diasConsecutivos}</strong>
                 </div>
                 <div className="metrica-card">
-                  <TrendingUp />
-                  <span><strong>Nivel</strong></span>
-                  <strong>{userData.nivelEspiritual}</strong>
+                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
+                  <span style={{ color: '#000', fontWeight: 'bold' }}>Nivel</span>
+                  <strong style={{ color: '#000' }}>{userData.nivelEspiritual}</strong>
                 </div>
                 <div className="metrica-card">
-                  <Star />
-                  <span><strong>Puntos de luz</strong></span>
-                  <strong>{userData.puntosDeLuz}</strong>
+                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
+                  <span style={{ color: '#000', fontWeight: 'bold' }}>Puntos de luz</span>
+                  <strong style={{ color: '#000' }}>{userData.puntosDeLuz}</strong>
                 </div>
                 <div className="metrica-card">
-                  <Award />
-                  <span><strong>Cursos</strong></span>
-                  <strong>{userData.cursosFinalizados}</strong>
+                  <img src={iconoEstrella} alt="Icono" className="icono-metrica" />
+                  <span style={{ color: '#000', fontWeight: 'bold' }}>Cursos</span>
+                  <strong style={{ color: '#000' }}>{userData.cursosFinalizados}</strong>
                 </div>
               </div>
             </div>
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
-              <div className="app-card" onClick={() => setActiveSection('tirada')}>
-                <Heart />
-                <h4>Tirada Angelical</h4>
-              </div>
-              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}>
-                <Headphones />
-                <h4>Canalizaciones</h4>
-              </div>
-              <div className="app-card" onClick={() => setActiveSection('terapias')}>
-                <Zap />
-                <h4>Terapias</h4>
-              </div>
-              <div className="app-card" onClick={() => setActiveSection('academia')}>
-                <BookOpen />
-                <h4>Academia</h4>
-              </div>
-              <div className="app-card" onClick={() => setActiveSection('mensaje')}>
-                <MessageSquare />
-                <h4>Mensaje del Día</h4>
-              </div>
-              <div className="app-card" onClick={() => setActiveSection('blog')}>
-                <BookOpen />
-                <h4>Blog & Podcast</h4>
-              </div>
-              <div className="app-card" onClick={() => setActiveSection('tienda')}>
-                <ShoppingCart />
-                <h4>Tienda Angélica</h4>
-              </div>
+              <div className="app-card" onClick={() => setActiveSection('tirada')}><Heart /><h4>Tirada Angelical</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}><Headphones /><h4>Canalizaciones</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('terapias')}><Zap /><h4>Terapias</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('academia')}><BookOpen /><h4>Academia</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('mensaje')}><MessageSquare /><h4>Mensaje del Día</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('blog')}><BookOpen /><h4>Blog & Podcast</h4></div>
+              <div className="app-card" onClick={() => setActiveSection('tienda')}><ShoppingCart /><h4>Tienda Angélica</h4></div>
             </div>
           </div>
         );
@@ -144,7 +123,7 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="sidebar-header">
           <img src={logo} alt="Logo JCA" className="sidebar-logo" />
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img src={iconoEstrella} alt="Estrella" style={{ width: '24px', height: '24px' }} />
+            <img src={iconoEstrella} alt="Estrella" style={{ width: '72px', height: '72px' }} />
             <h3 className="sidebar-title">Plataforma Angélica</h3>
           </div>
         </div>
