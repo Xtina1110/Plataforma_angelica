@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import './Dashboard.css';
 import '../styles/theme.css';
@@ -13,11 +12,6 @@ import iconPuntos from '../assets/IconoPuntos.png';
 import iconCursos from '../assets/IconoCursos.png';
 import iconoAngelDashboard from '../assets/IconoDashboard.png';
 
-import {
-  Home, User, LogOut, Heart, BookOpen,
-  MessageSquare, Headphones, Zap, ShoppingCart
-} from 'lucide-react';
-
 import TiradaAngelical from './TiradaAngelical';
 import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
 import TerapiasLimpiezas from './TerapiasLimpiezas';
@@ -29,7 +23,7 @@ import TiendaAngelical from './TiendaAngelical';
 const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
 
-  const [userData] = useState({
+  const userData = {
     nombre: user?.email?.split('@')[0] || 'Usuario Angelical',
     rol: 'Miembro Premium',
     nivelEspiritual: 'Iluminado',
@@ -38,7 +32,7 @@ const Dashboard = ({ user, onLogout }) => {
     sonoterapiasCompletadas: 12,
     canalizacionesEscuchadas: 25,
     cursosFinalizados: 3,
-  });
+  };
 
   const renderSection = () => {
     switch (activeSection) {
@@ -56,6 +50,7 @@ const Dashboard = ({ user, onLogout }) => {
               <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
+
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
             <div className="seccion-dashboard">
               <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
@@ -64,12 +59,9 @@ const Dashboard = ({ user, onLogout }) => {
                 style={{
                   backgroundImage: `url(${fondoMarmoleado})`,
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
                   backgroundColor: 'rgba(255,255,255,0.85)',
                   borderRadius: '16px',
                   padding: '20px',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
                   backdropFilter: 'blur(4px)',
                   display: 'flex',
                   justifyContent: 'space-around',
@@ -85,15 +77,57 @@ const Dashboard = ({ user, onLogout }) => {
                 <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
               </div>
             </div>
+
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
-            <div className="grid-aplicaciones">
-              <div className="app-card" onClick={() => setActiveSection('tirada')}><Heart /><h4>Tirada Angelical</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}><Headphones /><h4>Canalizaciones</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('terapias')}><Zap /><h4>Terapias</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('academia')}><BookOpen /><h4>Academia</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('mensaje')}><MessageSquare /><h4>Mensaje del Día</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('blog')}><BookOpen /><h4>Blog & Podcast</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('tienda')}><ShoppingCart /><h4>Tienda Angélica</h4></div>
+            <div className="grid-aplicaciones tarjetas-coloridas">
+              <div className="tarjeta-app azul" onClick={() => setActiveSection('tirada')}>
+                <span className="estado-disponible">Disponible</span>
+                <h4>Tirada Angelical</h4>
+                <p>Conecta con la sabiduría de los ángeles</p>
+                <button className="btn-acceder">Acceder</button>
+              </div>
+
+              <div className="tarjeta-app morado" onClick={() => setActiveSection('canalizaciones')}>
+                <span className="estado-disponible">Disponible</span>
+                <h4>Canalizaciones y Sonoterapia</h4>
+                <p>Frecuencias sagradas de sanación</p>
+                <button className="btn-acceder">Acceder</button>
+              </div>
+
+              <div className="tarjeta-app fucsia" onClick={() => setActiveSection('terapias')}>
+                <span className="estado-disponible">Disponible</span>
+                <h4>Terapias y Limpiezas</h4>
+                <p>Sanación angelical profunda</p>
+                <button className="btn-acceder">Acceder</button>
+              </div>
+
+              <div className="tarjeta-app verde" onClick={() => setActiveSection('academia')}>
+                <span className="estado-disponible">Disponible</span>
+                <h4>Academia Angelical</h4>
+                <p>Formación espiritual completa</p>
+                <button className="btn-acceder">Acceder</button>
+              </div>
+
+              <div className="tarjeta-app celeste" onClick={() => setActiveSection('mensaje')}>
+                <span className="estado-disponible">Disponible</span>
+                <h4>Mensaje del Día</h4>
+                <p>Canalización espiritual diaria</p>
+                <button className="btn-acceder">Acceder</button>
+              </div>
+
+              <div className="tarjeta-app rojo" onClick={() => setActiveSection('blog')}>
+                <span className="estado-disponible">Disponible</span>
+                <h4>Blog & Podcast</h4>
+                <p>Contenido espiritual diario</p>
+                <button className="btn-acceder">Acceder</button>
+              </div>
+
+              <div className="tarjeta-app dorado" onClick={() => setActiveSection('tienda')}>
+                <span className="estado-disponible">Disponible</span>
+                <h4>Tienda Angélica</h4>
+                <p>Productos y regalos con alma</p>
+                <button className="btn-acceder">Acceder</button>
+              </div>
             </div>
           </div>
         );
@@ -108,19 +142,18 @@ const Dashboard = ({ user, onLogout }) => {
           <h3 className="sidebar-title">Plataforma Angélica</h3>
         </div>
         <ul className="sidebar-nav">
-          <li onClick={() => setActiveSection('home')}><Home />Inicio</li>
-          <li onClick={() => setActiveSection('tirada')}><Heart />Tirada</li>
-          <li onClick={() => setActiveSection('canalizaciones')}><Headphones />Canalizaciones</li>
-          <li onClick={() => setActiveSection('terapias')}><Zap />Terapias</li>
-          <li onClick={() => setActiveSection('academia')}><BookOpen />Academia</li>
-          <li onClick={() => setActiveSection('mensaje')}><MessageSquare />Mensaje</li>
-          <li onClick={() => setActiveSection('blog')}><BookOpen />Blog</li>
-          <li onClick={() => setActiveSection('tienda')}><ShoppingCart />Tienda</li>
+          <li onClick={() => setActiveSection('home')}>Inicio</li>
+          <li onClick={() => setActiveSection('tirada')}>Tirada</li>
+          <li onClick={() => setActiveSection('canalizaciones')}>Canalizaciones</li>
+          <li onClick={() => setActiveSection('terapias')}>Terapias</li>
+          <li onClick={() => setActiveSection('academia')}>Academia</li>
+          <li onClick={() => setActiveSection('mensaje')}>Mensaje</li>
+          <li onClick={() => setActiveSection('blog')}>Blog</li>
+          <li onClick={() => setActiveSection('tienda')}>Tienda</li>
         </ul>
         <div className="sidebar-footer">
-          <User />
-          <span>{userData.nombre}</span>
-          <button onClick={onLogout}><LogOut />Salir</button>
+          <strong>{userData.nombre}</strong>
+          <button onClick={onLogout}>Salir</button>
         </div>
       </aside>
       <main className="main-content">{renderSection()}</main>
