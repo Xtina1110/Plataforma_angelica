@@ -61,7 +61,7 @@ const Dashboard = ({ user, onLogout }) => {
               <div
                 className="bloque-metricas"
                 style={{
-                  backgroundImage: url(${fondoMarmoleado}),
+                  backgroundImage: `url(${fondoMarmoleado})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                   backgroundRepeat: 'no-repeat',
