@@ -58,8 +58,8 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
-            <div className="seccion-dashboard">
-              <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
+            <div className="bloque-dashboard-con-angel">
+              <img src={iconoAngelDashboard} alt="Ángel" className="angel-dashboard-lateral" />
               <div
                 className="bloque-metricas"
                 style={{
@@ -75,7 +75,8 @@ const Dashboard = ({ user, onLogout }) => {
                   display: 'flex',
                   justifyContent: 'space-around',
                   flexWrap: 'wrap',
-                  gap: '20px'
+                  gap: '20px',
+                  flex: 1
                 }}
               >
                 <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
@@ -131,4 +132,3 @@ const Dashboard = ({ user, onLogout }) => {
 };
 
 export default Dashboard;
-
