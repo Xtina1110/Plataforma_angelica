@@ -32,11 +32,11 @@ const Dashboard = ({ user, onLogout }) => {
   const [userData] = useState({
     nombre: user?.email?.split('@')[0] || 'Usuario Angelical',
     rol: 'Miembro Premium',
-    sonoterapiasCompletadas: 12,
-    canalizacionesEscuchadas: 25,
-    diasConsecutivos: 7,
     nivelEspiritual: 'Iluminado',
     puntosDeLuz: 1500,
+    diasConsecutivos: 7,
+    sonoterapiasCompletadas: 12,
+    canalizacionesEscuchadas: 25,
     cursosFinalizados: 3,
   });
 
