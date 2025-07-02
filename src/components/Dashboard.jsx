@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import './Dashboard.css';
 import '../styles/theme.css';
@@ -55,11 +56,9 @@ const Dashboard = ({ user, onLogout }) => {
               <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
-
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
-
-            <div className="bloque-dashboard-con-angel">
-              <img src={iconoAngelDashboard} alt="Ángel" className="angel-dashboard-lateral" />
+            <div className="seccion-dashboard">
+              <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
               <div
                 className="bloque-metricas"
                 style={{
@@ -75,8 +74,7 @@ const Dashboard = ({ user, onLogout }) => {
                   display: 'flex',
                   justifyContent: 'space-around',
                   flexWrap: 'wrap',
-                  gap: '20px',
-                  flex: 1
+                  gap: '20px'
                 }}
               >
                 <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
@@ -87,7 +85,6 @@ const Dashboard = ({ user, onLogout }) => {
                 <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
               </div>
             </div>
-
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
               <div className="app-card" onClick={() => setActiveSection('tirada')}><Heart /><h4>Tirada Angelical</h4></div>
