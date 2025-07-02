@@ -1,131 +1,211 @@
-import React, { useState } from 'react';
-import './Dashboard.css';
-import '../styles/theme.css';
 
-import logo from '../assets/Logosinfondo.png';
-import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
-import iconSonoterapia from '../assets/IconoSonoterapia.png';
-import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
-import iconDias from '../assets/IconoDias.png';
-import iconNivel from '../assets/IconoNivel.png';
-import iconPuntos from '../assets/IconoPuntos.png';
-import iconCursos from '../assets/IconoCursos.png';
-import iconoAngelDashboard from '../assets/IconoDashboard.png';
-import iconTirada from '../assets/IconoTirada.png';
-import iconAcademia from '../assets/IconoAcademia.png';
-import iconMensaje from '../assets/IconoMensaje.png';
-import iconBlog from '../assets/IconoBlog.png';
-import iconTienda from '../assets/IconoTienda.png';
-import iconTerapias from '../assets/IconoTerapias.png';
-import iconCanal from '../assets/IconoCanalizaciones.png';
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-import { User, LogOut } from 'lucide-react';
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: url('/assets/Fondomarmoleado.jpg') repeat center center fixed;
+  background-size: cover;
+}
 
-import TiradaAngelical from './TiradaAngelical';
-import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
-import TerapiasLimpiezas from './TerapiasLimpiezas';
-import AcademiaAngelical from './AcademiaAngelical';
-import MensajeDelDia from './MensajeDelDia';
-import BlogPodcast from './BlogPodcast';
-import TiendaAngelical from './TiendaAngelical';
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
 
-const Dashboard = ({ user, onLogout }) => {
-  const [activeSection, setActiveSection] = useState('home');
+.sidebar {
+  width: 260px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid #eee;
+}
 
-  const [userData] = useState({
-    nombre: user?.email?.split('@')[0] || 'Usuario Angelical',
-    rol: 'Miembro Premium',
-    sonoterapiasCompletadas: 12,
-    canalizacionesEscuchadas: 25,
-    diasConsecutivos: 7,
-    nivelEspiritual: 'Iluminado',
-    puntosDeLuz: 1500,
-    cursosFinalizados: 3,
-  });
+.sidebar-logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
 
-  const renderSection = () => {
-    switch (activeSection) {
-      case 'tirada': return <TiradaAngelical />;
-      case 'canalizaciones': return <CanalizacionesSonoterapia />;
-      case 'terapias': return <TerapiasLimpiezas />;
-      case 'academia': return <AcademiaAngelical />;
-      case 'mensaje': return <MensajeDelDia />;
-      case 'blog': return <BlogPodcast />;
-      case 'tienda': return <TiendaAngelical />;
-      default:
-        return (
-          <div className="dashboard-home">
-            <div className="bienvenida-usuario">
-              <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
-              <p>Tu camino espiritual continúa evolucionando.</p>
-            </div>
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--color-morado-espiritual);
+}
 
-            <h3 className="titulo-dashboard">Dashboard Personal</h3>
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
 
-            <div className="seccion-dashboard">
-              <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
-              <div className="bloque-metricas" style={{
-                backgroundImage: `url(${fondoMarmoleado})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: 'rgba(255,255,255,0.85)',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-                backdropFilter: 'blur(4px)',
-                display: 'flex',
-                justifyContent: 'space-around',
-                flexWrap: 'wrap',
-                gap: '20px'
-              }}>
-                <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
-                <div className="metrica-card"><img src={iconCanalizaciones} /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
-                <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
-                <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
-                <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
-                <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
-              </div>
-            </div>
+.sidebar-nav li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  cursor: pointer;
+  color: var(--color-morado-espiritual);
+  font-weight: 500;
+  transition: 0.3s;
+}
 
-            <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
-            <div className="grid-aplicaciones" style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexWrap: 'nowrap',
-              gap: '16px',
-              overflowX: 'auto',
-              paddingBottom: '10px'
-            }}>
-              <div className="app-card" onClick={() => setActiveSection('tirada')}><img src={iconTirada} /><h4>Tirada Angelical</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}><img src={iconCanal} /><h4>Canalizaciones</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('terapias')}><img src={iconTerapias} /><h4>Terapias</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('academia')}><img src={iconAcademia} /><h4>Academia</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('mensaje')}><img src={iconMensaje} /><h4>Mensaje del Día</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('blog')}><img src={iconBlog} /><h4>Blog & Podcast</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('tienda')}><img src={iconTienda} /><h4>Tienda Angélica</h4></div>
-            </div>
-          </div>
-        );
-    }
-  };
+.sidebar-nav li:hover {
+  color: var(--color-dorado-celestial);
+}
 
-  return (
-    <div className="dashboard-container">
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <img src={logo} alt="Logo JCA" className="sidebar-logo" />
-          <h3 className="sidebar-title">Plataforma Angélica</h3>
-        </div>
-        <div className="sidebar-footer">
-          <User />
-          <span>{userData.nombre}</span>
-          <button onClick={onLogout}><LogOut />Salir</button>
-        </div>
-      </aside>
-      <main className="main-content">{renderSection()}</main>
-    </div>
-  );
-};
+.sidebar-footer {
+  font-size: 14px;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-export default Dashboard;
+.sidebar-footer button {
+  background: none;
+  border: none;
+  color: var(--color-morado-espiritual);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: var(--color-blanco-opaco);
+  border-radius: 16px;
+  margin: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.bienvenida-usuario h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: var(--color-morado-espiritual);
+}
+
+.bienvenida-usuario p {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.titulo-dashboard {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--color-morado-espiritual);
+  margin-bottom: 20px;
+}
+
+.bloque-metricas {
+  background: url('/assets/Fondomarmoleado.jpg') no-repeat center center;
+  background-size: cover;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  margin-bottom: 40px;
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.metricas-usuario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.metrica-card {
+  flex: 1 1 160px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  border-left: 5px solid var(--color-dorado-celestial);
+}
+
+.metrica-card img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.metrica-card span {
+  display: block;
+  font-size: 14px;
+  color: #555;
+}
+
+.metrica-card strong {
+  font-size: 20px;
+  color: var(--color-morado-espiritual);
+}
+
+.subtitulo-apps {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--color-morado-espiritual);
+  margin-bottom: 15px;
+}
+
+.grid-aplicaciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.app-card {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  border: 1px solid #eaeaea;
+  transition: transform 0.2s ease;
+}
+
+.app-card:hover {
+  transform: scale(1.03);
+  border-color: var(--color-dorado-celestial);
+}
+
+.app-card svg {
+  color: var(--color-morado-espiritual);
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.app-card h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}
+
+.seccion-dashboard {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.imagen-angel-dashboard {
+  max-height: 250px;
+  width: auto;
+  flex-shrink: 0;
+}
