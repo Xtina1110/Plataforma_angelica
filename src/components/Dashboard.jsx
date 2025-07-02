@@ -10,6 +10,7 @@ import iconDias from '../assets/IconoDias.png';
 import iconNivel from '../assets/IconoNivel.png';
 import iconPuntos from '../assets/IconoPuntos.png';
 import iconCursos from '../assets/IconoCursos.png';
+import iconoAngelDashboard from '../assets/IconoDashboard.png';
 
 import {
   Home, User, LogOut, Heart, BookOpen,
@@ -57,31 +58,33 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
-            <div
-              className="bloque-metricas"
-              style={{
-                backgroundImage: `url(${fondoMarmoleado})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                backgroundColor: 'rgba(255,255,255,0.5)',
-                borderRadius: '16px',
-                padding: '20px',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-                marginBottom: '40px',
-                backdropFilter: 'blur(4px)',
-                display: 'flex',
-                justifyContent: 'space-around',
-                flexWrap: 'wrap',
-                gap: '20px'
-              }}
-            >
-              <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
-              <div className="metrica-card"><img src={iconCanalizaciones} /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
-              <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
-              <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
-              <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
-              <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
+            <div className="seccion-dashboard">
+              <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
+              <div
+                className="bloque-metricas"
+                style={{
+                  backgroundImage: `url(${fondoMarmoleado})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundColor: 'rgba(255,255,255,0.85)',
+                  borderRadius: '16px',
+                  padding: '20px',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
+                  backdropFilter: 'blur(4px)',
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  flexWrap: 'wrap',
+                  gap: '20px'
+                }}
+              >
+                <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
+                <div className="metrica-card"><img src={iconCanalizaciones} /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
+                <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
+                <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
+                <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
+                <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
+              </div>
             </div>
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
@@ -128,3 +131,4 @@ const Dashboard = ({ user, onLogout }) => {
 };
 
 export default Dashboard;
+
