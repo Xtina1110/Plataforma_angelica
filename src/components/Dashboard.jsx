@@ -1,29 +1,4 @@
-import React, { useState } from 'react';
-import {
-  Heart, Headphones, Zap, GraduationCap,
-  MessageSquare, Mic, ShoppingCart, BookOpen,
-  Home, User, LogOut
-} from 'lucide-react';
-
-import logo from '../assets/Logosinfondo.png';
-import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
-import iconoAngelDashboard from '../assets/AngelDashboard.png';
-import iconNivel from '../assets/iconNivel.png';
-import iconPuntos from '../assets/iconPuntos.png';
-import iconDias from '../assets/iconDias.png';
-import iconSonoterapia from '../assets/Sonoterapia01.png';
-import iconCanalizaciones from '../assets/iconCanalizaciones.png';
-import iconCursos from '../assets/iconCursos.png';
-
-import TiradaAngelical from './TiradaAngelical';
-import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
-import TerapiasLimpiezas from './TerapiasLimpiezas';
-import AcademiaAngelical from './AcademiaAngelical';
-import MensajeDelDia from './MensajeDelDia';
-import BlogPodcast from './BlogPodcast';
-import TiendaAngelical from './TiendaAngelical';
-
-import './Dashboard.css';
+// (Misma importación que tu archivo actual, sin cambios)
 
 const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
@@ -72,48 +47,14 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
-              <div className="app-card tirada">
-                <div className="franja-color"><Heart /></div>
-                <h4>Tirada Angelical</h4>
-                <p>Conecta con la sabiduría de los ángeles</p>
-                <button onClick={() => setActiveSection('tirada')}>Acceder</button>
-              </div>
-              <div className="app-card canalizaciones">
-                <div className="franja-color"><Headphones /></div>
-                <h4>Canalizaciones y Sonoterapia</h4>
-                <p>Frecuencias sagradas de sanación</p>
-                <button onClick={() => setActiveSection('canalizaciones')}>Acceder</button>
-              </div>
-              <div className="app-card terapias">
-                <div className="franja-color"><Zap /></div>
-                <h4>Terapias y Limpiezas</h4>
-                <p>Sanación angelical profunda</p>
-                <button onClick={() => setActiveSection('terapias')}>Acceder</button>
-              </div>
-              <div className="app-card academia">
-                <div className="franja-color"><GraduationCap /></div>
-                <h4>Academia Angelical</h4>
-                <p>Formación espiritual completa</p>
-                <button onClick={() => setActiveSection('academia')}>Acceder</button>
-              </div>
-              <div className="app-card mensaje">
-                <div className="franja-color"><MessageSquare /></div>
-                <h4>Mensaje del Día</h4>
-                <p>Recibe una canalización espiritual</p>
-                <button onClick={() => setActiveSection('mensaje')}>Acceder</button>
-              </div>
-              <div className="app-card blog">
-                <div className="franja-color"><Mic /></div>
-                <h4>Blog & Podcast</h4>
-                <p>Contenido espiritual diario</p>
-                <button onClick={() => setActiveSection('blog')}>Acceder</button>
-              </div>
-              <div className="app-card tienda">
-                <div className="franja-color tienda"><ShoppingCart /></div>
-                <h4>Tienda Angélica</h4>
-                <p>Cristales, cartas y recursos espirituales</p>
-                <button onClick={() => setActiveSection('tienda')}>Acceder</button>
-              </div>
+              {/* Cada app-card ahora tiene una franja superior de color personalizada */}
+              <div className="app-card tirada"><div className="franja-color"><Heart /></div><h4>Tirada Angelical</h4><p>Conecta con la sabiduría de los ángeles</p><button onClick={() => setActiveSection('tirada')}>Acceder</button></div>
+              <div className="app-card canalizaciones"><div className="franja-color"><Headphones /></div><h4>Canalizaciones y Sonoterapia</h4><p>Frecuencias sagradas de sanación</p><button onClick={() => setActiveSection('canalizaciones')}>Acceder</button></div>
+              <div className="app-card terapias"><div className="franja-color"><Zap /></div><h4>Terapias y Limpiezas</h4><p>Sanación angelical profunda</p><button onClick={() => setActiveSection('terapias')}>Acceder</button></div>
+              <div className="app-card academia"><div className="franja-color"><GraduationCap /></div><h4>Academia Angelical</h4><p>Formación espiritual completa</p><button onClick={() => setActiveSection('academia')}>Acceder</button></div>
+              <div className="app-card mensaje"><div className="franja-color"><MessageSquare /></div><h4>Mensaje del Día</h4><p>Recibe una canalización espiritual</p><button onClick={() => setActiveSection('mensaje')}>Acceder</button></div>
+              <div className="app-card blog"><div className="franja-color"><Mic /></div><h4>Blog & Podcast</h4><p>Contenido espiritual diario</p><button onClick={() => setActiveSection('blog')}>Acceder</button></div>
+              <div className="app-card tienda"><div className="franja-color tienda"><ShoppingCart /></div><h4>Tienda Angélica</h4><p>Cristales, cartas y recursos espirituales</p><button onClick={() => setActiveSection('tienda')}>Acceder</button></div>
             </div>
           </div>
         );
@@ -138,13 +79,11 @@ const Dashboard = ({ user, onLogout }) => {
           <li onClick={() => setActiveSection('tienda')}><ShoppingCart />Tienda</li>
         </ul>
         <div className="sidebar-footer">
-          <button onClick={onLogout}>
-            <LogOut size={16} />
-            Cerrar sesión
-          </button>
+          <User />
+          <span>{userData.nombre}</span>
+          <button onClick={onLogout}><LogOut />Salir</button>
         </div>
       </aside>
-
       <main className="main-content">
         {renderSection()}
       </main>
