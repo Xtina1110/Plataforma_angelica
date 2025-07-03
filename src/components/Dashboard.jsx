@@ -55,27 +55,11 @@ const Dashboard = ({ user, onLogout }) => {
               <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
+
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
             <div className="seccion-dashboard">
               <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
-              <div
-                className="bloque-metricas"
-                style={{
-                  backgroundImage: `url(${fondoMarmoleado})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundColor: 'rgba(255,255,255,0.85)',
-                  borderRadius: '16px',
-                  padding: '20px',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)',
-                  backdropFilter: 'blur(4px)',
-                  display: 'flex',
-                  justifyContent: 'space-around',
-                  flexWrap: 'wrap',
-                  gap: '20px'
-                }}
-              >
+              <div className="bloque-metricas">
                 <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
                 <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
                 <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
@@ -84,15 +68,36 @@ const Dashboard = ({ user, onLogout }) => {
                 <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
               </div>
             </div>
+
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
-              <div className="app-card" onClick={() => setActiveSection('tirada')}><Heart /><h4>Tirada Angelical</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('canalizaciones')}><Headphones /><h4>Canalizaciones</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('terapias')}><Zap /><h4>Terapias</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('academia')}><BookOpen /><h4>Academia</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('mensaje')}><MessageSquare /><h4>Mensaje del Día</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('blog')}><BookOpen /><h4>Blog & Podcast</h4></div>
-              <div className="app-card" onClick={() => setActiveSection('tienda')}><ShoppingCart /><h4>Tienda Angélica</h4></div>
+              <div className="app-card app-tirada">
+                <div className="app-top">
+                  <Heart />
+                  <span className="badge">Disponible</span>
+                </div>
+                <h4>Tirada Angelical</h4>
+                <p>Conecta con la sabiduría de los ángeles</p>
+                <button onClick={() => setActiveSection('tirada')}>Acceder</button>
+              </div>
+              <div className="app-card app-canalizaciones">
+                <div className="app-top">
+                  <Headphones />
+                  <span className="badge">Disponible</span>
+                </div>
+                <h4>Canalizaciones y Sonoterapia</h4>
+                <p>Frecuencias sagradas de sanación</p>
+                <button onClick={() => setActiveSection('canalizaciones')}>Acceder</button>
+              </div>
+              <div className="app-card app-terapias">
+                <div className="app-top">
+                  <Zap />
+                  <span className="badge">Disponible</span>
+                </div>
+                <h4>Terapias y Limpiezas</h4>
+                <p>Sanación angelical profunda</p>
+                <button onClick={() => setActiveSection('terapias')}>Acceder</button>
+              </div>
             </div>
           </div>
         );
