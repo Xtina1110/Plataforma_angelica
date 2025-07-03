@@ -4,17 +4,17 @@ import '../styles/theme.css';
 
 import logo from '../assets/Logosinfondo.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
-import iconSonoterapia from '../assets/IconoSonoterapia.png';
-import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
-import iconDias from '../assets/IconoDias.png';
 import iconNivel from '../assets/IconoNivel.png';
 import iconPuntos from '../assets/IconoPuntos.png';
+import iconDias from '../assets/IconoDias.png';
+import iconSonoterapia from '../assets/IconoSonoterapia.png';
+import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
 import iconCursos from '../assets/IconoCursos.png';
 import iconoAngelDashboard from '../assets/IconoDashboard.png';
 
 import {
   Home, User, LogOut, Heart, BookOpen,
-  MessageSquare, Headphones, Zap, ShoppingCart
+  MessageSquare, Headphones, Zap, ShoppingCart, Mic, GraduationCap
 } from 'lucide-react';
 
 import TiradaAngelical from './TiradaAngelical';
@@ -67,26 +67,59 @@ const Dashboard = ({ user, onLogout }) => {
                 <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
               </div>
             </div>
+
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
-              <div className="app-card app-tirada">
-                <div className="app-top"><Heart /><span className="badge">Disponible</span></div>
+
+              <div className="app-card tirada">
+                <div className="app-header"><Heart /><span className="badge">Disponible</span></div>
                 <h4>Tirada Angelical</h4>
                 <p>Conecta con la sabiduría de los ángeles</p>
                 <button onClick={() => setActiveSection('tirada')}>Acceder</button>
               </div>
-              <div className="app-card app-canalizaciones">
-                <div className="app-top"><Headphones /><span className="badge">Disponible</span></div>
+
+              <div className="app-card canalizaciones">
+                <div className="app-header"><Headphones /><span className="badge">Disponible</span></div>
                 <h4>Canalizaciones y Sonoterapia</h4>
                 <p>Frecuencias sagradas de sanación</p>
                 <button onClick={() => setActiveSection('canalizaciones')}>Acceder</button>
               </div>
-              <div className="app-card app-terapias">
-                <div className="app-top"><Zap /><span className="badge">Disponible</span></div>
+
+              <div className="app-card terapias">
+                <div className="app-header"><Zap /><span className="badge">Disponible</span></div>
                 <h4>Terapias y Limpiezas</h4>
                 <p>Sanación angelical profunda</p>
                 <button onClick={() => setActiveSection('terapias')}>Acceder</button>
               </div>
+
+              <div className="app-card academia">
+                <div className="app-header"><GraduationCap /><span className="badge">Disponible</span></div>
+                <h4>Academia Angelical</h4>
+                <p>Formación espiritual completa</p>
+                <button onClick={() => setActiveSection('academia')}>Acceder</button>
+              </div>
+
+              <div className="app-card mensaje">
+                <div className="app-header"><MessageSquare /><span className="badge">Disponible</span></div>
+                <h4>Mensaje del Día</h4>
+                <p>Recibe una canalización espiritual</p>
+                <button onClick={() => setActiveSection('mensaje')}>Acceder</button>
+              </div>
+
+              <div className="app-card blog">
+                <div className="app-header"><Mic /><span className="badge">Disponible</span></div>
+                <h4>Blog & Podcast</h4>
+                <p>Contenido espiritual diario</p>
+                <button onClick={() => setActiveSection('blog')}>Acceder</button>
+              </div>
+
+              <div className="app-card tienda">
+                <div className="app-header"><ShoppingCart /><span className="badge badge-soon">Próximamente</span></div>
+                <h4>Tienda Angélica</h4>
+                <p>Cristales, cartas y recursos espirituales</p>
+                <button onClick={() => setActiveSection('tienda')}>Acceder</button>
+              </div>
+
             </div>
           </div>
         );
@@ -116,7 +149,9 @@ const Dashboard = ({ user, onLogout }) => {
           <button onClick={onLogout}><LogOut />Salir</button>
         </div>
       </aside>
-      <main className="main-content">{renderSection()}</main>
+      <main className="main-content" style={{ backgroundImage: `url(${fondoMarmoleado})`, backgroundSize: 'cover' }}>
+        {renderSection()}
+      </main>
     </div>
   );
 };
