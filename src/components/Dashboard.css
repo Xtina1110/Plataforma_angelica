@@ -1,12 +1,13 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: url('/assets/Fondomarmoleado.jpg') repeat center center fixed;
-  background-size: cover;
+  background-color: #f9f9f9;
 }
 
+/* CONTENEDORES PRINCIPALES */
 .dashboard-container {
   display: flex;
   height: 100vh;
@@ -83,11 +84,9 @@ body {
   border-radius: 16px;
   margin: 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  background-image: url('/assets/Fondomarmoleado.jpg');
-  background-size: cover;
-  background-position: center;
 }
 
+/* SECCIÓN BIENVENIDA */
 .bienvenida-usuario h2 {
   font-family: 'Playfair Display', serif;
   font-size: 24px;
@@ -108,17 +107,25 @@ body {
   margin-bottom: 20px;
 }
 
-.bloque-metricas {
-  background-color: rgba(255, 255, 255, 0.8);
+/* BLOQUE MÉTRICAS */
+.seccion-dashboard {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background-image: url('/assets/Fondomarmoleado.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  padding: 20px;
   margin-bottom: 40px;
-  backdrop-filter: blur(3px);
+}
+
+.bloque-metricas {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 20px;
+  flex: 1;
 }
 
 .metrica-card {
@@ -148,6 +155,13 @@ body {
   color: #6a0dad;
 }
 
+.imagen-angel-dashboard {
+  max-height: 220px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* APLICACIONES */
 .subtitulo-apps {
   font-family: 'Playfair Display', serif;
   font-size: 20px;
@@ -176,12 +190,13 @@ body {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
 }
 
-.app-top {
+.app-header {
   padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
+  font-weight: bold;
 }
 
 .app-card h4 {
@@ -226,30 +241,10 @@ body {
 }
 
 /* Estilos específicos por app */
-.app-tirada .app-top {
-  background: linear-gradient(to right, #4facfe, #00f2fe);
-}
-.app-canalizaciones .app-top {
-  background: linear-gradient(to right, #a18cd1, #fbc2eb);
-}
-.app-terapias .app-top {
-  background: linear-gradient(to right, #f093fb, #f5576c);
-}
-.app-academia .app-top {
-  background: linear-gradient(to right, #11998e, #38ef7d);
-}
-.app-mensaje .app-top {
-  background: linear-gradient(to right, #667eea, #764ba2);
-}
-.app-blog .app-top {
-  background: linear-gradient(to right, #f953c6, #b91d73);
-}
-.app-tienda .app-top {
-  background: linear-gradient(to right, #f12711, #f5af19);
-}
-
-.imagen-angel-dashboard {
-  max-height: 250px;
-  width: auto;
-  flex-shrink: 0;
-}
+.tirada .app-header { background: linear-gradient(to right, #4facfe, #00f2fe); }
+.canalizaciones .app-header { background: linear-gradient(to right, #a18cd1, #fbc2eb); }
+.terapias .app-header { background: linear-gradient(to right, #f093fb, #f5576c); }
+.academia .app-header { background: linear-gradient(to right, #11998e, #38ef7d); }
+.mensaje .app-header { background: linear-gradient(to right, #667eea, #764ba2); }
+.blog .app-header { background: linear-gradient(to right, #f953c6, #b91d73); }
+.tienda .app-header { background: linear-gradient(to right, #f12711, #f5af19); }
