@@ -55,7 +55,6 @@ const Dashboard = ({ user, onLogout }) => {
               <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
-
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
             <div className="seccion-dashboard">
               <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
@@ -68,32 +67,22 @@ const Dashboard = ({ user, onLogout }) => {
                 <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
               </div>
             </div>
-
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
               <div className="app-card app-tirada">
-                <div className="app-top">
-                  <Heart />
-                  <span className="badge">Disponible</span>
-                </div>
+                <div className="app-top"><Heart /><span className="badge">Disponible</span></div>
                 <h4>Tirada Angelical</h4>
                 <p>Conecta con la sabiduría de los ángeles</p>
                 <button onClick={() => setActiveSection('tirada')}>Acceder</button>
               </div>
               <div className="app-card app-canalizaciones">
-                <div className="app-top">
-                  <Headphones />
-                  <span className="badge">Disponible</span>
-                </div>
+                <div className="app-top"><Headphones /><span className="badge">Disponible</span></div>
                 <h4>Canalizaciones y Sonoterapia</h4>
                 <p>Frecuencias sagradas de sanación</p>
                 <button onClick={() => setActiveSection('canalizaciones')}>Acceder</button>
               </div>
               <div className="app-card app-terapias">
-                <div className="app-top">
-                  <Zap />
-                  <span className="badge">Disponible</span>
-                </div>
+                <div className="app-top"><Zap /><span className="badge">Disponible</span></div>
                 <h4>Terapias y Limpiezas</h4>
                 <p>Sanación angelical profunda</p>
                 <button onClick={() => setActiveSection('terapias')}>Acceder</button>
