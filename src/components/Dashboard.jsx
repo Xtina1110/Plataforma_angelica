@@ -11,7 +11,7 @@ import TiendaAngelical from './TiendaAngelical';
 
 import logo from '../assets/Logosinfondo.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
-import iconoAngelDashboard from '../assets/AngelDashboard.png';
+import iconoAngelDashboard from '../assets/IconoDashboard.png';
 import iconNivel from '../assets/iconoNivel.png';
 import iconPuntos from '../assets/iconoPuntos.png';
 import iconDias from '../assets/iconoDias.png';
