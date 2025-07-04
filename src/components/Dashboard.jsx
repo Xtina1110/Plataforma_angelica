@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Home, Heart, Headphones, Zap, BookOpen, GraduationCap, MessageSquare, Mic, ShoppingCart, LogOut, User } from 'lucide-react';
+import {
+  Home, Heart, Headphones, Zap, BookOpen, GraduationCap,
+  MessageSquare, Mic, ShoppingCart, LogOut, User
+} from 'lucide-react';
 
 import TiradaAngelical from './TiradaAngelical';
 import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
@@ -55,7 +58,7 @@ const Dashboard = ({ user, onLogout }) => {
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
             <div className="seccion-dashboard" style={{ backgroundImage: `url(${fondoMarmoleado})` }}>
-              <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
+              <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
               <div className="bloque-metricas">
                 <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
                 <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
@@ -68,13 +71,27 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
-              <div className="app-card tirada"><div className="app-header"><Heart /></div><h4>Tirada Angelical</h4><p>Conecta con la sabiduría de los ángeles</p><button onClick={() => setActiveSection('tirada')}>Acceder</button></div>
-              <div className="app-card canalizaciones"><div className="app-header"><Headphones /></div><h4>Canalizaciones y Sonoterapia</h4><p>Frecuencias sagradas de sanación</p><button onClick={() => setActiveSection('canalizaciones')}>Acceder</button></div>
-              <div className="app-card terapias"><div className="app-header"><Zap /></div><h4>Terapias y Limpiezas</h4><p>Sanación angelical profunda</p><button onClick={() => setActiveSection('terapias')}>Acceder</button></div>
-              <div className="app-card academia"><div className="app-header"><GraduationCap /></div><h4>Academia Angelical</h4><p>Formación espiritual completa</p><button onClick={() => setActiveSection('academia')}>Acceder</button></div>
-              <div className="app-card mensaje"><div className="app-header"><MessageSquare /></div><h4>Mensaje del Día</h4><p>Recibe una canalización espiritual</p><button onClick={() => setActiveSection('mensaje')}>Acceder</button></div>
-              <div className="app-card blog"><div className="app-header"><Mic /></div><h4>Blog & Podcast</h4><p>Contenido espiritual diario</p><button onClick={() => setActiveSection('blog')}>Acceder</button></div>
-              <div className="app-card tienda"><div className="app-header"><ShoppingCart /></div><h4>Tienda Angélica</h4><p>Cristales, cartas y recursos espirituales</p><button onClick={() => setActiveSection('tienda')}>Acceder</button></div>
+              {[
+                { id: 'tirada', icon: <Heart />, titulo: 'Tirada Angelical', desc: 'Conecta con la sabiduría de los ángeles', disponible: true },
+                { id: 'canalizaciones', icon: <Headphones />, titulo: 'Canalizaciones y Sonoterapia', desc: 'Frecuencias sagradas de sanación', disponible: true },
+                { id: 'terapias', icon: <Zap />, titulo: 'Terapias y Limpiezas', desc: 'Sanación angelical profunda', disponible: true },
+                { id: 'academia', icon: <GraduationCap />, titulo: 'Academia Angelical', desc: 'Formación espiritual completa', disponible: true },
+                { id: 'mensaje', icon: <MessageSquare />, titulo: 'Mensaje del Día', desc: 'Recibe una canalización espiritual', disponible: true },
+                { id: 'blog', icon: <Mic />, titulo: 'Blog & Podcast', desc: 'Contenido espiritual diario', disponible: true },
+                { id: 'tienda', icon: <ShoppingCart />, titulo: 'Tienda Angélica', desc: 'Cristales, cartas y recursos espirituales', disponible: false },
+              ].map(app => (
+                <div key={app.id} className={`app-card ${app.id}`}>
+                  <div className="app-header">
+                    {app.icon}
+                    <span className={`disponibilidad ${app.disponible ? 'disponible' : 'proximamente'}`}>
+                      {app.disponible ? 'Disponible' : 'Próximamente'}
+                    </span>
+                  </div>
+                  <h4>{app.titulo}</h4>
+                  <p>{app.desc}</p>
+                  <button onClick={() => setActiveSection(app.id)}>Acceder</button>
+                </div>
+              ))}
             </div>
           </div>
         );
