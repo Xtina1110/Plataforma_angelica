@@ -5,11 +5,16 @@
 /* Importar fuentes angelicales */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
+/* Base para futuros temas */
+html {
+  color-scheme: light;
+}
+
 body {
   font-family: 'Playfair Display', serif;
   margin: 0;
   padding: 0;
-  background-color: #fdfdfd;
+  background-color: rgba(255, 255, 255, 0.85); /* blanco translúcido angelical */
   color: #333;
 }
 
