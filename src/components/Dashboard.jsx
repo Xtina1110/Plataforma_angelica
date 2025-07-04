@@ -1,4 +1,25 @@
-// (Misma importación que tu archivo actual, sin cambios)
+import React, { useState } from 'react';
+import { Home, Heart, Headphones, Zap, BookOpen, GraduationCap, MessageSquare, Mic, ShoppingCart, LogOut, User } from 'lucide-react';
+
+import TiradaAngelical from './TiradaAngelical';
+import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
+import TerapiasLimpiezas from './TerapiasLimpiezas';
+import AcademiaAngelical from './AcademiaAngelical';
+import MensajeDelDia from './MensajeDelDia';
+import BlogPodcast from './BlogPodcast';
+import TiendaAngelical from './TiendaAngelical';
+
+import logo from '../assets/Logosinfondo.png';
+import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
+import iconoAngelDashboard from '../assets/AngelDashboard.png';
+import iconNivel from '../assets/iconoNivel.png';
+import iconPuntos from '../assets/iconoPuntos.png';
+import iconDias from '../assets/iconoDias.png';
+import iconSonoterapia from '../assets/Sonoterapia01.png';
+import iconCanalizaciones from '../assets/iconoCanalizaciones.png';
+import iconCursos from '../assets/iconoCursos.png';
+
+import './Dashboard.css';
 
 const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
@@ -33,7 +54,7 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
-            <div className="zona-metricas" style={{ backgroundImage: `url(${fondoMarmoleado})` }}>
+            <div className="seccion-dashboard" style={{ backgroundImage: `url(${fondoMarmoleado})` }}>
               <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
               <div className="bloque-metricas">
                 <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
@@ -47,14 +68,13 @@ const Dashboard = ({ user, onLogout }) => {
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
-              {/* Cada app-card ahora tiene una franja superior de color personalizada */}
-              <div className="app-card tirada"><div className="franja-color"><Heart /></div><h4>Tirada Angelical</h4><p>Conecta con la sabiduría de los ángeles</p><button onClick={() => setActiveSection('tirada')}>Acceder</button></div>
-              <div className="app-card canalizaciones"><div className="franja-color"><Headphones /></div><h4>Canalizaciones y Sonoterapia</h4><p>Frecuencias sagradas de sanación</p><button onClick={() => setActiveSection('canalizaciones')}>Acceder</button></div>
-              <div className="app-card terapias"><div className="franja-color"><Zap /></div><h4>Terapias y Limpiezas</h4><p>Sanación angelical profunda</p><button onClick={() => setActiveSection('terapias')}>Acceder</button></div>
-              <div className="app-card academia"><div className="franja-color"><GraduationCap /></div><h4>Academia Angelical</h4><p>Formación espiritual completa</p><button onClick={() => setActiveSection('academia')}>Acceder</button></div>
-              <div className="app-card mensaje"><div className="franja-color"><MessageSquare /></div><h4>Mensaje del Día</h4><p>Recibe una canalización espiritual</p><button onClick={() => setActiveSection('mensaje')}>Acceder</button></div>
-              <div className="app-card blog"><div className="franja-color"><Mic /></div><h4>Blog & Podcast</h4><p>Contenido espiritual diario</p><button onClick={() => setActiveSection('blog')}>Acceder</button></div>
-              <div className="app-card tienda"><div className="franja-color tienda"><ShoppingCart /></div><h4>Tienda Angélica</h4><p>Cristales, cartas y recursos espirituales</p><button onClick={() => setActiveSection('tienda')}>Acceder</button></div>
+              <div className="app-card tirada"><div className="app-header"><Heart /></div><h4>Tirada Angelical</h4><p>Conecta con la sabiduría de los ángeles</p><button onClick={() => setActiveSection('tirada')}>Acceder</button></div>
+              <div className="app-card canalizaciones"><div className="app-header"><Headphones /></div><h4>Canalizaciones y Sonoterapia</h4><p>Frecuencias sagradas de sanación</p><button onClick={() => setActiveSection('canalizaciones')}>Acceder</button></div>
+              <div className="app-card terapias"><div className="app-header"><Zap /></div><h4>Terapias y Limpiezas</h4><p>Sanación angelical profunda</p><button onClick={() => setActiveSection('terapias')}>Acceder</button></div>
+              <div className="app-card academia"><div className="app-header"><GraduationCap /></div><h4>Academia Angelical</h4><p>Formación espiritual completa</p><button onClick={() => setActiveSection('academia')}>Acceder</button></div>
+              <div className="app-card mensaje"><div className="app-header"><MessageSquare /></div><h4>Mensaje del Día</h4><p>Recibe una canalización espiritual</p><button onClick={() => setActiveSection('mensaje')}>Acceder</button></div>
+              <div className="app-card blog"><div className="app-header"><Mic /></div><h4>Blog & Podcast</h4><p>Contenido espiritual diario</p><button onClick={() => setActiveSection('blog')}>Acceder</button></div>
+              <div className="app-card tienda"><div className="app-header"><ShoppingCart /></div><h4>Tienda Angélica</h4><p>Cristales, cartas y recursos espirituales</p><button onClick={() => setActiveSection('tienda')}>Acceder</button></div>
             </div>
           </div>
         );
