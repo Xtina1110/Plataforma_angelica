@@ -12,12 +12,12 @@ import TiendaAngelical from './TiendaAngelical';
 import logo from '../assets/Logosinfondo.png';
 import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
 import iconoAngelDashboard from '../assets/IconoDashboard.png';
-import iconNivel from '../assets/iconoNivel.png';
-import iconPuntos from '../assets/iconoPuntos.png';
-import iconDias from '../assets/iconoDias.png';
+import iconNivel from '../assets/IconoNivel.png';
+import iconPuntos from '../assets/IconoPuntos.png';
+import iconDias from '../assets/IconoDias.png';
 import iconSonoterapia from '../assets/Sonoterapia01.png';
-import iconCanalizaciones from '../assets/iconoCanalizaciones.png';
-import iconCursos from '../assets/iconoCursos.png';
+import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
+import iconCursos from '../assets/IconoCursos.png';
 
 import './Dashboard.css';
 
