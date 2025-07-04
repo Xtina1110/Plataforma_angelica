@@ -45,14 +45,12 @@ const PantallaCarga = () => {
     return () => clearInterval(interval);
   }, [navigate, currentMessage]);
 
-  console.log("🟡 Fondo usado:", fondo); // Verificar que se carga correctamente
-
   return (
     <div
       className="min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center relative"
       style={{
         backgroundImage: `url(${fondo})`,
-        backgroundColor: '#ffffff', // fallback de color si no carga
+        backgroundColor: '#ffffff',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -60,12 +58,18 @@ const PantallaCarga = () => {
       {/* Capa de transparencia */}
       <div className="absolute inset-0 bg-white/70 pointer-events-none"></div>
 
-      {/* Logo en esquina */}
+      {/* Logo institucional */}
       <LogoAngelico />
 
       {/* Contenido central */}
       <div className="z-10 text-center px-4">
-        <h1 className="text-5xl md:text-6xl font-bold text-yellow-700 mb-4 tracking-wide drop-shadow-md">
+        <h1
+          className="text-5xl md:text-6xl font-bold mb-4 tracking-wide drop-shadow-md"
+          style={{
+            fontFamily: "'Playfair Display', serif",
+            color: '#6a0dad'
+          }}
+        >
           PLATAFORMA ANGÉLICA
         </h1>
 
