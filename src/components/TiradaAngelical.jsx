@@ -181,6 +181,237 @@ const cartasAngelicas = [
     mensaje: 'Jofiel trae belleza y alegría a tu vida. Es tiempo de ver la belleza en todo lo que te rodea y encontrar alegría en los pequeños momentos. Tu perspectiva está cambiando hacia la luz.',
     afirmacion: 'Veo belleza y alegría en cada momento de mi vida',
     energia: 'Belleza y Alegría'
+  },
+  {
+    id: 7,
+    nombre: 'Arcángel Raguel',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop',
+    color: 'Azul Celeste',
+    cristal: 'Aguamarina',
+    elemento: 'Aire',
+    mensaje: 'Raguel trae justicia y equilibrio a tu vida. Las situaciones injustas se resolverán a tu favor. Mantén la fe en que la verdad siempre prevalece.',
+    afirmacion: 'Confío en la justicia divina y en el equilibrio universal',
+    energia: 'Justicia y Equilibrio'
+  },
+  {
+    id: 8,
+    nombre: 'Arcángel Ariel',
+    imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop',
+    color: 'Verde Bosque',
+    cristal: 'Malaquita',
+    elemento: 'Tierra',
+    mensaje: 'Ariel te conecta con la naturaleza y la abundancia terrenal. Es momento de honrar tu conexión con la Madre Tierra y recibir sus bendiciones.',
+    afirmacion: 'Estoy en armonía con la naturaleza y recibo su abundancia',
+    energia: 'Naturaleza y Abundancia'
+  },
+  {
+    id: 9,
+    nombre: 'Arcángel Metatrón',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop',
+    color: 'Violeta Intenso',
+    cristal: 'Amatista',
+    elemento: 'Éter',
+    mensaje: 'Metatrón te ayuda a acceder a los registros akáshicos y la sabiduría universal. Tu propósito de vida se está revelando claramente.',
+    afirmacion: 'Accedo a la sabiduría universal y comprendo mi propósito',
+    energia: 'Sabiduría Universal'
+  },
+  {
+    id: 10,
+    nombre: 'Arcángel Zadkiel',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    color: 'Violeta Suave',
+    cristal: 'Fluorita',
+    elemento: 'Fuego',
+    mensaje: 'Zadkiel trae perdón y transmutación. Es tiempo de liberar el pasado y transformar las energías negativas en luz pura.',
+    afirmacion: 'Perdono y libero, transformando todo en amor',
+    energia: 'Perdón y Transmutación'
+  },
+  {
+    id: 11,
+    nombre: 'Arcángel Haniel',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop',
+    color: 'Plata Lunar',
+    cristal: 'Piedra Luna',
+    elemento: 'Agua',
+    mensaje: 'Haniel te conecta con los ciclos lunares y tu intuición femenina. Tu sensibilidad es un don que debes honrar y desarrollar.',
+    afirmacion: 'Honro mi intuición y fluyo con los ciclos naturales',
+    energia: 'Intuición y Ciclos'
+  },
+  {
+    id: 12,
+    nombre: 'Arcángel Raziel',
+    imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop',
+    color: 'Arcoíris',
+    cristal: 'Ópalo',
+    elemento: 'Éter',
+    mensaje: 'Raziel revela los misterios divinos y los secretos del universo. Tu comprensión espiritual está expandiéndose rápidamente.',
+    afirmacion: 'Comprendo los misterios divinos y expando mi conciencia',
+    energia: 'Misterios Divinos'
+  },
+  {
+    id: 13,
+    nombre: 'Arcángel Sandalfón',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop',
+    color: 'Turquesa',
+    cristal: 'Turquesa',
+    elemento: 'Tierra',
+    mensaje: 'Sandalfón lleva tus oraciones al cielo y trae las respuestas de vuelta. Tus plegarias han sido escuchadas y están siendo respondidas.',
+    afirmacion: 'Mis oraciones son escuchadas y respondidas con amor',
+    energia: 'Oraciones y Respuestas'
+  },
+  {
+    id: 14,
+    nombre: 'Arcángel Jeremiel',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    color: 'Púrpura Real',
+    cristal: 'Sugilita',
+    elemento: 'Aire',
+    mensaje: 'Jeremiel te ayuda a revisar tu vida y hacer cambios positivos. Es momento de evaluar tu progreso y ajustar tu rumbo.',
+    afirmacion: 'Reviso mi vida con amor y hago cambios positivos',
+    energia: 'Revisión y Cambio'
+  },
+  {
+    id: 15,
+    nombre: 'Arcángel Azrael',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop',
+    color: 'Blanco Cremoso',
+    cristal: 'Calcita',
+    elemento: 'Aire',
+    mensaje: 'Azrael te ayuda en los procesos de transición y transformación. Los finales son nuevos comienzos disfrazados.',
+    afirmacion: 'Abrazo los cambios como oportunidades de crecimiento',
+    energia: 'Transición y Transformación'
+  },
+  {
+    id: 16,
+    nombre: 'Arcángel Camael',
+    imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop',
+    color: 'Rosa Coral',
+    cristal: 'Rodocrosita',
+    elemento: 'Fuego',
+    mensaje: 'Camael fortalece tu autoestima y confianza personal. Es momento de reconocer tu valor y brillar con tu luz única.',
+    afirmacion: 'Reconozco mi valor y brillo con confianza',
+    energia: 'Autoestima y Confianza'
+  },
+  {
+    id: 17,
+    nombre: 'Arcángel Cassiel',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop',
+    color: 'Gris Plateado',
+    cristal: 'Hematita',
+    elemento: 'Tierra',
+    mensaje: 'Cassiel te enseña la paciencia y la perseverancia. Los frutos de tu trabajo se manifestarán en el momento perfecto.',
+    afirmacion: 'Tengo paciencia y persevero con fe en el timing divino',
+    energia: 'Paciencia y Perseverancia'
+  },
+  {
+    id: 18,
+    nombre: 'Arcángel Barachiel',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    color: 'Dorado Suave',
+    cristal: 'Citrino Claro',
+    elemento: 'Fuego',
+    mensaje: 'Barachiel trae bendiciones y buena fortuna. Las oportunidades están llegando a tu vida de formas inesperadas.',
+    afirmacion: 'Recibo las bendiciones divinas con gratitud',
+    energia: 'Bendiciones y Fortuna'
+  },
+  {
+    id: 19,
+    nombre: 'Arcángel Selaphiel',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop',
+    color: 'Lavanda',
+    cristal: 'Lepidolita',
+    elemento: 'Aire',
+    mensaje: 'Selaphiel te inspira en la oración y la meditación. Tu conexión espiritual se está profundizando y fortaleciendo.',
+    afirmacion: 'Mi conexión espiritual se fortalece cada día',
+    energia: 'Oración y Meditación'
+  },
+  {
+    id: 20,
+    nombre: 'Arcángel Remiel',
+    imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop',
+    color: 'Amarillo Brillante',
+    cristal: 'Ámbar',
+    elemento: 'Fuego',
+    mensaje: 'Remiel trae esperanza y renovación. Después de la tormenta siempre llega la calma y la luz del sol.',
+    afirmacion: 'Mantengo la esperanza y confío en la renovación',
+    energia: 'Esperanza y Renovación'
+  },
+  {
+    id: 21,
+    nombre: 'Arcángel Muriel',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop',
+    color: 'Verde Menta',
+    cristal: 'Prehnita',
+    elemento: 'Tierra',
+    mensaje: 'Muriel te conecta con la sanación emocional y la paz interior. Es momento de sanar las heridas del corazón.',
+    afirmacion: 'Sano mis emociones y encuentro paz interior',
+    energia: 'Sanación Emocional'
+  },
+  {
+    id: 22,
+    nombre: 'Arcángel Iofiel',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    color: 'Naranja Suave',
+    cristal: 'Cornalina',
+    elemento: 'Fuego',
+    mensaje: 'Iofiel despierta tu creatividad y pasión por la vida. Es momento de expresar tu arte y creatividad únicos.',
+    afirmacion: 'Expreso mi creatividad con pasión y alegría',
+    energia: 'Creatividad y Pasión'
+  },
+  {
+    id: 23,
+    nombre: 'Arcángel Nathaniel',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop',
+    color: 'Rojo Rubí',
+    cristal: 'Granate',
+    elemento: 'Fuego',
+    mensaje: 'Nathaniel enciende el fuego sagrado en tu interior. Tu propósito espiritual está llamando y es momento de responder.',
+    afirmacion: 'Respondo al llamado de mi propósito sagrado',
+    energia: 'Fuego Sagrado'
+  },
+  {
+    id: 24,
+    nombre: 'Arcángel Amitiel',
+    imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop',
+    color: 'Índigo Profundo',
+    cristal: 'Sodalita',
+    elemento: 'Agua',
+    mensaje: 'Amitiel te ayuda a desarrollar tu verdad interior y autenticidad. Es momento de ser completamente tú mismo.',
+    afirmacion: 'Vivo en mi verdad y expreso mi autenticidad',
+    energia: 'Verdad y Autenticidad'
+  },
+  {
+    id: 25,
+    nombre: 'Arcángel Uzziel',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop',
+    color: 'Cobre Brillante',
+    cristal: 'Pirita',
+    elemento: 'Tierra',
+    mensaje: 'Uzziel fortalece tu determinación y fuerza de voluntad. Tienes el poder de manifestar todos tus sueños.',
+    afirmacion: 'Tengo la fuerza y determinación para lograr mis sueños',
+    energia: 'Determinación y Fuerza'
+  },
+  {
+    id: 26,
+    nombre: 'Arcángel Anael',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    color: 'Verde Jade',
+    cristal: 'Jade',
+    elemento: 'Tierra',
+    mensaje: 'Anael trae armonía y equilibrio a todas las áreas de tu vida. La paz que buscas está dentro de ti.',
+    afirmacion: 'Vivo en armonía y equilibrio perfecto',
+    energia: 'Armonía y Equilibrio'
+  },
+  {
+    id: 27,
+    nombre: 'Arcángel Sachiel',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop',
+    color: 'Azul Zafiro',
+    cristal: 'Zafiro',
+    elemento: 'Agua',
+    mensaje: 'Sachiel trae prosperidad y abundancia en todas sus formas. El universo está conspirando para tu éxito y bienestar.',
+    afirmacion: 'Recibo la abundancia del universo con gratitud',
+    energia: 'Prosperidad y Abundancia'
   }
 ];
 
@@ -543,7 +774,7 @@ const SeleccionCartasSection = ({ tipoTirada, cartasSeleccionadas, cartasDisponi
       </div>
 
       <div className="mazo-cartas">
-        {cartasDisponibles.slice(0, 21).map((carta, index) => (
+        {cartasDisponibles.slice(0, 27).map((carta, index) => (
           <div
             key={carta.id}
             className={`carta-mazo ${cartasSeleccionadas.find(c => c.id === carta.id) ? 'seleccionada' : ''}`}
