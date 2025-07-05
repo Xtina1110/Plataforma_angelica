@@ -647,6 +647,7 @@ const TiradaAngelical = ({ onVolver }) => {
       </div>
     </div>
   );
+  }
 };
 
 // Componente de Bienvenida
