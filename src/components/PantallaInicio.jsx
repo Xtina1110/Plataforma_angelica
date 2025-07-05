@@ -37,14 +37,17 @@ const PantallaInicio = () => {
       {/* Contenido del panel derecho */}
       <div className="flex-1 flex items-center justify-end pr-8 md:pr-16 relative z-20">
         <div className="bg-white/95 rounded-3xl shadow-xl p-8 md:p-10 max-w-md w-full backdrop-blur-sm hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out hover:bg-white/98">
-          <p className="text-xl md:text-2xl text-purple-700 font-semibold mb-6 text-center italic">
+          <p className="text-xl md:text-2xl text-yellow-700 font-semibold mb-6 text-center italic">
             Dios nos bendice mil veces mil
           </p>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-3 text-center text-yellow-700 tracking-wide drop-shadow-md">
+          <h1
+            className="text-4xl md:text-5xl font-bold mb-3 text-center tracking-wide drop-shadow-md"
+            style={{ color: '#6a0dad' }}
+          >
             PLATAFORMA ANGÉLICA
           </h1>
-
+          c
           <p className="text-gray-700 mb-8 text-center">
             Conecta con tus ángeles.<br />Transforma tu vida.
           </p>
