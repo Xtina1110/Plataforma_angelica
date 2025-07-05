@@ -1,121 +1,248 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Music, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import './CanalizacionesSonoterapia.css';
+import { ArrowLeft, Music, MessageCircle, Headphones, Heart, Star, Clock, Users } from 'lucide-react';
+import Sonoterapia from './Sonoterapia';
+import CanalizacionesAngelicales from './CanalizacionesAngelicales';
 
 const CanalizacionesSonoterapia = ({ onVolver, onNavigate }) => {
+  const [seccionActiva, setSeccionActiva] = useState(null);
+
+  // Si hay una sección activa, mostrar el componente correspondiente
+  if (seccionActiva === 'sonoterapia') {
+    return <Sonoterapia onVolver={() => setSeccionActiva(null)} />;
+  }
+
+  if (seccionActiva === 'canalizaciones') {
+    return <CanalizacionesAngelicales onVolver={() => setSeccionActiva(null)} />;
+  }
+
+  // Pantalla principal de selección
   return (
-    <div className="min-h-screen spiritual-background">
+    <div className="canalizaciones-sonoterapia-principal">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-purple-200 sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
+      <header className="header-principal">
+        <div className="header-content">
           <button
             onClick={onVolver}
-            className="flex items-center gap-2 text-purple-600 hover:text-purple-800 transition-colors"
+            className="btn-volver-principal"
           >
-            <ArrowLeft className="w-5 h-5" /> Volver al Dashboard
+            <ArrowLeft className="w-5 h-5" /> 
+            Volver al Dashboard
           </button>
+          
+          <div className="header-title-principal">
+            <h1>🎵 Canalizaciones y Sonoterapia</h1>
+            <p>Elige tu experiencia de sanación y conexión angelical</p>
+          </div>
+          
+          <div className="header-spacer"></div>
         </div>
       </header>
 
       {/* Contenido principal */}
-      <main className="max-w-4xl mx-auto px-6 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
-        >
-          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mb-6">
-            <Music className="w-10 h-10 text-white" />
+      <main className="contenido-principal">
+        {/* Hero Section */}
+        <div className="hero-section">
+          <div className="hero-content">
+            <div className="hero-icono">
+              <Music className="w-16 h-16" />
+            </div>
+            <h2 className="hero-titulo">Sanación a través del Sonido y la Palabra</h2>
+            <p className="hero-descripcion">
+              Descubre el poder transformador de las frecuencias sagradas y los mensajes angelicales. 
+              Cada experiencia está diseñada para elevar tu vibración y conectarte con tu esencia divina.
+            </p>
           </div>
-          <h1 className="text-4xl font-bold title-spiritual mb-4">
-            🎵 Canalizaciones y Sonoterapia
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Elige tu experiencia de sanación y conexión angelical
-          </p>
-        </motion.div>
-
-        {/* Opciones principales */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Botón Sonoterapia */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            whileHover={{ scale: 1.03 }}
-            className="card-angelic overflow-hidden cursor-pointer bg-white shadow-lg"
-            onClick={() => onNavigate('sonoterapia')}
-          >
-            <div className="bg-gradient-to-br from-purple-400 to-pink-500 text-white p-6 flex items-center justify-center">
-              <span className="text-4xl">🎵</span>
-            </div>
-            <div className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Sonoterapia</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Frecuencias para armonizar cuerpo, mente y alma
-              </p>
-              <div className="space-y-2 text-sm text-gray-500 mb-6">
-                <p>✨ Frecuencias de 432 Hz</p>
-                <p>🧘‍♀️ Meditación guiada</p>
-                <p>😴 Sueño reparador</p>
-              </div>
-              <button className="w-full btn-golden">
-                Acceder a Sonoterapia
-              </button>
-            </div>
-          </motion.div>
-
-          {/* Botón Canalizaciones */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            whileHover={{ scale: 1.03 }}
-            className="card-angelic overflow-hidden cursor-pointer bg-white shadow-lg"
-            onClick={() => onNavigate('canalizaciones')}
-          >
-            <div className="bg-gradient-to-br from-[#D4AF37] to-white text-[#8B4513] p-6 flex items-center justify-center">
-              <span className="text-4xl">👼</span>
-            </div>
-            <div className="p-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                Canalizaciones
-              </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                Mensajes de tus ángeles según lo que necesites hoy
-              </p>
-              <div className="space-y-2 text-sm text-gray-500 mb-6">
-                <p>🌟 Propósito de Vida</p>
-                <p>💖 Amor Propio</p>
-                <p>🛡️ Protección Espiritual</p>
-                <p>📩 Mensaje del Día</p>
-              </div>
-              <button className="w-full btn-golden">
-                Acceder a Canalizaciones
-              </button>
-            </div>
-          </motion.div>
         </div>
 
-        {/* Información adicional */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mt-12 text-center"
-        >
-          <div className="card-angelic p-8 max-w-2xl mx-auto">
-            <h4 className="text-xl font-bold text-gray-800 mb-4">
-              ¿Qué experiencia necesitas hoy?
-            </h4>
-            <p className="text-gray-600 leading-relaxed">
+        {/* Opciones principales */}
+        <div className="opciones-principales">
+          {/* Sonoterapia */}
+          <div 
+            className="opcion-card sonoterapia"
+            onClick={() => setSeccionActiva('sonoterapia')}
+          >
+            <div className="card-header">
+              <div className="card-icono sonoterapia-icono">
+                <Headphones className="w-12 h-12" />
+              </div>
+              <div className="card-badge">Nuevo</div>
+            </div>
+            
+            <div className="card-content">
+              <h3 className="card-titulo">Sonoterapia Angelical</h3>
+              <p className="card-descripcion">
+                Frecuencias sagradas y ondas binaurales para armonizar cuerpo, mente y alma. 
+                Experimenta la sanación a través del poder del sonido.
+              </p>
+              
+              <div className="card-beneficios">
+                <div className="beneficio">
+                  <span className="beneficio-icono">🎵</span>
+                  <span>Frecuencias de 432Hz, 528Hz, 741Hz</span>
+                </div>
+                <div className="beneficio">
+                  <span className="beneficio-icono">🧘‍♀️</span>
+                  <span>Meditación y concentración profunda</span>
+                </div>
+                <div className="beneficio">
+                  <span className="beneficio-icono">😴</span>
+                  <span>Sueño reparador y relajación</span>
+                </div>
+                <div className="beneficio">
+                  <span className="beneficio-icono">✨</span>
+                  <span>Limpieza energética y sanación</span>
+                </div>
+              </div>
+              
+              <div className="card-stats">
+                <div className="stat">
+                  <Clock className="w-4 h-4" />
+                  <span>50+ audios</span>
+                </div>
+                <div className="stat">
+                  <Users className="w-4 h-4" />
+                  <span>15k+ usuarios</span>
+                </div>
+                <div className="stat">
+                  <Star className="w-4 h-4" />
+                  <span>4.9 rating</span>
+                </div>
+              </div>
+              
+              <button className="btn-acceder sonoterapia-btn">
+                <Music className="w-5 h-5" />
+                Explorar Sonoterapia
+              </button>
+            </div>
+          </div>
+
+          {/* Canalizaciones */}
+          <div 
+            className="opcion-card canalizaciones"
+            onClick={() => setSeccionActiva('canalizaciones')}
+          >
+            <div className="card-header">
+              <div className="card-icono canalizaciones-icono">
+                <MessageCircle className="w-12 h-12" />
+              </div>
+              <div className="card-badge popular">Popular</div>
+            </div>
+            
+            <div className="card-content">
+              <h3 className="card-titulo">Canalizaciones Angelicales</h3>
+              <p className="card-descripcion">
+                Mensajes personalizados de tus ángeles guardianes según lo que necesites hoy. 
+                Recibe guía divina para tu camino espiritual.
+              </p>
+              
+              <div className="card-beneficios">
+                <div className="beneficio">
+                  <span className="beneficio-icono">🌟</span>
+                  <span>Propósito de vida y misión del alma</span>
+                </div>
+                <div className="beneficio">
+                  <span className="beneficio-icono">💖</span>
+                  <span>Amor propio y sanación emocional</span>
+                </div>
+                <div className="beneficio">
+                  <span className="beneficio-icono">🛡️</span>
+                  <span>Protección espiritual y confianza</span>
+                </div>
+                <div className="beneficio">
+                  <span className="beneficio-icono">📩</span>
+                  <span>Mensaje angelical del día</span>
+                </div>
+              </div>
+              
+              <div className="card-stats">
+                <div className="stat">
+                  <Clock className="w-4 h-4" />
+                  <span>6 temas</span>
+                </div>
+                <div className="stat">
+                  <Users className="w-4 h-4" />
+                  <span>25k+ lecturas</span>
+                </div>
+                <div className="stat">
+                  <Star className="w-4 h-4" />
+                  <span>4.8 rating</span>
+                </div>
+              </div>
+              
+              <button className="btn-acceder canalizaciones-btn">
+                <MessageCircle className="w-5 h-5" />
+                Recibir Canalización
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Sección informativa */}
+        <div className="seccion-info">
+          <div className="info-grid">
+            <div className="info-item">
+              <div className="info-icono">
+                <Heart className="w-8 h-8" />
+              </div>
+              <h4>Sanación Integral</h4>
+              <p>
+                Combina el poder de las frecuencias sagradas con la sabiduría angelical 
+                para una experiencia de sanación completa en todos los niveles.
+              </p>
+            </div>
+            
+            <div className="info-item">
+              <div className="info-icono">
+                <Star className="w-8 h-8" />
+              </div>
+              <h4>Guía Personalizada</h4>
+              <p>
+                Cada sesión está diseñada para resonar con tu energía única y 
+                proporcionarte exactamente lo que tu alma necesita en este momento.
+              </p>
+            </div>
+            
+            <div className="info-item">
+              <div className="info-icono">
+                <Music className="w-8 h-8" />
+              </div>
+              <h4>Tecnología Sagrada</h4>
+              <p>
+                Utilizamos frecuencias específicas respaldadas por la ciencia y 
+                canalizaciones auténticas para maximizar los beneficios terapéuticos.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Call to action */}
+        <div className="cta-section">
+          <div className="cta-content">
+            <h3>¿Qué experiencia necesitas hoy?</h3>
+            <p>
               La <strong>Sonoterapia</strong> te ayuda a equilibrar tu energía a través del poder 
               de las frecuencias sagradas, mientras que las <strong>Canalizaciones</strong> te 
               conectan directamente con los mensajes angelicales personalizados para tu situación actual.
             </p>
+            <div className="cta-buttons">
+              <button 
+                className="cta-btn sonoterapia"
+                onClick={() => setSeccionActiva('sonoterapia')}
+              >
+                <Headphones className="w-5 h-5" />
+                Comenzar Sonoterapia
+              </button>
+              <button 
+                className="cta-btn canalizaciones"
+                onClick={() => setSeccionActiva('canalizaciones')}
+              >
+                <MessageCircle className="w-5 h-5" />
+                Recibir Mensaje Angelical
+              </button>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </main>
     </div>
   );
