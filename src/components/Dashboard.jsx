@@ -55,8 +55,15 @@ const Dashboard = ({ user, onLogout }) => {
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
+ <div className="dashboard-principal">
+  <h2 className="bienvenida-usuario text-purple-700 font-semibold text-xl mb-1">
+    ¡Bienvenido de nuevo, {userData.nombre}!
+  </h2>
+  <p className="text-gray-700 mb-6">Tu camino espiritual continúa evolucionando.</p>
+
   <h3 className="titulo-dashboard">Dashboard Personal</h3>
-  
+
+  {/* Bloque visual con fondo marmoleado y transparencia */}
   <div
     className="seccion-dashboard relative overflow-hidden rounded-xl shadow-md"
     style={{
@@ -65,13 +72,12 @@ const Dashboard = ({ user, onLogout }) => {
       backgroundPosition: 'center',
     }}
   >
-    {/* Capa de transparencia SOLO dentro del dashboard */}
-    <div className="absolute inset-0 bg-white/60 pointer-events-none z-0" />
-  
-    {/* Contenido encima del fondo */}
+    {/* Capa de transparencia SÓLO sobre el bloque */}
+    <div className="absolute inset-0 bg-white/60 z-0 pointer-events-none" />
+
+    {/* Contenido visible sobre fondo */}
     <div className="relative z-10 p-6">
       <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
-  
       <div className="bloque-metricas">
         <div className="metrica-card">
           <img src={iconNivel} />
@@ -106,6 +112,7 @@ const Dashboard = ({ user, onLogout }) => {
       </div>
     </div>
   </div>
+</div>
 
 
 
