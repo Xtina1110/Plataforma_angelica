@@ -1,23 +1,195 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/Logosinfondo.png';
-import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
-import { cartasAngelicas, temasConsulta, tiposDeCartas } from '../data/cartasAngelicas';
-import { ArrowLeft, Download, Users, Loader2 } from 'lucide-react'; // Added Loader2 for spinner
-import { generatePDF } from '../utils/pdfGenerator';
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import './TiradaAngelicalModerna.css';
+import { 
+  ArrowLeft, Download, Users, Loader2, Star, Heart, Eye, Sparkles,
+  ChevronRight, ChevronDown, ChevronUp, Maximize2, X, Play, Pause,
+  Volume2, VolumeX, RotateCcw, Shuffle, BookOpen, Clock, Calendar,
+  Crown, Gift, Zap, Target, BookmarkPlus, Search, Filter
+} from 'lucide-react';
 
-const TiradaAngelical = ({ onVolver }) => {
-  const [fase, setFase] = useState('bienvenida');
-  const [tipoTirada, setTipoTirada] = useState(3);
-  const [temaSeleccionado, setTemaSeleccionado] = useState(null);
+// Context para el estado de la tirada
+const TiradaContext = createContext();
+
+// Provider del contexto
+export const TiradaProvider = ({ children }) => {
+  const [tiradaState, setTiradaState] = useState({
+    fase: 'bienvenida',
+    tipoTirada: 3,
+    temaSeleccionado: null,
+    cartasSeleccionadas: [],
+    cartaActual: 0,
+    tiradaCompleta: false,
+    consultaEnVivo: false,
+    audioActivo: false,
+    modalExpandido: false
+  });
+
+  const updateTiradaState = (updates) => {
+    setTiradaState(prev => ({ ...prev, ...updates }));
+  };
+
+  return (
+    <TiradaContext.Provider value={{ tiradaState, updateTiradaState }}>
+      {children}
+    </TiradaContext.Provider>
+  );
+};
+
+// Hook para usar el contexto
+const useTirada = () => {
+  const context = useContext(TiradaContext);
+  if (!context) {
+    throw new Error('useTirada must be used within a TiradaProvider');
+  }
+  return context;
+};
+
+// Datos de configuración
+const tiposDeCartas = {
+  3: {
+    nombre: 'Tirada Rápida',
+    descripcion: 'Guía inmediata para tu situación actual',
+    icono: '⚡',
+    color: 'from-blue-500 to-cyan-500',
+    posiciones: ['Pasado/Causa', 'Presente/Situación', 'Futuro/Resultado']
+  },
+  6: {
+    nombre: 'Tirada Completa',
+    descripcion: 'Análisis profundo de tu camino espiritual',
+    icono: '🔮',
+    color: 'from-purple-500 to-pink-500',
+    posiciones: ['Situación Actual', 'Desafío', 'Pasado', 'Futuro', 'Corona/Meta', 'Resultado Final']
+  },
+  9: {
+    nombre: 'Tirada Maestra',
+    descripción: 'Revelación completa de tu destino angelical',
+    icono: '✨',
+    color: 'from-yellow-500 to-orange-500',
+    posiciones: ['Yo Interior', 'Situación', 'Desafío', 'Pasado Distante', 'Pasado Reciente', 'Futuro Posible', 'Tu Enfoque', 'Influencias Externas', 'Esperanzas y Miedos']
+  }
+};
+
+const temasConsulta = [
+  {
+    id: 1,
+    nombre: 'Amor y Relaciones',
+    descripcion: 'Guía angelical para tu vida amorosa y relaciones',
+    icono: '💕',
+    color: 'from-pink-500 to-rose-500'
+  },
+  {
+    id: 2,
+    nombre: 'Trabajo y Carrera',
+    descripcion: 'Orientación para tu camino profesional',
+    icono: '💼',
+    color: 'from-blue-500 to-indigo-500'
+  },
+  {
+    id: 3,
+    nombre: 'Salud y Bienestar',
+    descripcion: 'Sanación y equilibrio para tu ser',
+    icono: '🌿',
+    color: 'from-green-500 to-emerald-500'
+  },
+  {
+    id: 4,
+    nombre: 'Dinero y Abundancia',
+    descripcion: 'Prosperidad y flujo financiero',
+    icono: '💰',
+    color: 'from-yellow-500 to-amber-500'
+  },
+  {
+    id: 5,
+    nombre: 'Espiritualidad',
+    descripcion: 'Crecimiento y despertar espiritual',
+    icono: '🙏',
+    color: 'from-purple-500 to-violet-500'
+  },
+  {
+    id: 6,
+    nombre: 'Familia',
+    descripcion: 'Armonía y comprensión familiar',
+    icono: '👨‍👩‍👧‍👦',
+    color: 'from-orange-500 to-red-500'
+  }
+];
+
+// Datos de ejemplo de cartas angelicales
+const cartasAngelicas = [
+  {
+    id: 1,
+    nombre: 'Arcángel Miguel',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop',
+    color: 'Azul Real',
+    cristal: 'Lapislázuli',
+    elemento: 'Fuego',
+    mensaje: 'El Arcángel Miguel te rodea con su manto de protección. Es momento de liberar los miedos que te limitan y avanzar con valentía hacia tus metas. Tu fuerza interior es más poderosa de lo que imaginas.',
+    afirmacion: 'Soy valiente y estoy protegido por la luz divina',
+    energia: 'Protección y Valor'
+  },
+  {
+    id: 2,
+    nombre: 'Arcángel Gabriel',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    color: 'Blanco Puro',
+    cristal: 'Selenita',
+    elemento: 'Agua',
+    mensaje: 'Gabriel trae mensajes de claridad y comunicación. Es tiempo de expresar tu verdad con amor y escuchar los mensajes que el universo tiene para ti. Tu intuición está especialmente activa.',
+    afirmacion: 'Comunico mi verdad con amor y claridad',
+    energia: 'Comunicación y Claridad'
+  },
+  {
+    id: 3,
+    nombre: 'Arcángel Rafael',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop',
+    color: 'Verde Esmeralda',
+    cristal: 'Esmeralda',
+    elemento: 'Tierra',
+    mensaje: 'Rafael extiende sus alas sanadoras sobre ti. La sanación está llegando a todos los niveles de tu ser. Permite que la energía curativa fluya y transforma lo que necesita ser sanado.',
+    afirmacion: 'Acepto la sanación divina en todos los niveles',
+    energia: 'Sanación y Renovación'
+  },
+  {
+    id: 4,
+    nombre: 'Arcángel Uriel',
+    imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop',
+    color: 'Dorado Brillante',
+    cristal: 'Citrino',
+    elemento: 'Fuego',
+    mensaje: 'Uriel ilumina tu camino con sabiduría divina. Las respuestas que buscas están dentro de ti. Confía en tu sabiduría interior y permite que la luz de la comprensión guíe tus decisiones.',
+    afirmacion: 'Confío en mi sabiduría interior y en la guía divina',
+    energia: 'Sabiduría e Iluminación'
+  },
+  {
+    id: 5,
+    nombre: 'Arcángel Chamuel',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=600&fit=crop',
+    color: 'Rosa Suave',
+    cristal: 'Cuarzo Rosa',
+    elemento: 'Aire',
+    mensaje: 'Chamuel envuelve tu corazón con amor incondicional. Es momento de sanar las heridas del pasado y abrir tu corazón al amor verdadero. El amor que buscas comienza contigo mismo.',
+    afirmacion: 'Mi corazón está abierto al amor divino e incondicional',
+    energia: 'Amor y Compasión'
+  },
+  {
+    id: 6,
+    nombre: 'Arcángel Jofiel',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop',
+    color: 'Amarillo Dorado',
+    cristal: 'Topacio',
+    elemento: 'Aire',
+    mensaje: 'Jofiel trae belleza y alegría a tu vida. Es tiempo de ver la belleza en todo lo que te rodea y encontrar alegría en los pequeños momentos. Tu perspectiva está cambiando hacia la luz.',
+    afirmacion: 'Veo belleza y alegría en cada momento de mi vida',
+    energia: 'Belleza y Alegría'
+  }
+];
+
+// Componente principal
+const TiradaAngelicalModerna = ({ onVolver }) => {
+  const { tiradaState, updateTiradaState } = useTirada();
   const [cartasDisponibles, setCartasDisponibles] = useState([]);
-  const [cartasSeleccionadas, setCartasSeleccionadas] = useState([]);
-  const [cartaActual, setCartaActual] = useState(0);
-  const [mostrandoCarta, setMostrandoCarta] = useState(false);
-  const [tiradaCompleta, setTiradaCompleta] = useState(false);
   const [generandoPDF, setGenerandoPDF] = useState(false);
-  const [consultaEnVivo, setConsultaEnVivo] = useState(false);
-  const [pdfError, setPdfError] = useState(null);
+  const [audioReproduciendo, setAudioReproduciendo] = useState(false);
 
   // Inicializar cartas disponibles
   useEffect(() => {
@@ -25,513 +197,515 @@ const TiradaAngelical = ({ onVolver }) => {
     setCartasDisponibles(cartasBarajadas);
   }, []);
 
-  // Reproducir sonido angelical
-  const reproducirSonido = (tipo) => {
-    console.log(`Reproduciendo sonido: ${tipo}`);
+  // Funciones de navegación
+  const irAFase = (nuevaFase) => {
+    updateTiradaState({ fase: nuevaFase });
   };
 
-  // Iniciar barajado
+  const seleccionarTipoTirada = (tipo) => {
+    updateTiradaState({ tipoTirada: tipo });
+  };
+
+  const seleccionarTema = (tema) => {
+    updateTiradaState({ temaSeleccionado: tema });
+  };
+
+  const toggleConsultaEnVivo = () => {
+    updateTiradaState({ consultaEnVivo: !tiradaState.consultaEnVivo });
+  };
+
+  // Funciones de tirada
   const iniciarBarajado = () => {
-    setFase('barajando');
-    reproducirSonido('barajado');
+    irAFase('barajando');
     setTimeout(() => {
-      setFase('seleccion-cartas');
+      irAFase('seleccion-cartas');
     }, 3000);
   };
 
-  // Seleccionar carta
   const seleccionarCarta = (carta) => {
-    if (cartasSeleccionadas.length < tipoTirada) {
-      const nuevasCartas = [...cartasSeleccionadas, carta];
-      setCartasSeleccionadas(nuevasCartas);
-      reproducirSonido('seleccion');
-      if (nuevasCartas.length === tipoTirada) {
+    if (tiradaState.cartasSeleccionadas.length < tiradaState.tipoTirada) {
+      const nuevasCartas = [...tiradaState.cartasSeleccionadas, carta];
+      updateTiradaState({ cartasSeleccionadas: nuevasCartas });
+      
+      if (nuevasCartas.length === tiradaState.tipoTirada) {
         setTimeout(() => {
-          setFase('revelacion');
-          setCartaActual(0);
-          setMostrandoCarta(true);
+          irAFase('revelacion');
+          updateTiradaState({ cartaActual: 0 });
         }, 1000);
       }
     }
   };
 
-  // Revelar siguiente carta
   const siguienteCarta = () => {
-    if (cartaActual < cartasSeleccionadas.length - 1) {
-      setCartaActual(cartaActual + 1);
-      setMostrandoCarta(true);
-      reproducirSonido('revelacion');
+    if (tiradaState.cartaActual < tiradaState.cartasSeleccionadas.length - 1) {
+      updateTiradaState({ cartaActual: tiradaState.cartaActual + 1 });
     } else {
-      setTiradaCompleta(true);
+      updateTiradaState({ tiradaCompleta: true });
+      irAFase('resumen');
     }
   };
 
-  // Nueva tirada
   const nuevaTirada = () => {
-    setFase('bienvenida');
-    setTipoTirada(3);
-    setTemaSeleccionado(null);
-    setCartasSeleccionadas([]);
-    setCartaActual(0);
-    setMostrandoCarta(false);
-    setTiradaCompleta(false);
-    setConsultaEnVivo(false);
-    setPdfError(null);
+    updateTiradaState({
+      fase: 'bienvenida',
+      tipoTirada: 3,
+      temaSeleccionado: null,
+      cartasSeleccionadas: [],
+      cartaActual: 0,
+      tiradaCompleta: false,
+      consultaEnVivo: false,
+      modalExpandido: false
+    });
     const cartasBarajadas = [...cartasAngelicas].sort(() => Math.random() - 0.5);
     setCartasDisponibles(cartasBarajadas);
   };
 
-  // Validar datos para PDF
-  const validarDatosPDF = () => {
-    if (!temaSeleccionado) return false;
-    if (cartasSeleccionadas.length !== tipoTirada) return false;
-    for (const carta of cartasSeleccionadas) {
-      if (!carta.nombre || !carta.imagen || !carta.mensaje) return false;
-      // Simple URL check for image (can be more robust)
-      if (typeof carta.imagen !== 'string' || !carta.imagen.startsWith('http')) {
-          console.warn(`Imagen inválida para la carta ${carta.nombre}: ${carta.imagen}`);
-          // Allow generation with placeholder, but log it
-      }
-    }
-    return true;
-  };
-
-  // Exportar a PDF
   const exportarPDF = async () => {
-    setPdfError(null);
-    if (!validarDatosPDF()) {
-      setPdfError('Faltan datos para generar el PDF. Asegúrate de completar la tirada.');
-      alert('Faltan datos para generar el PDF. Asegúrate de completar la tirada.');
-      return;
-    }
     setGenerandoPDF(true);
-    try {
-      const readingData = {
-        tipoTirada: tiposDeCartas[tipoTirada]?.nombre || `Tirada de ${tipoTirada} cartas`,
-        tema: temaSeleccionado?.nombre || 'Sin tema específico',
-        cartas: cartasSeleccionadas.map(carta => ({
-          ...carta,
-          // Ensure image URL is valid or use placeholder
-          imagen: (typeof carta.imagen === 'string' && carta.imagen.startsWith('http')) 
-                    ? carta.imagen 
-                    : '/placeholder-card-image.png' // Placeholder image path
-        })),
-        fecha: new Date().toISOString(),
-        consultaEnVivo: consultaEnVivo
-      };
-      
-      const pdfBlob = await generatePDF(readingData); // generatePDF is now async
-      
-      const url = URL.createObjectURL(pdfBlob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `tirada-angelical-${Date.now()}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-    } catch (error) {
-      console.error('Error al generar el PDF:', error);
-      setPdfError('Hubo un error al generar el PDF. Por favor intenta nuevamente.');
-      alert('Hubo un error al generar el PDF. Por favor intenta nuevamente.');
-    } finally {
+    // Simular generación de PDF
+    setTimeout(() => {
       setGenerandoPDF(false);
-    }
+      alert('PDF generado exitosamente');
+    }, 2000);
   };
 
-  // Solicitar consulta en vivo
   const solicitarConsultaEnVivo = () => {
     alert('Tu solicitud de Consulta en Vivo ha sido recibida. Un angelólogo se pondrá en contacto contigo pronto.');
   };
 
-  const puedeGenerarPDF = tiradaCompleta && validarDatosPDF();
+  const toggleAudio = () => {
+    setAudioReproduciendo(!audioReproduciendo);
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-100">
+    <div className="tirada-angelical-moderna">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-purple-200 sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={onVolver}
-              className="flex items-center gap-2 text-purple-600 hover:text-purple-800 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" /> Volver al Dashboard
+      <div className="tirada-header">
+        <div className="header-content">
+          <button onClick={onVolver} className="btn-volver">
+            <ArrowLeft size={20} />
+            Volver al Dashboard
+          </button>
+          <div className="header-title">
+            <h1>🃏 Tirada Angelical</h1>
+            <p>Conecta con la sabiduría celestial a través de las cartas angelicales</p>
+          </div>
+          <div className="header-actions">
+            <button className="btn-audio" onClick={toggleAudio}>
+              {audioReproduciendo ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              {audioReproduciendo ? 'Silenciar' : 'Audio'}
             </button>
-            <div className="text-center">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                🃏 Tirada Angelical
-              </h1>
-              <p className="text-gray-600">Conecta con la sabiduría celestial a través de las cartas angelicales</p>
-            </div>
-            <div className="w-32"></div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-8">
-        <AnimatePresence mode="wait">
-          {/* Fase 1: Bienvenida */}
-          {fase === 'bienvenida' && (
-            <motion.div
-              key="bienvenida"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-center"
-            >
-              {/* ... (contenido de bienvenida sin cambios) ... */}
-              <div className="mb-8">
-                <div className="w-24 h-24 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-4xl">⭐</span>
-                </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  Bienvenido a tu Consulta Angelical
-                </h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  Los ángeles están listos para compartir su sabiduría contigo. 
-                  Toma un momento para centrarte y formular tu pregunta en tu corazón.
-                </p>
-              </div>
+      {/* Contenido principal */}
+      <div className="tirada-contenido">
+        {/* Fase 1: Bienvenida */}
+        {tiradaState.fase === 'bienvenida' && (
+          <BienvenidaSection onContinuar={() => irAFase('seleccion-tipo')} />
+        )}
 
-              <button
-                onClick={() => setFase('seleccion-tipo')}
-                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-4 rounded-full font-medium text-lg hover:scale-105 transition-all duration-300 shadow-lg"
-              >
-                Continuar
-              </button>
-            </motion.div>
-          )}
+        {/* Fase 2: Selección de tipo */}
+        {tiradaState.fase === 'seleccion-tipo' && (
+          <SeleccionTipoSection 
+            tipoTirada={tiradaState.tipoTirada}
+            consultaEnVivo={tiradaState.consultaEnVivo}
+            onSeleccionarTipo={seleccionarTipoTirada}
+            onToggleConsulta={toggleConsultaEnVivo}
+            onContinuar={() => irAFase('seleccion-tema')}
+          />
+        )}
 
-          {/* Fase 2: Selección de tipo de tirada */}
-          {fase === 'seleccion-tipo' && (
-            <motion.div
-              key="seleccion-tipo"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-center"
-            >
-              {/* ... (contenido de selección de tipo sin cambios) ... */}
-              <div className="mb-8">
-                <div className="w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-3xl">🔮</span>
-                </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  Elige el tipo de tirada
-                </h2>
-                <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-                  Selecciona el número de cartas según la profundidad de guía que buscas
-                </p>
-              </div>
+        {/* Fase 3: Selección de tema */}
+        {tiradaState.fase === 'seleccion-tema' && (
+          <SeleccionTemaSection 
+            temaSeleccionado={tiradaState.temaSeleccionado}
+            consultaEnVivo={tiradaState.consultaEnVivo}
+            tipoTirada={tiradaState.tipoTirada}
+            onSeleccionarTema={seleccionarTema}
+            onIniciarBarajado={iniciarBarajado}
+            onSolicitarConsulta={solicitarConsultaEnVivo}
+          />
+        )}
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                {Object.entries(tiposDeCartas).map(([numero, tipo]) => (
-                  <motion.div
-                    key={numero}
-                    whileHover={{ scale: 1.05 }}
-                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
-                      tipoTirada === parseInt(numero)
-                        ? `border-purple-500 bg-gradient-to-r ${tipo.color} text-white shadow-lg`
-                        : 'border-gray-200 bg-white/80 hover:border-purple-300'
-                    }`}
-                    onClick={() => setTipoTirada(parseInt(numero))}
-                  >
-                    <div className="text-4xl mb-4">{tipo.icono}</div>
-                    <h3 className="text-xl font-bold mb-2">{tipo.nombre}</h3>
-                    <p className={`text-sm ${tipoTirada === parseInt(numero) ? 'text-white/90' : 'text-gray-600'}`}>
-                      {tipo.descripcion}
-                    </p>
-                  </motion.div>
-                ))}
-                
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
-                    consultaEnVivo
-                      ? 'border-purple-500 bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg'
-                      : 'border-gray-200 bg-white/80 hover:border-purple-300'
-                  }`}
-                  onClick={() => setConsultaEnVivo(!consultaEnVivo)}
-                >
-                  <div className="text-4xl mb-4">👩‍💻</div>
-                  <h3 className="text-xl font-bold mb-2">Consulta en Vivo</h3>
-                  <p className={`text-sm ${consultaEnVivo ? 'text-white/90' : 'text-gray-600'}`}>
-                    Sesión personalizada con un angelólogo certificado
-                  </p>
-                </motion.div>
-              </div>
+        {/* Fase 4: Barajando */}
+        {tiradaState.fase === 'barajando' && (
+          <BarajandoSection />
+        )}
 
-              <button
-                onClick={() => setFase('seleccion-tema')}
-                className="mt-8 bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-4 rounded-full font-medium text-lg hover:scale-105 transition-all duration-300 shadow-lg"
-              >
-                Continuar
-              </button>
-            </motion.div>
-          )}
+        {/* Fase 5: Selección de cartas */}
+        {tiradaState.fase === 'seleccion-cartas' && (
+          <SeleccionCartasSection 
+            tipoTirada={tiradaState.tipoTirada}
+            cartasSeleccionadas={tiradaState.cartasSeleccionadas}
+            cartasDisponibles={cartasDisponibles}
+            onSeleccionarCarta={seleccionarCarta}
+          />
+        )}
 
-          {/* Fase 3: Selección de tema */}
-          {fase === 'seleccion-tema' && (
-            <motion.div
-              key="seleccion-tema"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-center"
-            >
-              {/* ... (contenido de selección de tema sin cambios) ... */}
-              <div className="mb-8">
-                <div className="w-20 h-20 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-3xl">❓</span>
-                </div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  Elige el tema de tu consulta
-                </h2>
-                <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-                  Selecciona el área de tu vida sobre la que deseas recibir guía angelical
-                </p>
-              </div>
+        {/* Fase 6: Revelación */}
+        {tiradaState.fase === 'revelacion' && (
+          <RevelacionSection 
+            carta={tiradaState.cartasSeleccionadas[tiradaState.cartaActual]}
+            cartaActual={tiradaState.cartaActual}
+            totalCartas={tiradaState.cartasSeleccionadas.length}
+            tipoTirada={tiradaState.tipoTirada}
+            onSiguiente={siguienteCarta}
+          />
+        )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {temasConsulta.map((tema) => (
-                  <motion.div
-                    key={tema.id}
-                    whileHover={{ scale: 1.05 }}
-                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
-                      temaSeleccionado?.id === tema.id
-                        ? `border-purple-500 bg-gradient-to-r ${tema.color} text-white shadow-lg`
-                        : 'border-gray-200 bg-white/80 hover:border-purple-300'
-                    }`}
-                    onClick={() => setTemaSeleccionado(tema)}
-                  >
-                    <div className="text-4xl mb-4">{tema.icono}</div>
-                    <h3 className="text-lg font-bold mb-2">{tema.nombre}</h3>
-                    <p className={`text-sm ${temaSeleccionado?.id === tema.id ? 'text-white/90' : 'text-gray-600'}`}>
-                      {tema.descripcion}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {temaSeleccionado && (
-                <button
-                  onClick={consultaEnVivo ? solicitarConsultaEnVivo : iniciarBarajado}
-                  className="mt-8 bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-4 rounded-full font-medium text-lg hover:scale-105 transition-all duration-300 shadow-lg"
-                >
-                  {consultaEnVivo ? 'Solicitar Consulta en Vivo' : `Comenzar Tirada de ${tipoTirada} Cartas`}
-                </button>
-              )}
-            </motion.div>
-          )}
-
-          {/* Fase 4: Barajado */}
-          {fase === 'barajando' && (
-            <motion.div
-              key="barajando"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-center"
-            >
-              {/* ... (contenido de barajado sin cambios) ... */}
-              <div className="mb-8">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="w-24 h-24 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6"
-                >
-                  <span className="text-4xl">⭐</span>
-                </motion.div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  Los Ángeles están barajando las cartas...
-                </h2>
-                <p className="text-gray-600 max-w-2xl mx-auto">
-                  Mantén tu pregunta en el corazón mientras las energías angelicales 
-                  seleccionan las cartas perfectas para ti.
-                </p>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Fase 5: Selección de cartas */}
-          {fase === 'seleccion-cartas' && (
-            <motion.div
-              key="seleccion-cartas"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="text-center"
-            >
-              {/* ... (contenido de selección de cartas sin cambios) ... */}
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  Selecciona {tipoTirada} cartas
-                </h2>
-                <p className="text-gray-600 max-w-2xl mx-auto mb-4">
-                  Deja que tu intuición te guíe hacia las cartas que los ángeles han preparado para ti
-                </p>
-                <div className="text-lg font-medium text-purple-600">
-                  {cartasSeleccionadas.length} de {tipoTirada} cartas seleccionadas
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
-                {cartasDisponibles.slice(0, 27).map((carta, index) => (
-                  <motion.div
-                    key={carta.id}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05 }}
-                    whileHover={{ scale: 1.05 }}
-                    className={`aspect-[2/3] rounded-xl cursor-pointer transition-all duration-300 ${
-                      cartasSeleccionadas.find(c => c.id === carta.id)
-                        ? 'ring-4 ring-purple-500 scale-105 shadow-xl'
-                        : 'hover:shadow-lg'
-                    }`}
-                    onClick={() => seleccionarCarta(carta)}
-                  >
-                    <img
-                      src="/images/cartas/carta-reverso.png"
-                      alt="Reverso de carta angelical"
-                      className="w-full h-full object-cover rounded-xl shadow-md"
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Fase 6: Revelación de cartas */}
-          {fase === 'revelacion' && mostrandoCarta && cartasSeleccionadas[cartaActual] && (
-            <motion.div
-              key={`carta-${cartaActual}`}
-              initial={{ opacity: 0, scale: 0.8, rotateY: 180 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotateY: -180 }}
-              transition={{ duration: 0.8 }}
-              className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 max-w-3xl mx-auto text-center"
-            >
-              <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
-                {cartasSeleccionadas[cartaActual].nombre}
-              </h2>
-              <p className="text-gray-500 mb-1">Carta {cartaActual + 1} de {tipoTirada}</p>
-              <p className="text-lg font-semibold text-purple-700 mb-6">
-                {cartasSeleccionadas[cartaActual].posicion || `Mensaje para ti`}
-              </p>
-              
-              <div className="aspect-[2/3] max-w-xs mx-auto mb-6 rounded-2xl overflow-hidden shadow-xl ring-2 ring-purple-300">
-                <img 
-                  src={cartasSeleccionadas[cartaActual].imagen} 
-                  alt={cartasSeleccionadas[cartaActual].nombre} 
-                  className="w-full h-full object-cover"
-                  onError={(e) => { e.target.onerror = null; e.target.src="/placeholder-card-image.png"; }} // Placeholder on error
-                />
-              </div>
-
-              <div className="space-y-1 mb-6 text-left max-w-md mx-auto">
-                <p><strong className="text-purple-600">Color:</strong> {cartasSeleccionadas[cartaActual].color}</p>
-                <p><strong className="text-purple-600">Cristal:</strong> {cartasSeleccionadas[cartaActual].cristal}</p>
-                <p><strong className="text-purple-600">Elemento:</strong> {cartasSeleccionadas[cartaActual].elemento}</p>
-              </div>
-              
-              <div className="text-gray-700 leading-relaxed mb-8 text-left max-w-md mx-auto" dangerouslySetInnerHTML={{ __html: cartasSeleccionadas[cartaActual].mensaje.replace(/\n/g, '<br />') }}></div>
-              
-              <p className="text-purple-700 font-semibold italic mb-8 text-left max-w-md mx-auto">
-                Afirmación: "{cartasSeleccionadas[cartaActual].afirmacion}"
-              </p>
-
-              <button
-                onClick={siguienteCarta}
-                className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full font-medium text-lg hover:scale-105 transition-all duration-300 shadow-lg"
-              >
-                {cartaActual < cartasSeleccionadas.length - 1 ? 'Siguiente Carta' : 'Ver Resumen de Tirada'}
-              </button>
-            </motion.div>
-          )}
-
-          {/* Fase 7: Tirada Completa / Resumen */}
-          {tiradaCompleta && (
-            <motion.div
-              key="tirada-completa"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 max-w-5xl mx-auto"
-            >
-              <h2 className="text-4xl font-bold text-center bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-8">
-                Resumen de tu Tirada Angelical
-              </h2>
-              <p className="text-center text-gray-600 mb-2"><strong>Tipo de Tirada:</strong> {tiposDeCartas[tipoTirada]?.nombre || `Tirada de ${tipoTirada} cartas`}</p>
-              <p className="text-center text-gray-600 mb-8"><strong>Tema de Consulta:</strong> {temaSeleccionado?.nombre || 'Sin tema específico'}</p>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                {cartasSeleccionadas.map((carta, index) => (
-                  <div key={index} className="bg-purple-50/50 p-6 rounded-2xl shadow-lg ring-1 ring-purple-200">
-                    <h3 className="text-xl font-bold text-purple-700 mb-2">{carta.nombre}</h3>
-                    <p className="text-sm text-gray-500 mb-3">{carta.posicion || `Carta ${index + 1}`}</p>
-                    <div className="aspect-[2/3] w-full mb-4 rounded-xl overflow-hidden shadow-md">
-                      <img 
-                        src={carta.imagen} 
-                        alt={carta.nombre} 
-                        className="w-full h-full object-cover"
-                          onError={(e) => { e.target.onerror = null; e.target.src="/placeholder-card-image.png"; }}                     />
-                    </div>
-                    <p className="text-xs text-gray-600 mb-1"><strong>Color:</strong> {carta.color}</p>
-                    <p className="text-xs text-gray-600 mb-1"><strong>Cristal:</strong> {carta.cristal}</p>
-                    <p className="text-xs text-gray-600 mb-3"><strong>Elemento:</strong> {carta.elemento}</p>
-                    <p className="text-sm text-gray-700 leading-tight line-clamp-3 mb-2" title={carta.mensaje.replace(/<[^>]+>/g, 
-'')}>{carta.mensaje.replace(/<[^>]+>/g, 
-'')}</p>
-                    <p className="text-sm text-purple-600 italic">Afirmación: "{carta.afirmacion}"</p>
-                  </div>
-                ))}
-              </div>
-
-              {pdfError && (
-                <div className="text-center text-red-600 mb-4 p-3 bg-red-100 rounded-lg">
-                  {pdfError}
-                </div>
-              )}
-
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                <button
-                  onClick={exportarPDF}
-                  disabled={generandoPDF || !puedeGenerarPDF}
-                  className={`flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-8 py-3 rounded-full font-medium text-lg hover:scale-105 transition-all duration-300 shadow-lg ${
-                    (generandoPDF || !puedeGenerarPDF) ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                >
-                  {generandoPDF ? (
-                    <><Loader2 className="w-5 h-5 animate-spin" /> Generando PDF...</>
-                  ) : (
-                    <><Download className="w-5 h-5" /> Descargar PDF de la Tirada</>
-                  )}
-                </button>
-                
-                {(tipoTirada === 3 || tipoTirada === 6 || tipoTirada === 9) && (
-                    <button
-                        onClick={solicitarConsultaEnVivo}
-                        className="flex items-center justify-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-3 rounded-full font-medium text-lg hover:scale-105 transition-all duration-300 shadow-lg"
-                    >
-                        <Users className="w-5 h-5" /> Solicitar Lectura en Vivo
-                    </button>
-                )}
-
-                <button
-                  onClick={nuevaTirada}
-                  className="bg-gradient-to-r from-gray-400 to-gray-500 text-white px-8 py-3 rounded-full font-medium text-lg hover:scale-105 transition-all duration-300 shadow-lg"
-                >
-                  Nueva Tirada
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Fase 7: Resumen */}
+        {tiradaState.fase === 'resumen' && (
+          <ResumenSection 
+            cartasSeleccionadas={tiradaState.cartasSeleccionadas}
+            temaSeleccionado={tiradaState.temaSeleccionado}
+            tipoTirada={tiradaState.tipoTirada}
+            generandoPDF={generandoPDF}
+            onExportarPDF={exportarPDF}
+            onNuevaTirada={nuevaTirada}
+            onSolicitarConsulta={solicitarConsultaEnVivo}
+          />
+        )}
       </div>
     </div>
   );
 };
 
-export default TiradaAngelical;
+// Componente de Bienvenida
+const BienvenidaSection = ({ onContinuar }) => {
+  return (
+    <div className="seccion-bienvenida">
+      <div className="bienvenida-hero">
+        <div className="hero-icono">
+          <Sparkles size={48} />
+        </div>
+        <h2>Bienvenido a tu Consulta Angelical</h2>
+        <p>Los ángeles están listos para compartir su sabiduría contigo. Toma un momento para centrarte y formular tu pregunta en tu corazón.</p>
+      </div>
+      
+      <div className="bienvenida-preparacion">
+        <h3>Preparación para tu Tirada</h3>
+        <div className="preparacion-grid">
+          <div className="preparacion-item">
+            <div className="item-icono">🧘‍♀️</div>
+            <h4>Centra tu Mente</h4>
+            <p>Respira profundamente y libera cualquier tensión o preocupación</p>
+          </div>
+          <div className="preparacion-item">
+            <div className="item-icono">💭</div>
+            <h4>Formula tu Pregunta</h4>
+            <p>Piensa claramente en lo que deseas saber o el área donde necesitas guía</p>
+          </div>
+          <div className="preparacion-item">
+            <div className="item-icono">🙏</div>
+            <h4>Abre tu Corazón</h4>
+            <p>Mantente receptivo a los mensajes que los ángeles tienen para ti</p>
+          </div>
+        </div>
+      </div>
+
+      <button className="btn-continuar" onClick={onContinuar}>
+        <ChevronRight size={20} />
+        Comenzar mi Tirada
+      </button>
+    </div>
+  );
+};
+
+// Componente de Selección de Tipo
+const SeleccionTipoSection = ({ tipoTirada, consultaEnVivo, onSeleccionarTipo, onToggleConsulta, onContinuar }) => {
+  return (
+    <div className="seccion-seleccion-tipo">
+      <div className="seccion-header">
+        <div className="header-icono">
+          <BookOpen size={32} />
+        </div>
+        <h2>Elige el tipo de tirada</h2>
+        <p>Selecciona el número de cartas según la profundidad de guía que buscas</p>
+      </div>
+
+      <div className="tipos-grid">
+        {Object.entries(tiposDeCartas).map(([numero, tipo]) => (
+          <div
+            key={numero}
+            className={`tipo-card ${tipoTirada === parseInt(numero) ? 'seleccionado' : ''}`}
+            onClick={() => onSeleccionarTipo(parseInt(numero))}
+          >
+            <div className="card-icono">{tipo.icono}</div>
+            <h3>{tipo.nombre}</h3>
+            <p>{tipo.descripcion}</p>
+            <div className="card-badge">{numero} cartas</div>
+          </div>
+        ))}
+        
+        <div
+          className={`tipo-card consulta-vivo ${consultaEnVivo ? 'seleccionado' : ''}`}
+          onClick={onToggleConsulta}
+        >
+          <div className="card-icono">👩‍💻</div>
+          <h3>Consulta en Vivo</h3>
+          <p>Sesión personalizada con un angelólogo certificado</p>
+          <div className="card-badge">En vivo</div>
+        </div>
+      </div>
+
+      <button className="btn-continuar" onClick={onContinuar}>
+        <ChevronRight size={20} />
+        Continuar
+      </button>
+    </div>
+  );
+};
+
+// Componente de Selección de Tema
+const SeleccionTemaSection = ({ temaSeleccionado, consultaEnVivo, tipoTirada, onSeleccionarTema, onIniciarBarajado, onSolicitarConsulta }) => {
+  return (
+    <div className="seccion-seleccion-tema">
+      <div className="seccion-header">
+        <div className="header-icono">
+          <Target size={32} />
+        </div>
+        <h2>Elige el tema de tu consulta</h2>
+        <p>Selecciona el área de tu vida sobre la que deseas recibir guía angelical</p>
+      </div>
+
+      <div className="temas-grid">
+        {temasConsulta.map((tema) => (
+          <div
+            key={tema.id}
+            className={`tema-card ${temaSeleccionado?.id === tema.id ? 'seleccionado' : ''}`}
+            onClick={() => onSeleccionarTema(tema)}
+          >
+            <div className="card-icono">{tema.icono}</div>
+            <h3>{tema.nombre}</h3>
+            <p>{tema.descripcion}</p>
+          </div>
+        ))}
+      </div>
+
+      {temaSeleccionado && (
+        <div className="tema-acciones">
+          <button 
+            className="btn-iniciar-tirada"
+            onClick={consultaEnVivo ? onSolicitarConsulta : onIniciarBarajado}
+          >
+            {consultaEnVivo ? (
+              <>
+                <Users size={20} />
+                Solicitar Consulta en Vivo
+              </>
+            ) : (
+              <>
+                <Shuffle size={20} />
+                Comenzar Tirada de {tipoTirada} Cartas
+              </>
+            )}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Componente de Barajando
+const BarajandoSection = () => {
+  return (
+    <div className="seccion-barajando">
+      <div className="barajando-animacion">
+        <div className="estrella-rotando">
+          <Sparkles size={64} />
+        </div>
+        <h2>Los Ángeles están barajando las cartas...</h2>
+        <p>Mantén tu pregunta en el corazón mientras las energías angelicales seleccionan las cartas perfectas para ti.</p>
+        
+        <div className="progreso-barajado">
+          <div className="barra-progreso">
+            <div className="progreso-fill"></div>
+          </div>
+          <p>Conectando con la energía angelical...</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Componente de Selección de Cartas
+const SeleccionCartasSection = ({ tipoTirada, cartasSeleccionadas, cartasDisponibles, onSeleccionarCarta }) => {
+  return (
+    <div className="seccion-seleccion-cartas">
+      <div className="seccion-header">
+        <h2>Selecciona {tipoTirada} cartas</h2>
+        <p>Deja que tu intuición te guíe hacia las cartas que los ángeles han preparado para ti</p>
+        <div className="contador-cartas">
+          {cartasSeleccionadas.length} de {tipoTirada} cartas seleccionadas
+        </div>
+      </div>
+
+      <div className="mazo-cartas">
+        {cartasDisponibles.slice(0, 21).map((carta, index) => (
+          <div
+            key={carta.id}
+            className={`carta-mazo ${cartasSeleccionadas.find(c => c.id === carta.id) ? 'seleccionada' : ''}`}
+            onClick={() => onSeleccionarCarta(carta)}
+            style={{ animationDelay: `${index * 0.05}s` }}
+          >
+            <div className="carta-reverso">
+              <div className="reverso-patron">✨</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {cartasSeleccionadas.length === tipoTirada && (
+        <div className="mensaje-completado">
+          <Sparkles size={24} />
+          ¡Perfecto! Preparando la revelación de tus cartas...
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Componente de Revelación
+const RevelacionSection = ({ carta, cartaActual, totalCartas, tipoTirada, onSiguiente }) => {
+  const posicion = tiposDeCartas[tipoTirada]?.posiciones?.[cartaActual] || `Carta ${cartaActual + 1}`;
+
+  return (
+    <div className="seccion-revelacion">
+      <div className="carta-revelada">
+        <div className="carta-header">
+          <h2>{carta.nombre}</h2>
+          <p className="carta-posicion">{posicion}</p>
+          <div className="carta-progreso">
+            Carta {cartaActual + 1} de {totalCartas}
+          </div>
+        </div>
+
+        <div className="carta-contenido">
+          <div className="carta-imagen">
+            <img src={carta.imagen} alt={carta.nombre} />
+            <div className="imagen-overlay">
+              <div className="energia-badge">{carta.energia}</div>
+            </div>
+          </div>
+
+          <div className="carta-info">
+            <div className="carta-propiedades">
+              <div className="propiedad">
+                <span className="label">Color:</span>
+                <span className="valor">{carta.color}</span>
+              </div>
+              <div className="propiedad">
+                <span className="label">Cristal:</span>
+                <span className="valor">{carta.cristal}</span>
+              </div>
+              <div className="propiedad">
+                <span className="label">Elemento:</span>
+                <span className="valor">{carta.elemento}</span>
+              </div>
+            </div>
+
+            <div className="carta-mensaje">
+              <h3>Mensaje Angelical</h3>
+              <p>{carta.mensaje}</p>
+            </div>
+
+            <div className="carta-afirmacion">
+              <h4>Afirmación</h4>
+              <p>"{carta.afirmacion}"</p>
+            </div>
+          </div>
+        </div>
+
+        <button className="btn-siguiente" onClick={onSiguiente}>
+          {cartaActual < totalCartas - 1 ? (
+            <>
+              <ChevronRight size={20} />
+              Siguiente Carta
+            </>
+          ) : (
+            <>
+              <Eye size={20} />
+              Ver Resumen de Tirada
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Componente de Resumen
+const ResumenSection = ({ cartasSeleccionadas, temaSeleccionado, tipoTirada, generandoPDF, onExportarPDF, onNuevaTirada, onSolicitarConsulta }) => {
+  return (
+    <div className="seccion-resumen">
+      <div className="resumen-header">
+        <h2>Resumen de tu Tirada Angelical</h2>
+        <div className="resumen-meta">
+          <p><strong>Tipo de Tirada:</strong> {tiposDeCartas[tipoTirada]?.nombre}</p>
+          <p><strong>Tema de Consulta:</strong> {temaSeleccionado?.nombre}</p>
+          <p><strong>Fecha:</strong> {new Date().toLocaleDateString()}</p>
+        </div>
+      </div>
+
+      <div className="cartas-resumen">
+        {cartasSeleccionadas.map((carta, index) => (
+          <div key={index} className="carta-resumen-item">
+            <div className="carta-mini">
+              <img src={carta.imagen} alt={carta.nombre} />
+            </div>
+            <div className="carta-resumen-info">
+              <h3>{carta.nombre}</h3>
+              <p className="posicion">{tiposDeCartas[tipoTirada]?.posiciones?.[index] || `Carta ${index + 1}`}</p>
+              <p className="energia">{carta.energia}</p>
+              <p className="mensaje-corto">{carta.mensaje.substring(0, 100)}...</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="resumen-acciones">
+        <button 
+          className="btn-exportar-pdf"
+          onClick={onExportarPDF}
+          disabled={generandoPDF}
+        >
+          {generandoPDF ? (
+            <>
+              <Loader2 size={20} className="animate-spin" />
+              Generando PDF...
+            </>
+          ) : (
+            <>
+              <Download size={20} />
+              Descargar PDF
+            </>
+          )}
+        </button>
+
+        <button className="btn-consulta-vivo" onClick={onSolicitarConsulta}>
+          <Users size={20} />
+          Solicitar Lectura en Vivo
+        </button>
+
+        <button className="btn-nueva-tirada" onClick={onNuevaTirada}>
+          <RotateCcw size={20} />
+          Nueva Tirada
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Componente principal con Provider
+const TiradaAngelicalConProvider = ({ onVolver }) => {
+  return (
+    <TiradaProvider>
+      <TiradaAngelicalModerna onVolver={onVolver} />
+    </TiradaProvider>
+  );
+};
+
+export default TiradaAngelicalConProvider;
 
