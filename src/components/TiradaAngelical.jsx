@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/Logosinfondo.png';
+import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
 import { cartasAngelicas, temasConsulta, tiposDeCartas } from '../data/cartasAngelicas';
 import { ArrowLeft, Download, Users, Loader2 } from 'lucide-react'; // Added Loader2 for spinner
 import { generatePDF } from '../utils/pdfGenerator';
