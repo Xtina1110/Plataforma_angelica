@@ -441,9 +441,55 @@ const TiradaAngelical = ({ onVolver }) => {
     updateTiradaState({ temaSeleccionado: tema });
   };
 
-  const toggleConsultaEnVivo = () => {
-    updateTiradaState({ consultaEnVivo: !tiradaState.consultaEnVivo });
-  };
+  return (
+    <div className="tirada-angelical-container">
+      {/* Header Hero Section */}
+      <div className="tirada-hero-header">
+        <div className="hero-background">
+          <div className="hero-overlay"></div>
+          <div className="hero-angels-bg"></div>
+        </div>
+        
+        <div className="hero-content">
+          <button
+            onClick={onVolver}
+            className="btn-volver-hero"
+          >
+            <ArrowLeft className="w-5 h-5" /> 
+            Volver al Dashboard
+          </button>
+          
+          <div className="hero-main-content">
+            <div className="hero-icon">
+              <Heart className="w-16 h-16" />
+            </div>
+            
+            <div className="hero-text">
+              <span className="hero-subtitle">CONECTA CON LA SABIDURÍA DIVINA</span>
+              <h1 className="hero-title">
+                Descubre los mensajes que los ángeles 
+                <br />
+                tienen preparados para ti
+              </h1>
+              <p className="hero-description">
+                Permite que la sabiduría angelical ilumine tu camino y te guíe hacia las respuestas que tu alma busca
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Contenido principal */}
+      <div className="tirada-main-content">
+        {renderizarContenido()}
+      </div>
+    </div>
+  );
+
+  function renderizarContenido() {
+    const toggleConsultaEnVivo = () => {
+      updateTiradaState({ consultaEnVivo: !tiradaState.consultaEnVivo });
+    };
 
   // Funciones de tirada
   const iniciarBarajado = () => {
