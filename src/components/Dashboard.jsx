@@ -1,3 +1,4 @@
+// src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import {
   Home, Heart, Headphones, Zap, BookOpen, GraduationCap,
@@ -55,60 +56,35 @@ const Dashboard = ({ user, onLogout }) => {
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
-  <h3 className="titulo-dashboard">Dashboard Personal</h3>
+            <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
-  {/* Bloque visual con fondo marmoleado y transparencia */}
-  <div
-    className="seccion-dashboard relative overflow-hidden rounded-xl shadow-md"
-    style={{
-      backgroundImage: `url(${fondoMarmoleado})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}
-  >
-    {/* Capa de transparencia SÓLO sobre el bloque */}
-    <div className="absolute inset-0 bg-white/60 z-0 pointer-events-none" />
+            {/* Fondo angelical con transparencia */}
+            <div
+              className="seccion-dashboard relative overflow-hidden rounded-xl shadow-md p-6 flex flex-col md:flex-row items-center md:items-start gap-6"
+              style={{
+                backgroundImage: `url(${fondoMarmoleado})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              {/* Capa de transparencia */}
+              <div className="absolute inset-0 bg-white/40 z-0 pointer-events-none rounded-xl" />
 
-    {/* Contenido visible sobre fondo */}
-    <div className="relative z-10 p-6">
-      <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
-      <div className="bloque-metricas">
-        <div className="metrica-card">
-          <img src={iconNivel} />
-          <span>Nivel</span>
-          <strong>{userData.nivelEspiritual}</strong>
-        </div>
-        <div className="metrica-card">
-          <img src={iconPuntos} />
-          <span>Puntos de luz</span>
-          <strong>{userData.puntosDeLuz}</strong>
-        </div>
-        <div className="metrica-card">
-          <img src={iconDias} />
-          <span>Días consecutivos</span>
-          <strong>{userData.diasConsecutivos}</strong>
-        </div>
-        <div className="metrica-card">
-          <img src={iconSonoterapia} />
-          <span>Sonoterapias</span>
-          <strong>{userData.sonoterapiasCompletadas}</strong>
-        </div>
-        <div className="metrica-card">
-          <img src={iconCanalizaciones} />
-          <span>Canalizaciones</span>
-          <strong>{userData.canalizacionesEscuchadas}</strong>
-        </div>
-        <div className="metrica-card">
-          <img src={iconCursos} />
-          <span>Cursos</span>
-          <strong>{userData.cursosFinalizados}</strong>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+              {/* Imagen del ángel */}
+              <div className="relative z-10">
+                <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
+              </div>
 
-
+              {/* Tarjetas métricas */}
+              <div className="bloque-metricas relative z-10 grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
+                <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
+                <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
+                <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
+                <div className="metrica-card"><img src={iconCanalizaciones} /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
+                <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
+              </div>
+            </div>
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
