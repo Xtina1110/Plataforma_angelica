@@ -55,23 +55,59 @@ const Dashboard = ({ user, onLogout }) => {
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
-            <h3 className="titulo-dashboard">Dashboard Personal</h3>
+  <h3 className="titulo-dashboard">Dashboard Personal</h3>
+  
+  <div
+    className="seccion-dashboard relative overflow-hidden rounded-xl shadow-md"
+    style={{
+      backgroundImage: `url(${fondoMarmoleado})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
+  >
+    {/* Capa de transparencia SOLO dentro del dashboard */}
+    <div className="absolute inset-0 bg-white/60 pointer-events-none z-0" />
+  
+    {/* Contenido encima del fondo */}
+    <div className="relative z-10 p-6">
+      <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
+  
+      <div className="bloque-metricas">
+        <div className="metrica-card">
+          <img src={iconNivel} />
+          <span>Nivel</span>
+          <strong>{userData.nivelEspiritual}</strong>
+        </div>
+        <div className="metrica-card">
+          <img src={iconPuntos} />
+          <span>Puntos de luz</span>
+          <strong>{userData.puntosDeLuz}</strong>
+        </div>
+        <div className="metrica-card">
+          <img src={iconDias} />
+          <span>Días consecutivos</span>
+          <strong>{userData.diasConsecutivos}</strong>
+        </div>
+        <div className="metrica-card">
+          <img src={iconSonoterapia} />
+          <span>Sonoterapias</span>
+          <strong>{userData.sonoterapiasCompletadas}</strong>
+        </div>
+        <div className="metrica-card">
+          <img src={iconCanalizaciones} />
+          <span>Canalizaciones</span>
+          <strong>{userData.canalizacionesEscuchadas}</strong>
+        </div>
+        <div className="metrica-card">
+          <img src={iconCursos} />
+          <span>Cursos</span>
+          <strong>{userData.cursosFinalizados}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <div className="seccion-dashboard" style={{ backgroundImage: `url(${fondoMarmoleado})` }}>
-            
-            {/* Capa de transparencia */}
-            <div className="seccion-dashboard inset-0 bg-white/60 z-0"></div>
 
-              <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
-              <div className="bloque-metricas">
-                <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
-                <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
-                <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
-                <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
-                <div className="metrica-card"><img src={iconCanalizaciones} /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
-                <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
-              </div>
-            </div>
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
