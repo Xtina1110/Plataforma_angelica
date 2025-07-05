@@ -55,12 +55,6 @@ const Dashboard = ({ user, onLogout }) => {
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
- <div className="dashboard-principal">
-  <h2 className="bienvenida-usuario text-purple-700 font-semibold text-xl mb-1">
-    ¡Bienvenido de nuevo, {userData.nombre}!
-  </h2>
-  <p className="text-gray-700 mb-6">Tu camino espiritual continúa evolucionando.</p>
-
   <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
   {/* Bloque visual con fondo marmoleado y transparencia */}
