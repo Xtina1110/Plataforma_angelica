@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
-import './TiradaAngelicalModerna.css';
+import './TiradaAngelical.css';
 import { 
   ArrowLeft, Download, Users, Loader2, Star, Heart, Eye, Sparkles,
   ChevronRight, ChevronDown, ChevronUp, Maximize2, X, Play, Pause,
@@ -185,7 +185,7 @@ const cartasAngelicas = [
 ];
 
 // Componente principal
-const TiradaAngelicalModerna = ({ onVolver }) => {
+const TiradaAngelical = ({ onVolver }) => {
   const { tiradaState, updateTiradaState } = useTirada();
   const [cartasDisponibles, setCartasDisponibles] = useState([]);
   const [generandoPDF, setGenerandoPDF] = useState(false);
@@ -702,7 +702,7 @@ const ResumenSection = ({ cartasSeleccionadas, temaSeleccionado, tipoTirada, gen
 const TiradaAngelicalConProvider = ({ onVolver }) => {
   return (
     <TiradaProvider>
-      <TiradaAngelicalModerna onVolver={onVolver} />
+      <TiradaAngelical onVolver={onVolver} />
     </TiradaProvider>
   );
 };
