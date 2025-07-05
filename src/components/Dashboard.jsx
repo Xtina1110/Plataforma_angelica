@@ -18,7 +18,7 @@ import iconoAngelDashboard from '../assets/IconoDashboard.png';
 import iconNivel from '../assets/IconoNivel.png';
 import iconPuntos from '../assets/IconoPuntos.png';
 import iconDias from '../assets/IconoDias.png';
-import iconSonoterapia from '../assets/Sonoterapia01.png';
+import iconSonoterapia from '../assets/IconoSonoterapia.png';
 import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
 import iconCursos from '../assets/IconoCursos.png';
 
