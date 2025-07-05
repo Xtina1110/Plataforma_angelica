@@ -89,13 +89,13 @@ const Dashboard = ({ user, onLogout }) => {
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
               {[
-                { id: 'tirada', icon: <Heart />, titulo: 'Tirada Angelical', desc: 'Conecta con la sabiduría de los ángeles', disponible: true },
+                { id: 'tirada', icon: <Heart />, titulo: 'Apertura Angelica', desc: 'Conecta con la sabiduría de los ángeles', disponible: true },
                 { id: 'canalizaciones', icon: <Headphones />, titulo: 'Canalizaciones y Sonoterapia', desc: 'Frecuencias sagradas de sanación', disponible: true },
-                { id: 'terapias', icon: <Zap />, titulo: 'Terapias y Limpiezas', desc: 'Sanación angelical profunda', disponible: true },
-                { id: 'academia', icon: <GraduationCap />, titulo: 'Academia Angelical', desc: 'Formación espiritual completa', disponible: true },
+                { id: 'terapias', icon: <Zap />, titulo: 'Terapias y Limpiezas', desc: 'Sanación angelica profunda', disponible: true },
+                { id: 'academia', icon: <GraduationCap />, titulo: 'Academia Angelica', desc: 'Formación espiritual completa', disponible: true },
                 { id: 'mensaje', icon: <MessageSquare />, titulo: 'Mensaje del Día', desc: 'Recibe una canalización espiritual', disponible: true },
                 { id: 'blog', icon: <Mic />, titulo: 'Blog & Podcast', desc: 'Contenido espiritual diario', disponible: true },
-                { id: 'tienda', icon: <ShoppingCart />, titulo: 'Tienda Angélica', desc: 'Cristales, cartas y recursos espirituales', disponible: false },
+                { id: 'tienda', icon: <ShoppingCart />, titulo: 'Tienda Angélica', desc: 'Cartas y recursos espirituales', disponible: false },
               ].map(app => (
                 <div key={app.id} className={`app-card ${app.id}`}>
                   <div className="app-header">
@@ -124,13 +124,13 @@ const Dashboard = ({ user, onLogout }) => {
         </div>
         <ul className="sidebar-nav">
           <li onClick={() => setActiveSection('home')}><Home />Inicio</li>
-          <li onClick={() => setActiveSection('tirada')}><Heart />Tirada</li>
-          <li onClick={() => setActiveSection('canalizaciones')}><Headphones />Canalizaciones</li>
-          <li onClick={() => setActiveSection('terapias')}><Zap />Terapias</li>
-          <li onClick={() => setActiveSection('academia')}><BookOpen />Academia</li>
-          <li onClick={() => setActiveSection('mensaje')}><MessageSquare />Mensaje</li>
-          <li onClick={() => setActiveSection('blog')}><BookOpen />Blog</li>
-          <li onClick={() => setActiveSection('tienda')}><ShoppingCart />Tienda</li>
+          <li onClick={() => setActiveSection('tirada')}><Heart />Apertura Angelica</li>
+          <li onClick={() => setActiveSection('canalizaciones')}><Headphones />Sonoteraia y Canalizaciones</li>
+          <li onClick={() => setActiveSection('terapias')}><Zap />Terapias y Limpiezas</li>
+          <li onClick={() => setActiveSection('academia')}><BookOpen />Academia Angelica</li>
+          <li onClick={() => setActiveSection('mensaje')}><MessageSquare />Mensaje Diario</li>
+          <li onClick={() => setActiveSection('blog')}><BookOpen />Blog & Podcast </li>
+          <li onClick={() => setActiveSection('tienda')}><ShoppingCart />Tienda Angelica</li>
         </ul>
         <div className="sidebar-footer">
           <User />
