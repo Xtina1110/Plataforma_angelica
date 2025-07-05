@@ -58,6 +58,10 @@ const Dashboard = ({ user, onLogout }) => {
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
             <div className="seccion-dashboard" style={{ backgroundImage: `url(${fondoMarmoleado})` }}>
+            
+            {/* Capa de transparencia */}
+            <div className="absolute inset-0 bg-white/60 z-0"></div>
+
               <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
               <div className="bloque-metricas">
                 <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
