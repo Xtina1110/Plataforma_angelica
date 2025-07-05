@@ -1,300 +1,912 @@
-.academia-angelical-container {
-  padding: 30px;
-  background-color: #f9f9f9;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  max-width: 1200px;
-  margin: 0 auto;
+/* ========================================
+   ACADEMIA ANGELICAL - ESTILOS CSS
+   Basado en el tema Kalvi adaptado a la estética angelical
+   ======================================== */
+
+.academia-angelical-kalvi {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #fafafa;
 }
 
-.academia-angelical-container h2 {
+/* ========================================
+   HERO SECTION
+   ======================================== */
+.academia-hero {
+  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 50%, #9370db 100%);
+  color: white;
+  padding: 80px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 20px;
+  margin-bottom: 60px;
+  overflow: hidden;
+  position: relative;
+}
+
+.academia-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/patterns/angelic-pattern.png') repeat;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.hero-content {
+  flex: 1;
+  padding: 0 60px;
+  z-index: 2;
+  position: relative;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+  font-size: 1.3rem;
+  margin-bottom: 40px;
+  opacity: 0.95;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 40px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat .number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffd700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.stat .label {
+  font-size: 1rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hero-image {
+  flex: 1;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ========================================
+   FILTROS Y BÚSQUEDA
+   ======================================== */
+.filtros-section {
+  background: white;
+  padding: 30px 0;
+  margin-bottom: 50px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.filtros-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding: 0 30px;
+}
+
+.busqueda-box {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.busqueda-box svg {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6a0dad;
+}
+
+.busqueda-box input {
+  width: 100%;
+  padding: 15px 15px 15px 50px;
+  border: 2px solid #e0e0e0;
+  border-radius: 25px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.busqueda-box input:focus {
+  outline: none;
+  border-color: #6a0dad;
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
+}
+
+.filtros-group {
+  display: flex;
+  gap: 20px;
+}
+
+.filtro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filtro-item label {
+  font-weight: 600;
+  color: #6a0dad;
+  font-size: 0.9rem;
+}
+
+.filtro-item select {
+  padding: 10px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filtro-item select:focus {
+  outline: none;
+  border-color: #6a0dad;
+}
+
+/* ========================================
+   CURSOS DESTACADOS
+   ======================================== */
+.cursos-destacados {
+  max-width: 1200px;
+  margin: 0 auto 60px;
+  padding: 0 30px;
+}
+
+.cursos-destacados h2 {
   font-size: 2.5rem;
   color: #6a0dad;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 50px;
+  position: relative;
 }
 
-.academia-angelical-container .subtitle {
-  font-size: 1.1rem;
-  color: #777;
-  text-align: center;
-  margin-bottom: 40px;
+.cursos-destacados h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #6a0dad, #ffd700);
+  border-radius: 2px;
 }
 
-.cursos-grid {
+.destacados-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
 }
 
-.curso-card {
-  background-color: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+.curso-destacado-card {
+  background: white;
+  border-radius: 20px;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.curso-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+.curso-destacado-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #6a0dad, #ffd700);
 }
 
-.curso-imagen-container {
-  width: 100%;
+.curso-destacado-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.curso-imagen {
+  position: relative;
   height: 200px;
   overflow: hidden;
 }
 
-.curso-imagen-container img {
+.curso-imagen img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
 
-.curso-card:hover .curso-imagen-container img {
+.curso-destacado-card:hover .curso-imagen img {
   transform: scale(1.05);
 }
 
-.curso-card-body {
-  padding: 20px;
+.curso-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(106, 13, 173, 0.8);
   display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.curso-card-body h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 10px;
-  flex-grow: 1;
+.curso-destacado-card:hover .curso-overlay {
+  opacity: 1;
 }
 
-.curso-descripcion {
-  font-size: 0.95rem;
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 15px;
+.btn-preview {
+  background: white;
+  color: #6a0dad;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.3s ease;
+}
+
+.btn-preview:hover {
+  transform: scale(1.05);
+}
+
+.curso-info {
+  padding: 25px;
 }
 
 .curso-meta {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 10px;
   margin-bottom: 15px;
-  font-size: 0.9rem;
-  color: #777;
 }
 
-.curso-meta span {
+.categoria {
+  background: #e6e6fa;
+  color: #6a0dad;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.nivel {
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.nivel-principiante {
+  background: #d4edda;
+  color: #155724;
+}
+
+.nivel-intermedio {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.nivel-avanzado {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.curso-info h3 {
+  font-size: 1.4rem;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.curso-info p {
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.curso-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rating {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.rating span {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.estudiantes {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.curso-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.precio {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #6a0dad;
 }
 
 .btn-ver-curso {
   background: linear-gradient(45deg, #6a0dad, #8a2be2);
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 25px;
   border-radius: 25px;
-  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: auto; /* Empuja el botón hacia abajo */
+  transition: all 0.3s ease;
 }
 
 .btn-ver-curso:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(106, 13, 173, 0.3);
+  box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
 }
 
-/* Modal Styles */
+/* ========================================
+   TODOS LOS CURSOS
+   ======================================== */
+.todos-cursos {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: #6a0dad;
+}
+
+.vista-toggle {
+  display: flex;
+  background: #f0f0f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.vista-toggle button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.vista-toggle button.active {
+  background: #6a0dad;
+  color: white;
+}
+
+.cursos-grid {
+  display: grid;
+  gap: 30px;
+}
+
+.cursos-grid.grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.cursos-grid.list {
+  grid-template-columns: 1fr;
+}
+
+.curso-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  display: flex;
+}
+
+.cursos-grid.grid .curso-card {
+  flex-direction: column;
+}
+
+.cursos-grid.list .curso-card {
+  flex-direction: row;
+}
+
+.curso-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.cursos-grid.grid .curso-imagen {
+  height: 180px;
+}
+
+.cursos-grid.list .curso-imagen {
+  width: 200px;
+  height: 150px;
+  flex-shrink: 0;
+}
+
+.curso-imagen {
+  position: relative;
+  overflow: hidden;
+}
+
+.curso-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.curso-card:hover .curso-imagen img {
+  transform: scale(1.05);
+}
+
+.curso-badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.badge-nivel {
+  background: rgba(255, 255, 255, 0.9);
+  color: #6a0dad;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.badge-destacado {
+  background: #ffd700;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.curso-contenido {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.curso-header h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.instructor {
+  color: #6a0dad;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.descripcion {
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.curso-detalles {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.detalle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.curso-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.rating-text {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.curso-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.curso-actions .precio {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #6a0dad;
+}
+
+.btn-inscribirse {
+  background: linear-gradient(45deg, #6a0dad, #8a2be2);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-inscribirse:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(106, 13, 173, 0.3);
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 1000;
-  animation: fadeInOverlay 0.3s ease-out;
+  animation: fadeIn 0.3s ease;
 }
 
-@keyframes fadeInOverlay {
+@keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
 .modal-content {
-  background-color: #ffffff;
-  padding: 40px;
+  background: white;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   max-width: 800px;
   width: 90%;
-  position: relative;
-  animation: slideInUp 0.4s ease-out;
   max-height: 90vh;
   overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
 }
 
-@keyframes slideInUp {
+@keyframes slideUp {
   from { transform: translateY(50px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-.modal-close-btn {
+.modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 20px;
+  right: 20px;
   background: none;
   border: none;
   font-size: 2rem;
   color: #aaa;
   cursor: pointer;
+  z-index: 10;
   transition: color 0.3s ease;
 }
 
-.modal-close-btn:hover {
+.modal-close:hover {
   color: #6a0dad;
 }
 
 .modal-header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 25px;
+  gap: 30px;
+  padding: 40px;
+  border-bottom: 1px solid #eee;
 }
 
-.imagen-modal {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.modal-header img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  flex-shrink: 0;
 }
 
-.modal-header h2 {
-  font-size: 2.2rem;
+.modal-info {
+  flex: 1;
+}
+
+.modal-info h2 {
+  font-size: 2rem;
   color: #6a0dad;
-  text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
-.meta-info-modal {
+.modal-info .instructor {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.modal-meta {
   display: flex;
-  justify-content: center;
-  gap: 20px;
-  font-size: 1rem;
-  color: #777;
-  margin-bottom: 25px;
+  gap: 15px;
+  align-items: center;
   flex-wrap: wrap;
 }
 
-.meta-info-modal span {
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.modal-body {
+  padding: 40px;
 }
 
-.descripcion-larga {
-  font-size: 1.1rem;
-  color: #555;
-  line-height: 1.7;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.contenido-curso-seccion {
-  background-color: #f0f8ff; /* Azul muy claro */
-  border-left: 5px solid #6a0dad;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-}
-
-.contenido-curso-seccion h4 {
+.descripcion-completa h3 {
   color: #6a0dad;
   font-size: 1.4rem;
   margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
-.contenido-curso-seccion ul {
+.descripcion-completa p {
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.curso-estadisticas {
+  display: flex;
+  justify-content: space-around;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.curso-estadisticas .stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #6a0dad;
+}
+
+.curso-estadisticas .stat span {
+  font-weight: 600;
+}
+
+.contenido-curso h3 {
+  color: #6a0dad;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+}
+
+.contenido-curso ul {
   list-style: none;
   padding: 0;
 }
 
-.contenido-curso-seccion li {
+.contenido-curso li {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 10px;
-  color: #444;
-  font-size: 1rem;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  color: #555;
 }
 
-.contenido-curso-seccion li svg {
-  color: #28a745; /* Verde para el check */
+.contenido-curso li:last-child {
+  border-bottom: none;
 }
 
-.btn-inscribirse {
-  background: linear-gradient(45deg, #28a745, #218838); /* Verde para inscribirse */
+.contenido-curso li svg {
+  color: #28a745;
+  flex-shrink: 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0 0;
+  border-top: 1px solid #eee;
+}
+
+.precio-final {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.precio-final .precio {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #6a0dad;
+}
+
+.precio-info {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.btn-inscribirse-modal {
+  background: linear-gradient(45deg, #28a745, #20c997);
   color: white;
   border: none;
   padding: 15px 30px;
   border-radius: 25px;
   font-size: 1.1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: block;
-  width: fit-content;
-  margin: 0 auto;
+  transition: all 0.3s ease;
 }
 
-.btn-inscribirse:hover {
+.btn-inscribirse-modal:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .cursos-grid {
-    grid-template-columns: 1fr;
-  }
-  .curso-card {
-    padding: 25px;
-  }
-  .modal-content {
-    padding: 30px;
-  }
-  .modal-header h2 {
-    font-size: 1.8rem;
-  }
-  .descripcion-larga {
-    font-size: 1rem;
-  }
-  .meta-info-modal {
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 1024px) {
+  .academia-hero {
     flex-direction: column;
-    gap: 10px;
+    text-align: center;
+    padding: 60px 30px;
+  }
+  
+  .hero-content {
+    padding: 0;
+    margin-bottom: 40px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .filtros-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .filtros-group {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .cursos-grid.list .curso-card {
+    flex-direction: column;
+  }
+  
+  .cursos-grid.list .curso-imagen {
+    width: 100%;
+    height: 180px;
+  }
+  
+  .modal-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .modal-header img {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .curso-estadisticas {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .modal-footer {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  .academia-angelical-container h2 {
+  .academia-angelical-kalvi {
+    padding: 0 15px;
+  }
+  
+  .hero-content h1 {
     font-size: 2rem;
   }
-  .curso-card h3 {
-    font-size: 1.3rem;
+  
+  .hero-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .destacados-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cursos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-content {
+    width: 95%;
+  }
+  
+  .modal-header,
+  .modal-body {
+    padding: 20px;
   }
 }
+
