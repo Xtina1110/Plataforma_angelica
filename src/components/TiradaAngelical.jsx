@@ -443,37 +443,27 @@ const TiradaAngelical = ({ onVolver }) => {
 
   return (
     <div className="tirada-angelical-container">
-      {/* Header Hero Section */}
+      {/* Header Barra Superior */}
       <div className="tirada-hero-header">
-        <div className="hero-background">
-          <div className="hero-overlay"></div>
-          <div className="hero-angels-bg"></div>
-        </div>
+        <div className="hero-background"></div>
+        <div className="hero-overlay"></div>
         
         <div className="hero-content">
           <button
             onClick={onVolver}
             className="btn-volver-hero"
           >
-            <ArrowLeft className="w-5 h-5" /> 
+            <ArrowLeft className="w-4 h-4" /> 
             Volver al Dashboard
           </button>
           
           <div className="hero-main-content">
             <div className="hero-icon">
-              <Heart className="w-16 h-16" />
+              <Heart className="w-6 h-6" />
             </div>
-            
             <div className="hero-text">
-              <span className="hero-subtitle">CONECTA CON LA SABIDURÍA DIVINA</span>
-              <h1 className="hero-title">
-                Descubre los mensajes que los ángeles 
-                <br />
-                tienen preparados para ti
-              </h1>
-              <p className="hero-description">
-                Permite que la sabiduría angelical ilumine tu camino y te guíe hacia las respuestas que tu alma busca
-              </p>
+              <h1 className="hero-title">Apertura Angelical</h1>
+              <p className="hero-description">Conecta con la sabiduría celestial a través de las cartas angelicales</p>
             </div>
           </div>
         </div>
