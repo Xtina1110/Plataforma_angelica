@@ -60,7 +60,7 @@ const Dashboard = ({ user, onLogout }) => {
             <div className="seccion-dashboard" style={{ backgroundImage: `url(${fondoMarmoleado})` }}>
             
             {/* Capa de transparencia */}
-            <div className="absolute inset-0 bg-white/60 z-0"></div>
+            <div className="seccion-dashboard inset-0 bg-white/60 z-0"></div>
 
               <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
               <div className="bloque-metricas">
