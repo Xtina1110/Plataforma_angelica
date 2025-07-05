@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
-import './AcademiaAngelicalCompleta.css';
+import './AcademiaAngelical.css';
 import { 
   BookOpen, Award, User, Star, ChevronRight, CheckCircle, Play, Clock, Users, 
   Filter, Search, Grid, List, MoreHorizontal, ShoppingCart, Heart, Eye,
@@ -98,7 +98,7 @@ const cursosData = [
     precioOriginal: 129,
     instructor: 'Juan Carlos Ávila',
     instructorBio: 'Maestro espiritual con más de 15 años de experiencia en comunicación angelical.',
-    imagen: '/assets/academia/curso-introduccion.jpg',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop',
     categoria: 'Fundamentos',
     rating: 4.8,
     reviews: 156,
@@ -156,7 +156,7 @@ const cursosData = [
     precioOriginal: 99,
     instructor: 'María Elena Luz',
     instructorBio: 'Canalizadora certificada con don natural para la comunicación angelical.',
-    imagen: '/assets/academia/curso-guardian.jpg',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
     categoria: 'Conexión',
     rating: 4.9,
     reviews: 98,
@@ -209,7 +209,7 @@ const cursosData = [
     precioOriginal: 179,
     instructor: 'Juan Carlos Ávila',
     instructorBio: 'Maestro espiritual con más de 15 años de experiencia en comunicación angelical.',
-    imagen: '/assets/academia/curso-arcangeles.jpg',
+    imagen: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=300&fit=crop',
     categoria: 'Arcángeles',
     rating: 4.7,
     reviews: 87,
@@ -267,7 +267,7 @@ const cursosData = [
     precioOriginal: 299,
     instructor: 'Ana Cristina Paz',
     instructorBio: 'Sanadora angelical certificada con más de 20 años de experiencia.',
-    imagen: '/assets/academia/curso-sanacion.jpg',
+    imagen: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop',
     categoria: 'Sanación',
     rating: 4.9,
     reviews: 45,
@@ -325,7 +325,7 @@ const cursosData = [
     precioOriginal: 0,
     instructor: 'Luz Marina Santos',
     instructorBio: 'Especialista en manifestación consciente y ley de atracción angelical.',
-    imagen: '/assets/academia/curso-manifestacion.jpg',
+    imagen: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop',
     categoria: 'Manifestación',
     rating: 4.6,
     reviews: 234,
@@ -372,7 +372,7 @@ const cursosData = [
     precioOriginal: 149,
     instructor: 'Carlos Numerólogo',
     instructorBio: 'Experto en numerología sagrada y comunicación angelical.',
-    imagen: '/assets/academia/curso-numerologia.jpg',
+    imagen: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop',
     categoria: 'Numerología',
     rating: 0,
     reviews: 0,
@@ -398,7 +398,7 @@ const cursosData = [
 ];
 
 // Componente principal
-const AcademiaAngelicalCompleta = () => {
+const AcademiaAngelical = () => {
   // Estados principales
   const [cursos, setCursos] = useState(cursosData);
   const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
@@ -937,7 +937,6 @@ const CursoModal = ({ curso, onClose, onExpand, expandido, onCloseExpanded }) =>
           </button>
         </div>
         <div className="modal-expandido-contenido">
-          {/* Contenido completo del curso en pantalla completa */}
           <CursoDetalleCompleto curso={curso} />
         </div>
       </div>
@@ -1026,7 +1025,6 @@ const CursoDetalleResumido = ({ curso, onAddToCart }) => {
 const CursoDetalleCompleto = ({ curso }) => {
   return (
     <div className="curso-detalle-completo">
-      {/* Implementar vista completa con todos los detalles */}
       <div className="detalle-completo-grid">
         <div className="detalle-principal">
           <img src={curso.imagen} alt={curso.titulo} />
@@ -1175,7 +1173,7 @@ const CartSidebar = () => {
 const AcademiaAngelicalConProvider = () => {
   return (
     <CartProvider>
-      <AcademiaAngelicalCompleta />
+      <AcademiaAngelical />
     </CartProvider>
   );
 };
