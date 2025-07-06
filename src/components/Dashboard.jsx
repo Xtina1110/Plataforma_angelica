@@ -29,16 +29,28 @@ import './Dashboard.css';
 const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
-  const [userData] = useState({
-    nombre: user?.email?.split('@')[0] || 'Usuario Angelical',
-    rol: 'Miembro Premium',
+  const [userData, setUserData] = useState({
+    nombre: user?.displayName || 'Juan Carlos',
+    apellido: user?.lastName || 'Pérez',
+    email: user?.email || 'demo@test.com',
+    username: user?.username || 'demo@test.com',
+    rol: 'Usuario Premium',
+    telefono: '+34 600 123 456',
+    fechaNacimiento: '1985-03-15',
+    pais: 'España',
+    ciudad: 'Madrid',
     nivelEspiritual: 'Iluminado',
     puntosDeLuz: 1500,
     diasConsecutivos: 7,
     sonoterapiasCompletadas: 12,
     canalizacionesEscuchadas: 25,
     cursosFinalizados: 3,
+    notificaciones: true,
+    emailMarketing: false,
+    modoOscuro: false,
+    idioma: 'es'
   });
 
   // Datos del mensaje del día
@@ -136,6 +148,10 @@ const Dashboard = ({ user, onLogout }) => {
     });
   };
 
+  const updateUserData = (newData) => {
+    setUserData(prev => ({ ...prev, ...newData }));
+  };
+
   const menuItems = [
     { id: 'home', icon: Home, label: 'Inicio', color: '#6a0dad' },
     { id: 'tirada', icon: Heart, label: 'Apertura Angelica', color: '#4fc3f7' },
@@ -146,6 +162,128 @@ const Dashboard = ({ user, onLogout }) => {
     { id: 'blog', icon: Mic, label: 'Blog & Podcast', color: '#ce93d8' },
     { id: 'tienda', icon: ShoppingCart, label: 'Tienda Angelica', color: '#ff8a65' },
   ];
+
+  const renderSettings = () => (
+    <div className="settings-modal-overlay" onClick={() => setShowSettings(false)}>
+      <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="settings-header">
+          <h2>Configuración de Usuario</h2>
+          <button onClick={() => setShowSettings(false)} className="close-settings">
+            <X size={24} />
+          </button>
+        </div>
+        
+        <div className="settings-content">
+          <div className="settings-section">
+            <h3>Información Personal</h3>
+            <div className="settings-grid">
+              <div className="setting-field">
+                <label>Nombre</label>
+                <input 
+                  type="text" 
+                  value={userData.nombre}
+                  onChange={(e) => updateUserData({ nombre: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Apellido</label>
+                <input 
+                  type="text" 
+                  value={userData.apellido}
+                  onChange={(e) => updateUserData({ apellido: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Email</label>
+                <input 
+                  type="email" 
+                  value={userData.email}
+                  onChange={(e) => updateUserData({ email: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Teléfono</label>
+                <input 
+                  type="tel" 
+                  value={userData.telefono}
+                  onChange={(e) => updateUserData({ telefono: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Fecha de Nacimiento</label>
+                <input 
+                  type="date" 
+                  value={userData.fechaNacimiento}
+                  onChange={(e) => updateUserData({ fechaNacimiento: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>País</label>
+                <input 
+                  type="text" 
+                  value={userData.pais}
+                  onChange={(e) => updateUserData({ pais: e.target.value })}
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div className="settings-section">
+            <h3>Preferencias de la Plataforma</h3>
+            <div className="settings-grid">
+              <div className="setting-field">
+                <label>Idioma</label>
+                <select 
+                  value={userData.idioma}
+                  onChange={(e) => updateUserData({ idioma: e.target.value })}
+                >
+                  <option value="es">Español</option>
+                  <option value="en">English</option>
+                  <option value="fr">Français</option>
+                </select>
+              </div>
+              <div className="setting-toggle">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={userData.notificaciones}
+                    onChange={(e) => updateUserData({ notificaciones: e.target.checked })}
+                  />
+                  <span>Recibir notificaciones</span>
+                </label>
+              </div>
+              <div className="setting-toggle">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={userData.emailMarketing}
+                    onChange={(e) => updateUserData({ emailMarketing: e.target.checked })}
+                  />
+                  <span>Emails promocionales</span>
+                </label>
+              </div>
+              <div className="setting-toggle">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={userData.modoOscuro}
+                    onChange={(e) => updateUserData({ modoOscuro: e.target.checked })}
+                  />
+                  <span>Modo oscuro</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="settings-footer">
+          <button onClick={() => setShowSettings(false)} className="btn-guardar">
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 
   const renderMensajeDelDia = () => (
     <div className="mensaje-del-dia-widget">
@@ -321,15 +459,9 @@ const Dashboard = ({ user, onLogout }) => {
         return (
           <div className="dashboard-home">
             <div className="bienvenida-usuario">
-              <h2>¡Bienvenido de nuevo, {userData.nombre}!</h2>
+              <h2>¡Bienvenido de nuevo, {userData.nombre} {userData.apellido}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
-
-            {/* Mensaje del Día */}
-            {renderMensajeDelDia()}
-
-            {/* Calendario de Eventos */}
-            {renderCalendarioEventos()}
 
             <h3 className="titulo-dashboard">Dashboard Personal</h3>
 
@@ -360,6 +492,12 @@ const Dashboard = ({ user, onLogout }) => {
                 <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
               </div>
             </div>
+
+            {/* Mensaje del Día */}
+            {renderMensajeDelDia()}
+
+            {/* Calendario de Eventos */}
+            {renderCalendarioEventos()}
 
             <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
             <div className="grid-aplicaciones">
@@ -422,15 +560,22 @@ const Dashboard = ({ user, onLogout }) => {
         </ul>
         
         <div className="sidebar-footer">
-          <User size={20} />
+          <div className="user-info">
+            <div className="user-avatar" onClick={() => setShowSettings(true)}>
+              <User size={20} />
+            </div>
+            {!sidebarCollapsed && (
+              <div className="user-details">
+                <span className="user-email">{userData.username}</span>
+                <span className="user-role">{userData.rol}</span>
+              </div>
+            )}
+          </div>
           {!sidebarCollapsed && (
-            <>
-              <span>{userData.nombre}</span>
-              <button onClick={onLogout}>
-                <LogOut size={16} />
-                Salir
-              </button>
-            </>
+            <button onClick={onLogout} className="logout-button">
+              <LogOut size={16} />
+              Cerrar Sesión
+            </button>
           )}
         </div>
       </aside>
@@ -438,6 +583,8 @@ const Dashboard = ({ user, onLogout }) => {
       <main className={`main-content ${sidebarCollapsed ? 'expanded' : ''}`}>
         {renderSection()}
       </main>
+      
+      {showSettings && renderSettings()}
     </div>
   );
 };
