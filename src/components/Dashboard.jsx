@@ -383,11 +383,20 @@ const Dashboard = ({ user, onLogout }) => {
               <span className="arcangel-nombre">- {mensajeDelDia.arcangel}</span>
               <span className="arcangel-energia">{mensajeDelDia.energia}</span>
             </div>
-            <button className="btn-meditar-premium">
-              <span className="btn-icono">🧘‍♀️</span>
-              <span className="btn-texto">Meditar</span>
+            <button 
+              className="btn-meditar-premium"
+              onClick={() => setActiveSection('mensaje')}
+            >
+              <span className="btn-icono">💌</span>
+              <span className="btn-texto">Mensajes del Día</span>
             </button>
           </div>
+          
+          {/* Botón Luz Interior en esquina superior derecha */}
+          <button className="btn-luz-interior">
+            <span className="luz-icono">✨</span>
+            <span className="luz-texto">Luz Interior</span>
+          </button>
         </div>
         
         {/* Bordes decorativos angelicales */}
@@ -596,7 +605,7 @@ const Dashboard = ({ user, onLogout }) => {
             {/* Calendario de Eventos */}
             {renderCalendarioEventos()}
 
-            <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
+            <h3 className="subtitulo-apps">Aplicaciones angelicas</h3>
             <div className="grid-aplicaciones">
               {[
                 { id: 'tirada', icon: <Heart />, titulo: 'Apertura Angelica', desc: 'Conecta con la sabiduría de los ángeles', disponible: true },
