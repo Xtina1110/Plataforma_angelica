@@ -8,7 +8,6 @@ import {
 
 import TiradaAngelical from './TiradaAngelical';
 import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
-import MensajeDelDia from './MensajeDelDia';
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState('inicio');
@@ -117,7 +116,121 @@ const Dashboard = () => {
 
       {/* Widgets principales */}
       <div className="dashboard-widgets">
-        <MensajeDelDia />
+        {/* Mensaje del Día */}
+        <div style={{ margin: '20px 0' }}>
+          <h3 style={{ 
+            color: '#6a0dad', 
+            fontSize: '1.8rem', 
+            fontWeight: 700, 
+            fontFamily: 'Playfair Display, serif',
+            marginBottom: '20px',
+            textAlign: 'left'
+          }}>
+            Mensaje del Día
+          </h3>
+          
+          <div style={{
+            background: 'linear-gradient(135deg, #6a0dad 0%, #8a2be2 25%, #9370db 50%, #ba55d3 75%, #6a0dad 100%)',
+            borderRadius: '20px',
+            padding: '30px',
+            color: 'white',
+            boxShadow: '0 10px 30px rgba(106, 13, 173, 0.3)',
+            border: '1px solid rgba(255, 215, 0, 0.2)',
+            minHeight: '300px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+          }}>
+            {/* Fecha */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              marginBottom: '20px'
+            }}>
+              <span style={{ fontSize: '1.5rem' }}>✨</span>
+              <span style={{
+                fontSize: '1.2rem',
+                fontWeight: 600,
+                textTransform: 'capitalize'
+              }}>
+                {new Date().toLocaleDateString('es-ES', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </span>
+            </div>
+            
+            {/* Mensaje */}
+            <div style={{
+              textAlign: 'center',
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '20px 0'
+            }}>
+              <p style={{
+                fontSize: '1.4rem',
+                lineHeight: 1.6,
+                fontStyle: 'italic',
+                margin: 0,
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+              }}>
+                "Tu luz interior brilla más fuerte cada día. Los ángeles amplifican tu radiancia espiritual."
+              </p>
+            </div>
+            
+            {/* Arcángel */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: '20px',
+              flexWrap: 'wrap',
+              gap: '15px'
+            }}>
+              <div>
+                <div style={{
+                  fontSize: '1.3rem',
+                  fontWeight: 700,
+                  marginBottom: '5px'
+                }}>
+                  - Arcángel Miguel
+                </div>
+                <div style={{
+                  fontSize: '1rem',
+                  color: 'rgba(255, 215, 0, 0.9)',
+                  fontWeight: 500
+                }}>
+                  Protección y Fuerza
+                </div>
+              </div>
+              
+              <button style={{
+                background: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)',
+                color: '#6a0dad',
+                border: 'none',
+                borderRadius: '25px',
+                padding: '12px 24px',
+                fontSize: '1rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 15px rgba(255, 215, 0, 0.3)',
+                transition: 'transform 0.2s ease'
+              }}>
+                <span>🧘‍♀️</span>
+                <span>Meditar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
         {renderCalendarioEventos()}
       </div>
     </div>
