@@ -53,53 +53,82 @@ const Dashboard = ({ user, onLogout }) => {
     idioma: 'es'
   });
 
-  // Sistema de mensajes diarios expandido
+  // Sistema de mensajes diarios
   const getMensajeDelDia = () => {
     const hoy = new Date();
     const dayOfYear = Math.floor((hoy - new Date(hoy.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
     
     const mensajesDiarios = [
-      // Semana 1 - Arcángeles Principales
-      { mensaje: "Los ángeles te recuerdan que cada nuevo día es una oportunidad para elevar tu vibración y conectar con tu propósito divino.", arcangel: "Arcángel Miguel", energia: "Protección y Valor" },
-      { mensaje: "Confía en tu intuición, los ángeles te están guiando hacia el camino correcto. Escucha los susurros de tu corazón.", arcangel: "Arcángel Gabriel", energia: "Claridad y Comunicación" },
-      { mensaje: "Hoy es un día perfecto para sanar heridas del pasado. Los ángeles te envían energía de amor y renovación.", arcangel: "Arcángel Rafael", energia: "Sanación y Renovación" },
-      { mensaje: "La sabiduría divina fluye a través de ti. Permite que la luz angelical ilumine tus decisiones del día.", arcangel: "Arcángel Uriel", energia: "Sabiduría e Iluminación" },
-      { mensaje: "El amor incondicional te rodea. Abre tu corazón para recibir y compartir la compasión angelical.", arcangel: "Arcángel Chamuel", energia: "Amor y Compasión" },
-      { mensaje: "Encuentra la belleza en cada momento. Los ángeles te invitan a celebrar la alegría que existe en tu vida.", arcangel: "Arcángel Jofiel", energia: "Belleza y Alegría" },
-      { mensaje: "La justicia divina está trabajando en tu favor. Confía en que todo se alineará según el plan perfecto.", arcangel: "Arcángel Raguel", energia: "Justicia y Equilibrio" },
-      
-      // Semana 2 - Abundancia y Naturaleza
-      { mensaje: "Conecta con la naturaleza y siente la abundancia que te rodea. Los ángeles bendicen tu prosperidad.", arcangel: "Arcángel Ariel", energia: "Naturaleza y Abundancia" },
-      { mensaje: "Tu conexión con lo divino se fortalece cada día. Los misterios del universo se revelan ante ti.", arcangel: "Arcángel Metatrón", energia: "Sabiduría Universal" },
-      { mensaje: "Es tiempo de perdonar y liberar. Los ángeles te ayudan a transmutar cualquier energía negativa en luz.", arcangel: "Arcángel Zadkiel", energia: "Perdón y Transmutación" },
-      { mensaje: "Tu intuición femenina se despierta. Los ciclos naturales te guían hacia tu máximo potencial.", arcangel: "Arcángel Haniel", energia: "Intuición y Ciclos" },
-      { mensaje: "Los secretos del universo se revelan a quienes buscan con corazón puro. Mantén tu mente abierta.", arcangel: "Arcángel Raziel", energia: "Misterios Divinos" },
-      { mensaje: "Tus oraciones han sido escuchadas. Los ángeles trabajan para manifestar tus deseos más elevados.", arcangel: "Arcángel Sandalfón", energia: "Oraciones y Respuestas" },
-      { mensaje: "Es momento de revisar tu camino y hacer los cambios necesarios. Los ángeles te apoyan en tu transformación.", arcangel: "Arcángel Jeremiel", energia: "Revisión y Cambio" },
-      
-      // Semana 3 - Transformación y Crecimiento
-      { mensaje: "Las transiciones son oportunidades de crecimiento. Los ángeles te acompañan en cada paso de tu evolución.", arcangel: "Arcángel Azrael", energia: "Transformación" },
-      { mensaje: "Tu autoestima brilla con luz propia. Los ángeles refuerzan tu confianza y valor personal.", arcangel: "Arcángel Camael", energia: "Autoestima y Confianza" },
-      { mensaje: "La paciencia es una virtud divina. Los ángeles te enseñan a fluir con los tiempos perfectos del universo.", arcangel: "Arcángel Cassiel", energia: "Paciencia y Perseverancia" },
-      { mensaje: "Las bendiciones llueven sobre ti. Los ángeles multiplican la fortuna en todos los aspectos de tu vida.", arcangel: "Arcángel Barachiel", energia: "Bendiciones y Fortuna" },
-      { mensaje: "Tu práctica espiritual se profundiza. Los ángeles elevan tus oraciones y meditaciones.", arcangel: "Arcángel Selaphiel", energia: "Oración y Meditación" },
-      { mensaje: "La esperanza renace en tu corazón. Los ángeles traen renovación y nuevas oportunidades.", arcangel: "Arcángel Remiel", energia: "Esperanza y Renovación" },
-      { mensaje: "Sana tu mundo emocional. Los ángeles te envuelven en amor incondicional para restaurar tu paz interior.", arcangel: "Arcángel Muriel", energia: "Sanación Emocional" },
-      
-      // Semana 4 - Creatividad y Propósito
-      { mensaje: "Tu creatividad es un don divino. Los ángeles inspiran tu expresión artística y pasión por la vida.", arcangel: "Arcángel Iofiel", energia: "Creatividad y Pasión" },
-      { mensaje: "El fuego sagrado arde en tu interior. Los ángeles avivan tu determinación y fuerza espiritual.", arcangel: "Arcángel Nathaniel", energia: "Fuego Sagrado" },
-      { mensaje: "Vive en tu verdad auténtica. Los ángeles te apoyan para expresar quien realmente eres.", arcangel: "Arcángel Amitiel", energia: "Verdad y Autenticidad" },
-      { mensaje: "Tu determinación es inquebrantable. Los ángeles fortalecen tu voluntad para alcanzar tus metas.", arcangel: "Arcángel Uzziel", energia: "Determinación y Fuerza" },
-      { mensaje: "La armonía se establece en tu vida. Los ángeles equilibran todas las áreas de tu existencia.", arcangel: "Arcángel Anael", energia: "Armonía y Equilibrio" },
-      { mensaje: "La prosperidad fluye hacia ti. Los ángeles abren canales de abundancia en tu camino.", arcangel: "Arcángel Sachiel", energia: "Prosperidad y Abundancia" },
-      { mensaje: "Tu luz interior brilla más fuerte cada día. Los ángeles amplifican tu radiancia espiritual.", arcangel: "Arcángel Raziel", energia: "Luz Interior" },
-      
-      // Mensajes adicionales para completar el mes
-      { mensaje: "Confía en el proceso divino. Los ángeles orquestan sincronías perfectas para tu mayor bien.", arcangel: "Arcángel Miguel", energia: "Confianza Divina" },
-      { mensaje: "Tu corazón es un templo sagrado. Los ángeles bendicen cada latido con amor incondicional.", arcangel: "Arcángel Chamuel", energia: "Amor Sagrado" },
-      { mensaje: "La sabiduría ancestral despierta en ti. Los ángeles conectan tu alma con conocimientos eternos.", arcangel: "Arcángel Metatrón", energia: "Sabiduría Ancestral" },
-      { mensaje: "Eres un canal de luz en este mundo. Los ángeles te utilizan para irradiar sanación a otros.", arcangel: "Arcángel Rafael", energia: "Canal de Luz" }
+      {
+        mensaje: "Los ángeles te recuerdan que cada nuevo día es una oportunidad para elevar tu vibración y conectar con tu propósito divino.",
+        arcangel: "Arcángel Miguel",
+        energia: "Protección y Valor"
+      },
+      {
+        mensaje: "Confía en tu intuición, los ángeles te están guiando hacia el camino correcto. Escucha los susurros de tu corazón.",
+        arcangel: "Arcángel Gabriel",
+        energia: "Claridad y Comunicación"
+      },
+      {
+        mensaje: "Hoy es un día perfecto para sanar heridas del pasado. Los ángeles te envían energía de amor y renovación.",
+        arcangel: "Arcángel Rafael",
+        energia: "Sanación y Renovación"
+      },
+      {
+        mensaje: "La sabiduría divina fluye a través de ti. Permite que la luz angelical ilumine tus decisiones del día.",
+        arcangel: "Arcángel Uriel",
+        energia: "Sabiduría e Iluminación"
+      },
+      {
+        mensaje: "El amor incondicional te rodea. Abre tu corazón para recibir y compartir la compasión angelical.",
+        arcangel: "Arcángel Chamuel",
+        energia: "Amor y Compasión"
+      },
+      {
+        mensaje: "Encuentra la belleza en cada momento. Los ángeles te invitan a celebrar la alegría que existe en tu vida.",
+        arcangel: "Arcángel Jofiel",
+        energia: "Belleza y Alegría"
+      },
+      {
+        mensaje: "La justicia divina está trabajando en tu favor. Confía en que todo se alineará según el plan perfecto.",
+        arcangel: "Arcángel Raguel",
+        energia: "Justicia y Equilibrio"
+      },
+      {
+        mensaje: "Conecta con la naturaleza y siente la abundancia que te rodea. Los ángeles bendicen tu prosperidad.",
+        arcangel: "Arcángel Ariel",
+        energia: "Naturaleza y Abundancia"
+      },
+      {
+        mensaje: "Tu conexión con lo divino se fortalece cada día. Los misterios del universo se revelan ante ti.",
+        arcangel: "Arcángel Metatrón",
+        energia: "Sabiduría Universal"
+      },
+      {
+        mensaje: "Es tiempo de perdonar y liberar. Los ángeles te ayudan a transmutar cualquier energía negativa en luz.",
+        arcangel: "Arcángel Zadkiel",
+        energia: "Perdón y Transmutación"
+      },
+      {
+        mensaje: "Tu intuición femenina se despierta. Los ciclos naturales te guían hacia tu máximo potencial.",
+        arcangel: "Arcángel Haniel",
+        energia: "Intuición y Ciclos"
+      },
+      {
+        mensaje: "Los secretos del universo se revelan a quienes buscan con corazón puro. Mantén tu mente abierta.",
+        arcangel: "Arcángel Raziel",
+        energia: "Misterios Divinos"
+      },
+      {
+        mensaje: "Tus oraciones han sido escuchadas. Los ángeles trabajan para manifestar tus deseos más elevados.",
+        arcangel: "Arcángel Sandalfón",
+        energia: "Oraciones y Respuestas"
+      },
+      {
+        mensaje: "Es momento de revisar tu camino y hacer los cambios necesarios. Los ángeles te apoyan en tu transformación.",
+        arcangel: "Arcángel Jeremiel",
+        energia: "Revisión y Cambio"
+      }
     ];
     
     // Seleccionar mensaje basado en el día del año para que sea consistente
@@ -343,25 +372,18 @@ const Dashboard = ({ user, onLogout }) => {
     <div className="mensaje-del-dia-section">
       <h3 className="titulo-dashboard">Mensaje del Día</h3>
       <div className="mensaje-del-dia-widget">
-        <div className="mensaje-background-container">
-          <img 
-            src="/angel-mensaje.jpg" 
-            alt="Ángel del día" 
-            className="mensaje-angel-background"
-          />
-          <div className="mensaje-overlay"></div>
+        <div className="mensaje-background-image">
+          <img src="/angel-mensaje.jpg" alt="Ángel del día" />
         </div>
         
-        <div className="mensaje-content-card">
-          <div className="mensaje-fecha-header">
-            {mensajeDelDia.fecha}
-          </div>
+        <div className="mensaje-card">
+          <div className="mensaje-fecha-card">{mensajeDelDia.fecha}</div>
           
-          <div className="mensaje-texto-principal">
+          <div className="mensaje-texto-card">
             "{mensajeDelDia.mensaje}"
           </div>
           
-          <div className="mensaje-arcangel-footer">
+          <div className="mensaje-arcangel-card">
             - {mensajeDelDia.arcangel}
           </div>
         </div>
