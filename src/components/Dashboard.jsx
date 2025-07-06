@@ -384,7 +384,7 @@ const Dashboard = ({ user, onLogout }) => {
           {/* Botón Luz Interior en esquina superior derecha */}
           <button className="btn-luz-interior">
             <span className="luz-icono">✨</span>
-            <span className="luz-texto">Luz Interior</span>
+            <span className="luz-texto">{mensajeDelDia.energia}</span>
           </button>
         </div>
         
@@ -392,7 +392,6 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="bordes-angelicales">
           <div className="borde-esquina esquina-tl"></div>
           <div className="borde-esquina esquina-tr"></div>
-          <div className="borde-esquina esquina-bl"></div>
           <div className="borde-esquina esquina-br"></div>
         </div>
       </div>
