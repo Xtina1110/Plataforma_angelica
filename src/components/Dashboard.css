@@ -428,147 +428,602 @@ body {
 }
 
 /* ========================================
-   MENSAJE DEL DÍA WIDGET
+   MENSAJE DEL DÍA - DISEÑO PREMIUM WOW FACTOR
    ======================================== */
-.mensaje-del-dia-section {
-  margin: 30px 0;
-}
-
-.mensaje-del-dia-widget {
+.mensaje-del-dia-premium {
   position: relative;
-  border-radius: 20px;
+  height: 450px;
+  border-radius: 30px;
   overflow: hidden;
-  min-height: 250px;
-  box-shadow: 0 8px 32px rgba(106, 13, 173, 0.15);
+  background: linear-gradient(135deg, 
+    #6a0dad 0%, 
+    #8a2be2 25%, 
+    #9370db 50%, 
+    #ba55d3 75%, 
+    #6a0dad 100%
+  );
+  box-shadow: 
+    0 25px 80px rgba(106, 13, 173, 0.6),
+    0 15px 40px rgba(138, 43, 226, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  animation: mensaje-glow 4s ease-in-out infinite;
 }
 
-.mensaje-background-image {
+@keyframes mensaje-glow {
+  0%, 100% { 
+    box-shadow: 
+      0 25px 80px rgba(106, 13, 173, 0.6),
+      0 15px 40px rgba(138, 43, 226, 0.4),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+  }
+  50% { 
+    box-shadow: 
+      0 35px 100px rgba(106, 13, 173, 0.8),
+      0 20px 50px rgba(138, 43, 226, 0.6),
+      inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Imagen del ángel de fondo */
+.mensaje-angel-fondo {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
 }
 
-.mensaje-background-image img {
+.angel-background-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(1.1) contrast(0.9);
+  filter: brightness(1.4) contrast(1.2) saturate(1.1) hue-rotate(15deg);
+  opacity: 0.6;
+  animation: angel-breathe 8s ease-in-out infinite;
 }
 
-.mensaje-card {
+@keyframes angel-breathe {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1.4) contrast(1.2) saturate(1.1) hue-rotate(15deg);
+  }
+  50% { 
+    transform: scale(1.05) rotate(1deg);
+    filter: brightness(1.6) contrast(1.3) saturate(1.2) hue-rotate(20deg);
+  }
+}
+
+/* Overlay angelical */
+.mensaje-overlay-angelical {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  width: 400px;
-  max-width: calc(100% - 60px);
-  background: rgba(255, 255, 255, 0.95);
-  border: 3px solid #333;
-  border-radius: 15px;
-  padding: 25px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(106, 13, 173, 0.8) 0%,
+    rgba(138, 43, 226, 0.6) 25%,
+    rgba(147, 112, 219, 0.4) 50%,
+    rgba(186, 85, 211, 0.6) 75%,
+    rgba(106, 13, 173, 0.8) 100%
+  );
+  backdrop-filter: blur(2px);
   z-index: 2;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-.mensaje-fecha-card {
-  color: #6a0dad;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 20px;
-  text-transform: capitalize;
+/* Efectos de luz y partículas */
+.mensaje-efectos-luz {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.particula-luz {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, #ffd700 0%, rgba(255, 255, 255, 0.8) 100%);
+  border-radius: 50%;
+  animation: particula-float 6s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+}
+
+.particula-1 { top: 15%; left: 20%; animation-delay: 0s; }
+.particula-2 { top: 25%; left: 75%; animation-delay: 1.2s; }
+.particula-3 { top: 45%; left: 15%; animation-delay: 2.4s; }
+.particula-4 { top: 65%; left: 80%; animation-delay: 3.6s; }
+.particula-5 { top: 80%; left: 40%; animation-delay: 4.8s; }
+
+@keyframes particula-float {
+  0%, 100% { 
+    transform: translateY(0px) scale(1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translateY(-20px) scale(1.5);
+    opacity: 1;
+  }
+}
+
+.rayo-luz {
+  position: absolute;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 215, 0, 0.3) 45%, 
+    rgba(255, 255, 255, 0.6) 50%, 
+    rgba(255, 215, 0, 0.3) 55%, 
+    transparent 100%
+  );
+  animation: rayo-sweep 8s ease-in-out infinite;
+}
+
+.rayo-1 {
+  top: 20%;
+  left: -20%;
+  width: 140%;
+  height: 3px;
+  transform: rotate(10deg);
+  animation-delay: 0s;
+}
+
+.rayo-2 {
+  top: 70%;
+  left: -20%;
+  width: 140%;
+  height: 2px;
+  transform: rotate(-5deg);
+  animation-delay: 4s;
+}
+
+@keyframes rayo-sweep {
+  0%, 100% { 
+    opacity: 0;
+    transform: translateX(-100%) rotate(var(--rotation, 0deg));
+  }
+  50% { 
+    opacity: 1;
+    transform: translateX(100%) rotate(var(--rotation, 0deg));
+  }
+}
+
+/* Contenido premium */
+.mensaje-contenido-premium {
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 20px;
+  border-radius: 25px;
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Fecha premium */
+.mensaje-fecha-premium {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.fecha-icono {
+  font-size: 2rem;
+  animation: icono-pulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+}
+
+@keyframes icono-pulse {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg);
+  }
+  50% { 
+    transform: scale(1.2) rotate(5deg);
+  }
+}
+
+.fecha-texto {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.4rem;
+  font-weight: 700;
   font-family: 'Playfair Display', serif;
+  text-transform: capitalize;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3);
+  letter-spacing: 1px;
 }
 
-.mensaje-texto-card {
-  color: #333;
-  font-size: 1.2rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
+/* Texto del mensaje premium */
+.mensaje-texto-premium {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 30px 0;
+}
+
+.comilla-apertura,
+.comilla-cierre {
+  position: absolute;
+  font-size: 5rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  color: rgba(255, 215, 0, 0.9);
+  text-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(255, 215, 0, 0.6);
+  animation: comilla-shimmer 4s ease-in-out infinite;
+}
+
+.comilla-apertura {
+  top: -30px;
+  left: -20px;
+}
+
+.comilla-cierre {
+  bottom: -50px;
+  right: -20px;
+}
+
+@keyframes comilla-shimmer {
+  0%, 100% { 
+    color: rgba(255, 215, 0, 0.9);
+    text-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.5),
+      0 0 30px rgba(255, 215, 0, 0.6);
+  }
+  50% { 
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.6),
+      0 0 40px rgba(255, 215, 0, 0.8);
+  }
+}
+
+.texto-mensaje {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.6rem;
+  line-height: 1.8;
   font-weight: 500;
   font-style: italic;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(255, 255, 255, 0.2);
+  padding: 30px 50px;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  animation: texto-glow 5s ease-in-out infinite;
 }
 
-.mensaje-arcangel-card {
-  color: #6a0dad;
+@keyframes texto-glow {
+  0%, 100% { 
+    text-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.6),
+      0 0 25px rgba(255, 255, 255, 0.2);
+  }
+  50% { 
+    text-shadow: 
+      0 2px 6px rgba(0, 0, 0, 0.7),
+      0 0 35px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Arcángel premium */
+.mensaje-arcangel-premium {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.arcangel-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.arcangel-nombre {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.5rem;
+  font-weight: 800;
+  font-family: 'Playfair Display', serif;
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 215, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+.arcangel-energia {
+  color: rgba(255, 215, 0, 0.95);
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón meditar premium */
+.btn-meditar-premium {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 0.95) 0%, 
+    rgba(255, 193, 7, 0.9) 50%, 
+    rgba(255, 215, 0, 0.95) 100%
+  );
+  color: rgba(106, 13, 173, 0.9);
+  border: none;
+  border-radius: 30px;
+  padding: 15px 30px;
   font-size: 1.1rem;
   font-weight: 700;
-  text-align: right;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  box-shadow: 
+    0 8px 25px rgba(255, 215, 0, 0.4),
+    inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Responsive para Mensaje del Día */
+.btn-meditar-premium:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 15px 40px rgba(255, 215, 0, 0.6),
+    inset 0 2px 0 rgba(255, 255, 255, 0.5);
+}
+
+.btn-icono {
+  font-size: 1.4rem;
+  animation: btn-icono-float 3s ease-in-out infinite;
+}
+
+@keyframes btn-icono-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(5deg); }
+}
+
+.btn-texto {
+  font-weight: 700;
+}
+
+/* Bordes decorativos angelicales */
+.bordes-angelicales {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.borde-esquina {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 215, 0, 0.8);
+  animation: esquina-glow 5s ease-in-out infinite;
+}
+
+.esquina-tl {
+  top: 20px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 15px 0 0 0;
+}
+
+.esquina-tr {
+  top: 20px;
+  right: 20px;
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0 15px 0 0;
+}
+
+.esquina-bl {
+  bottom: 20px;
+  left: 20px;
+  border-right: none;
+  border-top: none;
+  border-radius: 0 0 0 15px;
+}
+
+.esquina-br {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 15px 0;
+}
+
+@keyframes esquina-glow {
+  0%, 100% { 
+    border-color: rgba(255, 215, 0, 0.8);
+    box-shadow: none;
+  }
+  50% { 
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 
+      0 0 20px rgba(255, 215, 0, 0.6),
+      inset 0 0 10px rgba(255, 215, 0, 0.3);
+  }
+}
+
+/* Responsive para mensaje premium */
 @media (max-width: 768px) {
-  .mensaje-del-dia-widget {
-    min-height: 200px;
+  .mensaje-del-dia-premium {
+    height: 400px;
+    border-radius: 25px;
   }
   
-  .mensaje-card {
-    top: 20px;
-    left: 20px;
-    width: calc(100% - 40px);
-    max-width: none;
-    padding: 20px;
+  .mensaje-contenido-premium {
+    padding: 30px;
+    margin: 15px;
   }
   
-  .mensaje-fecha-card {
-    font-size: 1rem;
-    margin-bottom: 15px;
+  .texto-mensaje {
+    font-size: 1.4rem;
+    padding: 20px 30px;
   }
   
-  .mensaje-texto-card {
-    font-size: 1rem;
-    margin-bottom: 15px;
+  .comilla-apertura,
+  .comilla-cierre {
+    font-size: 4rem;
   }
   
-  .mensaje-arcangel-card {
-    font-size: 1rem;
+  .mensaje-arcangel-premium {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .btn-meditar-premium {
+    width: 100%;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .mensaje-del-dia-widget {
-    min-height: 180px;
+  .mensaje-del-dia-premium {
+    height: 350px;
+    border-radius: 20px;
   }
   
-  .mensaje-card {
-    top: 15px;
-    left: 15px;
-    width: calc(100% - 30px);
-    padding: 15px;
+  .mensaje-contenido-premium {
+    padding: 25px;
+    margin: 10px;
   }
   
-  .mensaje-fecha-card {
-    font-size: 0.9rem;
+  .fecha-texto {
+    font-size: 1.2rem;
   }
   
-  .mensaje-texto-card {
-    font-size: 0.9rem;
+  .texto-mensaje {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    padding: 15px 20px;
   }
   
-  .mensaje-arcangel-card {
-    font-size: 0.9rem;
+  .comilla-apertura,
+  .comilla-cierre {
+    font-size: 3rem;
+  }
+  
+  .arcangel-nombre {
+    font-size: 1.3rem;
+  }
+  
+  .arcangel-energia {
+    font-size: 1rem;
+  }
+  
+  .btn-meditar-premium {
+    padding: 12px 25px;
+    font-size: 1rem;
   }
 }
 
-/* ========================================
-   CALENDARIO DE EVENTOS WIDGET
-   ======================================== */
-
-.arcangel {
-  font-weight: 600;
-  font-size: 0.95rem;
+/* Responsive para Mensaje del Día Espectacular */
+@media (max-width: 768px) {
+  .mensaje-del-dia-widget-spectacular {
+    min-height: 350px;
+  }
+  
+  .mensaje-content-spectacular {
+    margin: 25px;
+  }
+  
+  .mensaje-content-inner {
+    padding: 25px;
+  }
+  
+  .mensaje-text-content {
+    font-size: 1.2rem;
+    padding: 15px 20px;
+  }
+  
+  .mensaje-quote-mark {
+    font-size: 3rem;
+  }
+  
+  .mensaje-footer-spectacular {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .mensaje-meditate-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
-.energia {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 4px 12px;
-  border-radius: 15px;
-  font-size: 0.85rem;
-  backdrop-filter: blur(10px);
+@media (max-width: 480px) {
+  .mensaje-del-dia-widget-spectacular {
+    min-height: 320px;
+    border-radius: 20px;
+  }
+  
+  .mensaje-content-spectacular {
+    margin: 20px;
+  }
+  
+  .mensaje-content-inner {
+    padding: 20px;
+  }
+  
+  .mensaje-date-text {
+    font-size: 1rem;
+  }
+  
+  .mensaje-text-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    padding: 10px 15px;
+  }
+  
+  .mensaje-quote-mark {
+    font-size: 2.5rem;
+  }
+  
+  .arcangel-name {
+    font-size: 1.1rem;
+  }
+  
+  .arcangel-energia {
+    font-size: 0.9rem;
+  }
+  
+  .mensaje-meditate-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
 }
 
 /* ========================================
@@ -1266,7 +1721,7 @@ body {
     grid-template-columns: 1fr;
   }
   
-  .mensaje-del-dia-widget,
+  .mensaje-del-dia-widget-spectacular,
   .calendario-eventos-widget {
     padding: 20px;
   }
@@ -1286,7 +1741,7 @@ body {
     padding: 10px;
   }
   
-  .mensaje-del-dia-widget,
+  .mensaje-del-dia-widget-spectacular,
   .calendario-eventos-widget {
     padding: 15px;
   }
@@ -1304,5 +1759,50 @@ body {
     flex-direction: column;
     gap: 10px;
   }
+}
+
+
+
+/* ========================================
+   FORZAR APLICACIÓN DEL DISEÑO ESPECTACULAR
+   ======================================== */
+.dashboard-container .main-content .mensaje-del-dia-section .mensaje-del-dia-widget-spectacular {
+  position: relative !important;
+  border-radius: 25px !important;
+  overflow: hidden !important;
+  min-height: 400px !important;
+  background: linear-gradient(135deg, 
+    rgba(106, 13, 173, 0.95) 0%, 
+    rgba(138, 43, 226, 0.9) 25%, 
+    rgba(147, 112, 219, 0.85) 50%, 
+    rgba(186, 85, 211, 0.9) 75%, 
+    rgba(106, 13, 173, 0.95) 100%
+  ) !important;
+  box-shadow: 
+    0 20px 60px rgba(106, 13, 173, 0.4),
+    0 8px 32px rgba(138, 43, 226, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  animation: mensaje-pulse 4s ease-in-out infinite !important;
+}
+
+/* Asegurar que la imagen del ángel se muestre */
+.mensaje-del-dia-widget-spectacular .mensaje-angel-background-layer {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 1 !important;
+}
+
+.mensaje-del-dia-widget-spectacular .mensaje-angel-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center right !important;
+  filter: brightness(1.3) contrast(1.1) saturate(0.8) hue-rotate(10deg) !important;
+  opacity: 0.4 !important;
+  animation: angel-float 6s ease-in-out infinite !important;
 }
 
