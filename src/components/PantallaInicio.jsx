@@ -47,7 +47,7 @@ const PantallaInicio = () => {
           >
             PLATAFORMA ANGÉLICA
           </h1>
-          c
+
           <p className="text-gray-700 mb-8 text-center">
             Conecta con tus ángeles.<br />Transforma tu vida.
           </p>
@@ -79,3 +79,4 @@ const PantallaInicio = () => {
 };
 
 export default PantallaInicio;
+
