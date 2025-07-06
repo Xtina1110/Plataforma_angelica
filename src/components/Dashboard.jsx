@@ -1,1808 +1,680 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
+// src/components/Dashboard.jsx
+import React, { useState } from 'react';
+import {
+  Home, Heart, Headphones, Zap, BookOpen, GraduationCap,
+  MessageSquare, Mic, ShoppingCart, LogOut, User, Menu, X,
+  Calendar, Clock, MapPin, Users, Star, ChevronRight
+} from 'lucide-react';
 
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #f9f9f9;
-}
+import TiradaAngelical from './TiradaAngelical';
+import CanalizacionesSonoterapia from './CanalizacionesSonoterapia';
+import TerapiasLimpiezas from './TerapiasLimpiezas';
+import AcademiaAngelical from './AcademiaAngelical';
+import MensajeDelDia from './MensajeDelDia';
+import BlogPodcast from './BlogPodcast';
+import TiendaAngelical from './TiendaAngelical';
 
-/* ========================================
-   CONTENEDORES PRINCIPALES
-   ======================================== */
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
+import logo from '../assets/Logosinfondo.png';
+import fondoMarmoleado from '../assets/Fondomarmoleado.jpg';
+import iconoAngelDashboard from '../assets/IconoDashboard.png';
+import iconNivel from '../assets/IconoNivel.png';
+import iconPuntos from '../assets/IconoPuntos.png';
+import iconDias from '../assets/IconoDias.png';
+import iconSonoterapia from '../assets/IconoSonoterapia.png';
+import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
+import iconCursos from '../assets/IconoCursos.png';
 
-/* ========================================
-   SIDEBAR RETRÁCTIL
-   ======================================== */
-.sidebar {
-  width: 260px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 255, 0.95) 100%);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-right: 1px solid rgba(106, 13, 173, 0.1);
-  box-shadow: 2px 0 20px rgba(106, 13, 173, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 100;
-}
+import './Dashboard.css';
 
-.sidebar.collapsed {
-  width: 80px;
-  padding: 20px 10px;
-}
+const Dashboard = ({ user, onLogout }) => {
+  const [activeSection, setActiveSection] = useState('home');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
-  position: relative;
-}
+  const [userData, setUserData] = useState({
+    nombre: user?.displayName || 'Juan Carlos',
+    apellido: user?.lastName || 'Pérez',
+    email: user?.email || 'demo@test.com',
+    username: user?.username || 'demo@test.com',
+    rol: 'Usuario Premium',
+    telefono: '+34 600 123 456',
+    fechaNacimiento: '1985-03-15',
+    pais: 'España',
+    ciudad: 'Madrid',
+    nivelEspiritual: 'Iluminado',
+    puntosDeLuz: 1500,
+    diasConsecutivos: 7,
+    sonoterapiasCompletadas: 12,
+    canalizacionesEscuchadas: 25,
+    cursosFinalizados: 3,
+    notificaciones: true,
+    emailMarketing: false,
+    modoOscuro: false,
+    idioma: 'es'
+  });
 
-.sidebar-logo {
-  width: 50px;
-  height: auto;
-  flex-shrink: 0;
-}
+  // Sistema de mensajes diarios
+  const getMensajeDelDia = () => {
+    const hoy = new Date();
+    const dayOfYear = Math.floor((hoy - new Date(hoy.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+    
+    const mensajesDiarios = [
+      {
+        mensaje: "Los ángeles te recuerdan que cada nuevo día es una oportunidad para elevar tu vibración y conectar con tu propósito divino.",
+        arcangel: "Arcángel Miguel",
+        energia: "Protección y Valor"
+      },
+      {
+        mensaje: "Confía en tu intuición, los ángeles te están guiando hacia el camino correcto. Escucha los susurros de tu corazón.",
+        arcangel: "Arcángel Gabriel",
+        energia: "Claridad y Comunicación"
+      },
+      {
+        mensaje: "Hoy es un día perfecto para sanar heridas del pasado. Los ángeles te envían energía de amor y renovación.",
+        arcangel: "Arcángel Rafael",
+        energia: "Sanación y Renovación"
+      },
+      {
+        mensaje: "La sabiduría divina fluye a través de ti. Permite que la luz angelical ilumine tus decisiones del día.",
+        arcangel: "Arcángel Uriel",
+        energia: "Sabiduría e Iluminación"
+      },
+      {
+        mensaje: "El amor incondicional te rodea. Abre tu corazón para recibir y compartir la compasión angelical.",
+        arcangel: "Arcángel Chamuel",
+        energia: "Amor y Compasión"
+      },
+      {
+        mensaje: "Encuentra la belleza en cada momento. Los ángeles te invitan a celebrar la alegría que existe en tu vida.",
+        arcangel: "Arcángel Jofiel",
+        energia: "Belleza y Alegría"
+      },
+      {
+        mensaje: "La justicia divina está trabajando en tu favor. Confía en que todo se alineará según el plan perfecto.",
+        arcangel: "Arcángel Raguel",
+        energia: "Justicia y Equilibrio"
+      },
+      {
+        mensaje: "Conecta con la naturaleza y siente la abundancia que te rodea. Los ángeles bendicen tu prosperidad.",
+        arcangel: "Arcángel Ariel",
+        energia: "Naturaleza y Abundancia"
+      },
+      {
+        mensaje: "Tu conexión con lo divino se fortalece cada día. Los misterios del universo se revelan ante ti.",
+        arcangel: "Arcángel Metatrón",
+        energia: "Sabiduría Universal"
+      },
+      {
+        mensaje: "Es tiempo de perdonar y liberar. Los ángeles te ayudan a transmutar cualquier energía negativa en luz.",
+        arcangel: "Arcángel Zadkiel",
+        energia: "Perdón y Transmutación"
+      },
+      {
+        mensaje: "Tu intuición femenina se despierta. Los ciclos naturales te guían hacia tu máximo potencial.",
+        arcangel: "Arcángel Haniel",
+        energia: "Intuición y Ciclos"
+      },
+      {
+        mensaje: "Los secretos del universo se revelan a quienes buscan con corazón puro. Mantén tu mente abierta.",
+        arcangel: "Arcángel Raziel",
+        energia: "Misterios Divinos"
+      },
+      {
+        mensaje: "Tus oraciones han sido escuchadas. Los ángeles trabajan para manifestar tus deseos más elevados.",
+        arcangel: "Arcángel Sandalfón",
+        energia: "Oraciones y Respuestas"
+      },
+      {
+        mensaje: "Es momento de revisar tu camino y hacer los cambios necesarios. Los ángeles te apoyan en tu transformación.",
+        arcangel: "Arcángel Jeremiel",
+        energia: "Revisión y Cambio"
+      }
+    ];
+    
+    // Seleccionar mensaje basado en el día del año para que sea consistente
+    const mensajeIndex = dayOfYear % mensajesDiarios.length;
+    const mensajeSeleccionado = mensajesDiarios[mensajeIndex];
+    
+    return {
+      fecha: hoy.toLocaleDateString('es-ES', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      }),
+      ...mensajeSeleccionado
+    };
+  };
 
-.sidebar-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: bold;
-  color: #6a0dad;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
+  // Datos del mensaje del día (ahora dinámico)
+  const [mensajeDelDia] = useState(getMensajeDelDia());
 
-.sidebar.collapsed .sidebar-title {
-  opacity: 0;
-  pointer-events: none;
-}
+  // Datos de eventos del angelólogo
+  const [eventos] = useState([
+    {
+      id: 1,
+      titulo: "Meditación Grupal con Arcángeles",
+      fecha: "2025-01-15",
+      hora: "19:00",
+      duracion: "90 min",
+      modalidad: "Presencial",
+      ubicacion: "Centro Angelical Madrid",
+      precio: "25€",
+      cupos: 15,
+      inscritos: 8,
+      descripcion: "Sesión de meditación guiada para conectar con la energía de los arcángeles",
+      instructor: "Juan Carlos Ávila",
+      categoria: "Meditación",
+      inscrito: false
+    },
+    {
+      id: 2,
+      titulo: "Taller de Cartas Angelicales",
+      fecha: "2025-01-18",
+      hora: "16:30",
+      duracion: "3 horas",
+      modalidad: "Online",
+      ubicacion: "Zoom",
+      precio: "45€",
+      cupos: 25,
+      inscritos: 18,
+      descripcion: "Aprende a interpretar las cartas angelicales y conectar con tus guías espirituales",
+      instructor: "Juan Carlos Ávila",
+      categoria: "Formación",
+      inscrito: true
+    },
+    {
+      id: 3,
+      titulo: "Sanación con Frecuencias Angelicales",
+      fecha: "2025-01-22",
+      hora: "20:00",
+      duracion: "60 min",
+      modalidad: "Online",
+      ubicacion: "Plataforma Angelical",
+      precio: "20€",
+      cupos: 50,
+      inscritos: 32,
+      descripcion: "Sesión de sanación utilizando frecuencias sagradas y energía angelical",
+      instructor: "Juan Carlos Ávila",
+      categoria: "Sanación",
+      inscrito: false
+    },
+    {
+      id: 4,
+      titulo: "Círculo de Canalización Angelical",
+      fecha: "2025-01-25",
+      hora: "18:00",
+      duracion: "2 horas",
+      modalidad: "Presencial",
+      ubicacion: "Centro Angelical Barcelona",
+      precio: "35€",
+      cupos: 12,
+      inscritos: 12,
+      descripcion: "Círculo íntimo para recibir mensajes canalizados de los ángeles",
+      instructor: "Juan Carlos Ávila",
+      categoria: "Canalización",
+      inscrito: true
+    }
+  ]);
 
-.sidebar-toggle {
-  position: absolute;
-  right: -15px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #6a0dad;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 10px rgba(106, 13, 173, 0.3);
-}
-
-.sidebar-toggle:hover {
-  background: #8a2be2;
-  transform: translateY(-50%) scale(1.1);
-}
-
-.sidebar-nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  flex: 1;
-}
-
-.sidebar-nav li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 8px;
-  cursor: pointer;
-  color: #6a0dad;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border-radius: 12px;
-  margin-bottom: 8px;
-  position: relative;
-  overflow: hidden;
-}
-
-.sidebar-nav li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: var(--item-color, #6a0dad);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
-}
-
-.sidebar-nav li:hover,
-.sidebar-nav li.active {
-  background: linear-gradient(135deg, rgba(106, 13, 173, 0.1) 0%, rgba(212, 175, 55, 0.1) 100%);
-  color: var(--item-color, #6a0dad);
-  transform: translateX(5px);
-}
-
-.sidebar-nav li:hover::before,
-.sidebar-nav li.active::before {
-  transform: scaleY(1);
-}
-
-.sidebar.collapsed .sidebar-nav li {
-  justify-content: center;
-  padding: 12px;
-}
-
-.sidebar.collapsed .sidebar-nav li span {
-  display: none;
-}
-
-.sidebar-footer {
-  font-size: 14px;
-  color: #444;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 15px 8px;
-  border-top: 1px solid rgba(106, 13, 173, 0.1);
-  margin-top: 20px;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.user-avatar {
-  width: 45px;
-  height: 45px;
-  background: linear-gradient(135deg, #4fc3f7 0%, #6a0dad 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(106, 13, 173, 0.3);
-}
-
-.user-avatar:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(106, 13, 173, 0.4);
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.user-email {
-  font-size: 0.9rem;
-  color: #333;
-  font-weight: 500;
-}
-
-.user-role {
-  font-size: 0.8rem;
-  color: #6a0dad;
-  font-weight: 600;
-}
-
-.logout-button {
-  background: linear-gradient(135deg, #4fc3f7 0%, #6a0dad 100%);
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(106, 13, 173, 0.3);
-}
-
-.logout-button:hover {
-  background: linear-gradient(135deg, #29b6f6 0%, #8a2be2 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(106, 13, 173, 0.4);
-}
-
-.sidebar.collapsed .sidebar-footer {
-  align-items: center;
-}
-
-.sidebar.collapsed .user-info {
-  justify-content: center;
-}
-
-/* ========================================
-   MODAL DE SETTINGS
-   ======================================== */
-.settings-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.settings-modal {
-  background: white;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-  from { 
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  to { 
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.settings-header {
-  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-  color: white;
-  padding: 20px 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.settings-header h2 {
-  margin: 0;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
-}
-
-.close-settings {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.close-settings:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-.settings-content {
-  padding: 25px;
-  max-height: 60vh;
-  overflow-y: auto;
-}
-
-.settings-section {
-  margin-bottom: 30px;
-}
-
-.settings-section h3 {
-  color: #6a0dad;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid rgba(106, 13, 173, 0.1);
-}
-
-.settings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.setting-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.setting-field label {
-  font-weight: 500;
-  color: #333;
-  font-size: 0.9rem;
-}
-
-.setting-field input,
-.setting-field select {
-  padding: 12px 15px;
-  border: 2px solid rgba(106, 13, 173, 0.1);
-  border-radius: 10px;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  background: white;
-}
-
-.setting-field input:focus,
-.setting-field select:focus {
-  outline: none;
-  border-color: #6a0dad;
-  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
-}
-
-.setting-toggle {
-  display: flex;
-  align-items: center;
-  padding: 15px 0;
-}
-
-.setting-toggle label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  font-weight: 500;
-  color: #333;
-}
-
-.setting-toggle input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: #6a0dad;
-  cursor: pointer;
-}
-
-.settings-footer {
-  padding: 20px 25px;
-  border-top: 1px solid rgba(106, 13, 173, 0.1);
-  display: flex;
-  justify-content: flex-end;
-}
-
-.btn-guardar {
-  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 25px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(106, 13, 173, 0.3);
-}
-
-.btn-guardar:hover {
-  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(106, 13, 173, 0.4);
-}
-
-/* ========================================
-   CONTENIDO PRINCIPAL
-   ======================================== */
-.main-content {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 250, 255, 0.9) 100%);
-  border-radius: 16px;
-  margin: 20px;
-  margin-left: 0;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  transition: all 0.3s ease;
-}
-
-.main-content.expanded {
-  margin-left: 20px;
-}
-
-/* ========================================
-   MENSAJE DEL DÍA - DISEÑO PREMIUM WOW FACTOR
-   ======================================== */
-.mensaje-del-dia-premium {
-  position: relative;
-  height: 450px;
-  border-radius: 30px;
-  overflow: hidden;
-  background: linear-gradient(135deg, 
-    #6a0dad 0%, 
-    #8a2be2 25%, 
-    #9370db 50%, 
-    #ba55d3 75%, 
-    #6a0dad 100%
+  const [eventosInscritos, setEventosInscritos] = useState(
+    eventos.filter(evento => evento.inscrito).map(evento => evento.id)
   );
-  box-shadow: 
-    0 25px 80px rgba(106, 13, 173, 0.6),
-    0 15px 40px rgba(138, 43, 226, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  border: 2px solid rgba(255, 215, 0, 0.3);
-  animation: mensaje-glow 4s ease-in-out infinite;
-}
 
-@keyframes mensaje-glow {
-  0%, 100% { 
-    box-shadow: 
-      0 25px 80px rgba(106, 13, 173, 0.6),
-      0 15px 40px rgba(138, 43, 226, 0.4),
-      inset 0 2px 0 rgba(255, 255, 255, 0.3);
-  }
-  50% { 
-    box-shadow: 
-      0 35px 100px rgba(106, 13, 173, 0.8),
-      0 20px 50px rgba(138, 43, 226, 0.6),
-      inset 0 2px 0 rgba(255, 255, 255, 0.4);
-  }
-}
+  const toggleInscripcion = (eventoId) => {
+    setEventosInscritos(prev => {
+      if (prev.includes(eventoId)) {
+        return prev.filter(id => id !== eventoId);
+      } else {
+        return [...prev, eventoId];
+      }
+    });
+  };
 
-/* Imagen del ángel de fondo */
-.mensaje-angel-fondo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
+  const updateUserData = (newData) => {
+    setUserData(prev => ({ ...prev, ...newData }));
+  };
 
-.angel-background-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  filter: brightness(1.4) contrast(1.2) saturate(1.1) hue-rotate(15deg);
-  opacity: 0.6;
-  animation: angel-breathe 8s ease-in-out infinite;
-}
+  const menuItems = [
+    { id: 'home', icon: Home, label: 'Inicio', color: '#6a0dad' },
+    { id: 'tirada', icon: Heart, label: 'Apertura Angelica', color: '#4fc3f7' },
+    { id: 'canalizaciones', icon: Headphones, label: 'Sonoterapia y Canalizaciones', color: '#b39ddb' },
+    { id: 'terapias', icon: Zap, label: 'Terapias y Limpiezas', color: '#f48fb1' },
+    { id: 'academia', icon: GraduationCap, label: 'Academia Angelica', color: '#81c784' },
+    { id: 'mensaje', icon: MessageSquare, label: 'Mensaje Diario', color: '#9575cd' },
+    { id: 'blog', icon: Mic, label: 'Blog & Podcast', color: '#ce93d8' },
+    { id: 'tienda', icon: ShoppingCart, label: 'Tienda Angelica', color: '#ff8a65' },
+  ];
 
-@keyframes angel-breathe {
-  0%, 100% { 
-    transform: scale(1) rotate(0deg);
-    filter: brightness(1.4) contrast(1.2) saturate(1.1) hue-rotate(15deg);
-  }
-  50% { 
-    transform: scale(1.05) rotate(1deg);
-    filter: brightness(1.6) contrast(1.3) saturate(1.2) hue-rotate(20deg);
-  }
-}
-
-/* Overlay angelical */
-.mensaje-overlay-angelical {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(106, 13, 173, 0.8) 0%,
-    rgba(138, 43, 226, 0.6) 25%,
-    rgba(147, 112, 219, 0.4) 50%,
-    rgba(186, 85, 211, 0.6) 75%,
-    rgba(106, 13, 173, 0.8) 100%
+  const renderSettings = () => (
+    <div className="settings-modal-overlay" onClick={() => setShowSettings(false)}>
+      <div className="settings-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="settings-header">
+          <h2>Configuración de Usuario</h2>
+          <button onClick={() => setShowSettings(false)} className="close-settings">
+            <X size={24} />
+          </button>
+        </div>
+        
+        <div className="settings-content">
+          <div className="settings-section">
+            <h3>Información Personal</h3>
+            <div className="settings-grid">
+              <div className="setting-field">
+                <label>Nombre</label>
+                <input 
+                  type="text" 
+                  value={userData.nombre}
+                  onChange={(e) => updateUserData({ nombre: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Apellido</label>
+                <input 
+                  type="text" 
+                  value={userData.apellido}
+                  onChange={(e) => updateUserData({ apellido: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Email</label>
+                <input 
+                  type="email" 
+                  value={userData.email}
+                  onChange={(e) => updateUserData({ email: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Teléfono</label>
+                <input 
+                  type="tel" 
+                  value={userData.telefono}
+                  onChange={(e) => updateUserData({ telefono: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>Fecha de Nacimiento</label>
+                <input 
+                  type="date" 
+                  value={userData.fechaNacimiento}
+                  onChange={(e) => updateUserData({ fechaNacimiento: e.target.value })}
+                />
+              </div>
+              <div className="setting-field">
+                <label>País</label>
+                <input 
+                  type="text" 
+                  value={userData.pais}
+                  onChange={(e) => updateUserData({ pais: e.target.value })}
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div className="settings-section">
+            <h3>Preferencias de la Plataforma</h3>
+            <div className="settings-grid">
+              <div className="setting-field">
+                <label>Idioma</label>
+                <select 
+                  value={userData.idioma}
+                  onChange={(e) => updateUserData({ idioma: e.target.value })}
+                >
+                  <option value="es">Español</option>
+                  <option value="en">English</option>
+                  <option value="fr">Français</option>
+                </select>
+              </div>
+              <div className="setting-toggle">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={userData.notificaciones}
+                    onChange={(e) => updateUserData({ notificaciones: e.target.checked })}
+                  />
+                  <span>Recibir notificaciones</span>
+                </label>
+              </div>
+              <div className="setting-toggle">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={userData.emailMarketing}
+                    onChange={(e) => updateUserData({ emailMarketing: e.target.checked })}
+                  />
+                  <span>Emails promocionales</span>
+                </label>
+              </div>
+              <div className="setting-toggle">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={userData.modoOscuro}
+                    onChange={(e) => updateUserData({ modoOscuro: e.target.checked })}
+                  />
+                  <span>Modo oscuro</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="settings-footer">
+          <button onClick={() => setShowSettings(false)} className="btn-guardar">
+            Guardar Cambios
+          </button>
+        </div>
+      </div>
+    </div>
   );
-  backdrop-filter: blur(2px);
-  z-index: 2;
-}
 
-/* Efectos de luz y partículas */
-.mensaje-efectos-luz {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 3;
-  pointer-events: none;
-}
-
-.particula-luz {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, #ffd700 0%, rgba(255, 255, 255, 0.8) 100%);
-  border-radius: 50%;
-  animation: particula-float 6s ease-in-out infinite;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-}
-
-.particula-1 { top: 15%; left: 20%; animation-delay: 0s; }
-.particula-2 { top: 25%; left: 75%; animation-delay: 1.2s; }
-.particula-3 { top: 45%; left: 15%; animation-delay: 2.4s; }
-.particula-4 { top: 65%; left: 80%; animation-delay: 3.6s; }
-.particula-5 { top: 80%; left: 40%; animation-delay: 4.8s; }
-
-@keyframes particula-float {
-  0%, 100% { 
-    transform: translateY(0px) scale(1);
-    opacity: 0.6;
-  }
-  50% { 
-    transform: translateY(-20px) scale(1.5);
-    opacity: 1;
-  }
-}
-
-.rayo-luz {
-  position: absolute;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(255, 215, 0, 0.3) 45%, 
-    rgba(255, 255, 255, 0.6) 50%, 
-    rgba(255, 215, 0, 0.3) 55%, 
-    transparent 100%
+  const renderMensajeDelDia = () => (
+    <div className="mensaje-del-dia-section">
+      <h3 className="titulo-dashboard">Mensaje del Día</h3>
+      <div className="mensaje-del-dia-widget">
+        <div className="mensaje-background-image">
+          <img src="/angel-mensaje.jpg" alt="Ángel del día" />
+        </div>
+        
+        <div className="mensaje-card">
+          <div className="mensaje-fecha-card">{mensajeDelDia.fecha}</div>
+          
+          <div className="mensaje-texto-card">
+            "{mensajeDelDia.mensaje}"
+          </div>
+          
+          <div className="mensaje-arcangel-card">
+            - {mensajeDelDia.arcangel}
+          </div>
+        </div>
+      </div>
+    </div>
   );
-  animation: rayo-sweep 8s ease-in-out infinite;
-}
 
-.rayo-1 {
-  top: 20%;
-  left: -20%;
-  width: 140%;
-  height: 3px;
-  transform: rotate(10deg);
-  animation-delay: 0s;
-}
-
-.rayo-2 {
-  top: 70%;
-  left: -20%;
-  width: 140%;
-  height: 2px;
-  transform: rotate(-5deg);
-  animation-delay: 4s;
-}
-
-@keyframes rayo-sweep {
-  0%, 100% { 
-    opacity: 0;
-    transform: translateX(-100%) rotate(var(--rotation, 0deg));
-  }
-  50% { 
-    opacity: 1;
-    transform: translateX(100%) rotate(var(--rotation, 0deg));
-  }
-}
-
-/* Contenido premium */
-.mensaje-contenido-premium {
-  position: relative;
-  z-index: 4;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 20px;
-  border-radius: 25px;
-  box-shadow: 
-    0 15px 50px rgba(0, 0, 0, 0.2),
-    inset 0 2px 0 rgba(255, 255, 255, 0.4);
-}
-
-/* Fecha premium */
-.mensaje-fecha-premium {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.fecha-icono {
-  font-size: 2rem;
-  animation: icono-pulse 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
-}
-
-@keyframes icono-pulse {
-  0%, 100% { 
-    transform: scale(1) rotate(0deg);
-  }
-  50% { 
-    transform: scale(1.2) rotate(5deg);
-  }
-}
-
-.fecha-texto {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 1.4rem;
-  font-weight: 700;
-  font-family: 'Playfair Display', serif;
-  text-transform: capitalize;
-  text-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(255, 215, 0, 0.3);
-  letter-spacing: 1px;
-}
-
-/* Texto del mensaje premium */
-.mensaje-texto-premium {
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 30px 0;
-}
-
-.comilla-apertura,
-.comilla-cierre {
-  position: absolute;
-  font-size: 5rem;
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  color: rgba(255, 215, 0, 0.9);
-  text-shadow: 
-    0 4px 8px rgba(0, 0, 0, 0.5),
-    0 0 30px rgba(255, 215, 0, 0.6);
-  animation: comilla-shimmer 4s ease-in-out infinite;
-}
-
-.comilla-apertura {
-  top: -30px;
-  left: -20px;
-}
-
-.comilla-cierre {
-  bottom: -50px;
-  right: -20px;
-}
-
-@keyframes comilla-shimmer {
-  0%, 100% { 
-    color: rgba(255, 215, 0, 0.9);
-    text-shadow: 
-      0 4px 8px rgba(0, 0, 0, 0.5),
-      0 0 30px rgba(255, 215, 0, 0.6);
-  }
-  50% { 
-    color: rgba(255, 255, 255, 0.95);
-    text-shadow: 
-      0 4px 12px rgba(0, 0, 0, 0.6),
-      0 0 40px rgba(255, 215, 0, 0.8);
-  }
-}
-
-.texto-mensaje {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 1.6rem;
-  line-height: 1.8;
-  font-weight: 500;
-  font-style: italic;
-  font-family: 'Inter', sans-serif;
-  text-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.6),
-    0 0 25px rgba(255, 255, 255, 0.2);
-  padding: 30px 50px;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-  animation: texto-glow 5s ease-in-out infinite;
-}
-
-@keyframes texto-glow {
-  0%, 100% { 
-    text-shadow: 
-      0 2px 4px rgba(0, 0, 0, 0.6),
-      0 0 25px rgba(255, 255, 255, 0.2);
-  }
-  50% { 
-    text-shadow: 
-      0 2px 6px rgba(0, 0, 0, 0.7),
-      0 0 35px rgba(255, 255, 255, 0.4);
-  }
-}
-
-/* Arcángel premium */
-.mensaje-arcangel-premium {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 25px;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.arcangel-info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.arcangel-nombre {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 1.5rem;
-  font-weight: 800;
-  font-family: 'Playfair Display', serif;
-  text-shadow: 
-    0 2px 4px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(255, 215, 0, 0.3);
-  letter-spacing: 1px;
-}
-
-.arcangel-energia {
-  color: rgba(255, 215, 0, 0.95);
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* Botón meditar premium */
-.btn-meditar-premium {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(135deg, 
-    rgba(255, 215, 0, 0.95) 0%, 
-    rgba(255, 193, 7, 0.9) 50%, 
-    rgba(255, 215, 0, 0.95) 100%
+  const renderCalendarioEventos = () => (
+    <div className="calendario-eventos-widget">
+      <div className="calendario-header">
+        <Calendar className="calendario-icon" />
+        <h3>Próximos Eventos</h3>
+      </div>
+      <div className="eventos-lista">
+        {eventos.slice(0, 3).map(evento => {
+          const estaInscrito = eventosInscritos.includes(evento.id);
+          const fechaEvento = new Date(evento.fecha);
+          const esCompleto = evento.inscritos >= evento.cupos;
+          
+          return (
+            <div key={evento.id} className={`evento-card ${estaInscrito ? 'inscrito' : ''} ${esCompleto ? 'completo' : ''}`}>
+              <div className="evento-fecha">
+                <span className="dia">{fechaEvento.getDate()}</span>
+                <span className="mes">{fechaEvento.toLocaleDateString('es-ES', { month: 'short' })}</span>
+              </div>
+              
+              <div className="evento-info">
+                <h4 className="evento-titulo">{evento.titulo}</h4>
+                <div className="evento-detalles">
+                  <span className="evento-hora">
+                    <Clock size={14} />
+                    {evento.hora} ({evento.duracion})
+                  </span>
+                  <span className="evento-modalidad">
+                    <MapPin size={14} />
+                    {evento.modalidad}
+                  </span>
+                  <span className="evento-cupos">
+                    <Users size={14} />
+                    {evento.inscritos}/{evento.cupos}
+                  </span>
+                </div>
+                <div className="evento-categoria">
+                  <span className={`categoria-badge ${evento.categoria.toLowerCase()}`}>
+                    {evento.categoria}
+                  </span>
+                  <span className="evento-precio">{evento.precio}</span>
+                </div>
+              </div>
+              
+              <div className="evento-acciones">
+                {estaInscrito ? (
+                  <div className="inscrito-badge">
+                    <Star size={16} />
+                    Inscrito
+                  </div>
+                ) : (
+                  <button 
+                    className={`btn-inscribir ${esCompleto ? 'completo' : ''}`}
+                    onClick={() => !esCompleto && toggleInscripcion(evento.id)}
+                    disabled={esCompleto}
+                  >
+                    {esCompleto ? 'Completo' : 'Inscribirse'}
+                  </button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <button className="ver-todos-eventos" onClick={() => setActiveSection('eventos')}>
+        Ver todos los eventos
+        <ChevronRight size={16} />
+      </button>
+    </div>
   );
-  color: rgba(106, 13, 173, 0.9);
-  border: none;
-  border-radius: 30px;
-  padding: 15px 30px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease;
-  box-shadow: 
-    0 8px 25px rgba(255, 215, 0, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
 
-.btn-meditar-premium:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 
-    0 15px 40px rgba(255, 215, 0, 0.6),
-    inset 0 2px 0 rgba(255, 255, 255, 0.5);
-}
-
-.btn-icono {
-  font-size: 1.4rem;
-  animation: btn-icono-float 3s ease-in-out infinite;
-}
-
-@keyframes btn-icono-float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-3px) rotate(5deg); }
-}
-
-.btn-texto {
-  font-weight: 700;
-}
-
-/* Bordes decorativos angelicales */
-.bordes-angelicales {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.borde-esquina {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(255, 215, 0, 0.8);
-  animation: esquina-glow 5s ease-in-out infinite;
-}
-
-.esquina-tl {
-  top: 20px;
-  left: 20px;
-  border-right: none;
-  border-bottom: none;
-  border-radius: 15px 0 0 0;
-}
-
-.esquina-tr {
-  top: 20px;
-  right: 20px;
-  border-left: none;
-  border-bottom: none;
-  border-radius: 0 15px 0 0;
-}
-
-.esquina-bl {
-  bottom: 20px;
-  left: 20px;
-  border-right: none;
-  border-top: none;
-  border-radius: 0 0 0 15px;
-}
-
-.esquina-br {
-  bottom: 20px;
-  right: 20px;
-  border-left: none;
-  border-top: none;
-  border-radius: 0 0 15px 0;
-}
-
-@keyframes esquina-glow {
-  0%, 100% { 
-    border-color: rgba(255, 215, 0, 0.8);
-    box-shadow: none;
-  }
-  50% { 
-    border-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 
-      0 0 20px rgba(255, 215, 0, 0.6),
-      inset 0 0 10px rgba(255, 215, 0, 0.3);
-  }
-}
-
-/* Responsive para mensaje premium */
-@media (max-width: 768px) {
-  .mensaje-del-dia-premium {
-    height: 400px;
-    border-radius: 25px;
-  }
-  
-  .mensaje-contenido-premium {
-    padding: 30px;
-    margin: 15px;
-  }
-  
-  .texto-mensaje {
-    font-size: 1.4rem;
-    padding: 20px 30px;
-  }
-  
-  .comilla-apertura,
-  .comilla-cierre {
-    font-size: 4rem;
-  }
-  
-  .mensaje-arcangel-premium {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-  
-  .btn-meditar-premium {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .mensaje-del-dia-premium {
-    height: 350px;
-    border-radius: 20px;
-  }
-  
-  .mensaje-contenido-premium {
-    padding: 25px;
-    margin: 10px;
-  }
-  
-  .fecha-texto {
-    font-size: 1.2rem;
-  }
-  
-  .texto-mensaje {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    padding: 15px 20px;
-  }
-  
-  .comilla-apertura,
-  .comilla-cierre {
-    font-size: 3rem;
-  }
-  
-  .arcangel-nombre {
-    font-size: 1.3rem;
-  }
-  
-  .arcangel-energia {
-    font-size: 1rem;
-  }
-  
-  .btn-meditar-premium {
-    padding: 12px 25px;
-    font-size: 1rem;
-  }
-}
-
-/* Responsive para Mensaje del Día Espectacular */
-@media (max-width: 768px) {
-  .mensaje-del-dia-widget-spectacular {
-    min-height: 350px;
-  }
-  
-  .mensaje-content-spectacular {
-    margin: 25px;
-  }
-  
-  .mensaje-content-inner {
-    padding: 25px;
-  }
-  
-  .mensaje-text-content {
-    font-size: 1.2rem;
-    padding: 15px 20px;
-  }
-  
-  .mensaje-quote-mark {
-    font-size: 3rem;
-  }
-  
-  .mensaje-footer-spectacular {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
-  }
-  
-  .mensaje-meditate-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .mensaje-del-dia-widget-spectacular {
-    min-height: 320px;
-    border-radius: 20px;
-  }
-  
-  .mensaje-content-spectacular {
-    margin: 20px;
-  }
-  
-  .mensaje-content-inner {
-    padding: 20px;
-  }
-  
-  .mensaje-date-text {
-    font-size: 1rem;
-  }
-  
-  .mensaje-text-content {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    padding: 10px 15px;
-  }
-  
-  .mensaje-quote-mark {
-    font-size: 2.5rem;
-  }
-  
-  .arcangel-name {
-    font-size: 1.1rem;
-  }
-  
-  .arcangel-energia {
-    font-size: 0.9rem;
-  }
-  
-  .mensaje-meditate-btn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-  }
-}
-
-/* ========================================
-   CALENDARIO DE EVENTOS WIDGET
-   ======================================== */
-.calendario-eventos-widget {
-  background: white;
-  border-radius: 20px;
-  padding: 25px;
-  margin-bottom: 30px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(106, 13, 173, 0.1);
-}
-
-.calendario-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid rgba(106, 13, 173, 0.1);
-}
-
-.calendario-icon {
-  color: #6a0dad;
-  background: rgba(106, 13, 173, 0.1);
-  border-radius: 50%;
-  padding: 8px;
-}
-
-.calendario-header h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  margin: 0;
-  color: #6a0dad;
-  font-weight: 600;
-}
-
-.eventos-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.evento-card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px;
-  border-radius: 15px;
-  border: 2px solid transparent;
-  background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.evento-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(135deg, #6a0dad 0%, #d4af37 100%);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
-}
-
-.evento-card:hover {
-  border-color: rgba(106, 13, 173, 0.2);
-  box-shadow: 0 5px 20px rgba(106, 13, 173, 0.15);
-  transform: translateY(-2px);
-}
-
-.evento-card:hover::before {
-  transform: scaleY(1);
-}
-
-.evento-card.inscrito {
-  background: linear-gradient(135deg, rgba(106, 13, 173, 0.05) 0%, rgba(212, 175, 55, 0.05) 100%);
-  border-color: rgba(106, 13, 173, 0.3);
-}
-
-.evento-card.inscrito::before {
-  transform: scaleY(1);
-}
-
-.evento-card.completo {
-  opacity: 0.7;
-  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
-}
-
-.evento-fecha {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-  color: white;
-  border-radius: 12px;
-  padding: 10px;
-  min-width: 60px;
-  text-align: center;
-}
-
-.evento-fecha .dia {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.evento-fecha .mes {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  opacity: 0.9;
-}
-
-.evento-info {
-  flex: 1;
-}
-
-.evento-titulo {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 8px 0;
-  line-height: 1.3;
-}
-
-.evento-detalles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.evento-detalles span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.8rem;
-  color: #666;
-}
-
-.evento-categoria {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.categoria-badge {
-  padding: 3px 8px;
-  border-radius: 10px;
-  font-size: 0.7rem;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.categoria-badge.meditación {
-  background: rgba(102, 126, 234, 0.2);
-  color: #667eea;
-}
-
-.categoria-badge.formación {
-  background: rgba(129, 199, 132, 0.2);
-  color: #4caf50;
-}
-
-.categoria-badge.sanación {
-  background: rgba(244, 143, 177, 0.2);
-  color: #e91e63;
-}
-
-.categoria-badge.canalización {
-  background: rgba(179, 157, 219, 0.2);
-  color: #9c27b0;
-}
-
-.evento-precio {
-  font-weight: 600;
-  color: #d4af37;
-  font-size: 0.9rem;
-}
-
-.evento-acciones {
-  display: flex;
-  align-items: center;
-}
-
-.btn-inscribir {
-  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-inscribir:hover {
-  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(106, 13, 173, 0.3);
-}
-
-.btn-inscribir.completo {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.inscrito-badge {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 15px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.ver-todos-eventos {
-  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 25px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  width: fit-content;
-}
-
-.ver-todos-eventos:hover {
-  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(106, 13, 173, 0.3);
-}
-
-/* ========================================
-   PÁGINA COMPLETA DE EVENTOS
-   ======================================== */
-.eventos-completos {
-  padding: 20px 0;
-}
-
-.eventos-header {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 2px solid rgba(106, 13, 173, 0.1);
-}
-
-.btn-volver {
-  background: rgba(106, 13, 173, 0.1);
-  color: #6a0dad;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.btn-volver:hover {
-  background: rgba(106, 13, 173, 0.2);
-  transform: translateY(-1px);
-}
-
-.eventos-header h2 {
-  font-family: 'Playfair Display', serif;
-  color: #6a0dad;
-  margin: 0;
-  font-size: 2rem;
-}
-
-.eventos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 25px;
-}
-
-.evento-card-completa {
-  background: white;
-  border-radius: 20px;
-  padding: 25px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.evento-card-completa::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  background: linear-gradient(135deg, #6a0dad 0%, #d4af37 100%);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
-}
-
-.evento-card-completa:hover {
-  border-color: rgba(106, 13, 173, 0.2);
-  box-shadow: 0 12px 35px rgba(106, 13, 173, 0.15);
-  transform: translateY(-5px);
-}
-
-.evento-card-completa:hover::before {
-  transform: scaleY(1);
-}
-
-.evento-card-completa.inscrito {
-  background: linear-gradient(135deg, rgba(106, 13, 173, 0.03) 0%, rgba(212, 175, 55, 0.03) 100%);
-  border-color: rgba(106, 13, 173, 0.3);
-}
-
-.evento-card-completa.inscrito::before {
-  transform: scaleY(1);
-}
-
-.evento-header-completa {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.evento-fecha-completa {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-  color: white;
-  border-radius: 15px;
-  padding: 15px;
-  min-width: 80px;
-  text-align: center;
-}
-
-.evento-fecha-completa .dia {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.evento-fecha-completa .mes {
-  font-size: 0.9rem;
-  text-transform: capitalize;
-  opacity: 0.9;
-}
-
-.evento-card-completa h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  color: #333;
-  margin: 0 0 15px 0;
-  line-height: 1.3;
-}
-
-.evento-descripcion {
-  color: #666;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-
-.evento-detalles-completa {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-
-.detalle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-.detalle svg {
-  color: #6a0dad;
-  flex-shrink: 0;
-}
-
-.evento-footer-completa {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-.precio {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #d4af37;
-}
-
-.btn-inscribir-completa {
-  background: linear-gradient(135deg, #6a0dad 0%, #8a2be2 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-}
-
-.btn-inscribir-completa:hover {
-  background: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(106, 13, 173, 0.3);
-}
-
-.btn-inscribir-completa.completo {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-.btn-inscrito {
-  background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-inscrito:hover {
-  background: linear-gradient(135deg, #b8941f 0%, #e6c200 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
-}
-
-/* ========================================
-   RESTO DE ESTILOS ORIGINALES
-   ======================================== */
-
-/* SECCIÓN BIENVENIDA */
-.bienvenida-usuario h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 24px;
-  color: #6a0dad;
-}
-
-.bienvenida-usuario p {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 30px;
-}
-
-.titulo-dashboard {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: #6a0dad;
-  margin-bottom: 20px;
-}
-
-/* BLOQUE MÉTRICAS */
-.seccion-dashboard {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  background-image: url('/assets/Fondomarmoleado.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 40px;
-}
-
-.bloque-metricas {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 20px;
-  flex: 1;
-}
-
-.metrica-card {
-  flex: 1 1 160px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  text-align: center;
-  border-left: 5px solid #d4af37;
-}
-
-.metrica-card img {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 10px;
-}
-
-.metrica-card span {
-  display: block;
-  font-size: 14px;
-  color: #555;
-}
-
-.metrica-card strong {
-  font-size: 20px;
-  color: #6a0dad;
-}
-
-.imagen-angel-dashboard {
-  max-height: 220px;
-  width: auto;
-  flex-shrink: 0;
-}
-
-/* APLICACIONES */
-.subtitulo-apps {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  color: #6a0dad;
-  margin-bottom: 15px;
-}
-
-.grid-aplicaciones {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-.app-card {
-  background-color: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-.app-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-}
-
-.app-header {
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: white;
-  font-weight: bold;
-}
-
-.app-card h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-  color: #222;
-  padding: 0 16px;
-  padding-top: 8px;
-}
-
-.app-card p {
-  font-size: 14px;
-  color: #666;
-  padding: 0 16px 10px 16px;
-}
-
-.app-card button {
-  background: linear-gradient(to right, #fbd43b, #d4af37);
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  margin: 0 16px 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.app-card button:hover {
-  background: linear-gradient(to right, #ffde59, #cfa52f);
-}
-
-.badge {
-  background-color: green;
-  color: white;
-  font-size: 12px;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-weight: bold;
-}
-
-/* Estilos específicos por app */
-.tirada .app-header { background: linear-gradient(to right, #4facfe, #00f2fe); }
-.canalizaciones .app-header { background: linear-gradient(to right, #a18cd1, #fbc2eb); }
-.terapias .app-header { background: linear-gradient(to right, #f093fb, #f5576c); }
-.academia .app-header { background: linear-gradient(to right, #11998e, #38ef7d); }
-.mensaje .app-header { background: linear-gradient(to right, #667eea, #764ba2); }
-.blog .app-header { background: linear-gradient(to right, #f953c6, #b91d73); }
-.tienda .app-header { background: linear-gradient(to right, #f12711, #f5af19); }
-
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 240px;
-  }
-  
-  .sidebar.collapsed {
-    width: 70px;
-  }
-  
-  .main-content {
-    padding: 20px;
-  }
-  
-  .eventos-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-  
-  .sidebar {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    padding: 15px;
-    border-right: none;
-    border-bottom: 1px solid rgba(106, 13, 173, 0.1);
-  }
-  
-  .sidebar.collapsed {
-    width: 100%;
-    height: 60px;
-  }
-  
-  .sidebar-nav {
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 10px;
-  }
-  
-  .sidebar-nav li {
-    flex-shrink: 0;
-    margin-bottom: 0;
-  }
-  
-  .main-content {
-    margin: 0;
-    border-radius: 0;
-    padding: 15px;
-  }
-  
-  .main-content.expanded {
-    margin: 0;
-  }
-  
-  .evento-card {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
-  
-  .evento-detalles {
-    justify-content: center;
-  }
-  
-  .eventos-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .mensaje-del-dia-widget-spectacular,
-  .calendario-eventos-widget {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .sidebar {
-    padding: 10px;
-  }
-  
-  .sidebar-nav li {
-    padding: 8px;
-    font-size: 0.9rem;
-  }
-  
-  .main-content {
-    padding: 10px;
-  }
-  
-  .mensaje-del-dia-widget-spectacular,
-  .calendario-eventos-widget {
-    padding: 15px;
-  }
-  
-  .mensaje-header h3,
-  .calendario-header h3 {
-    font-size: 1.2rem;
-  }
-  
-  .evento-card-completa {
-    padding: 20px;
-  }
-  
-  .evento-footer-completa {
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-
-
-/* ========================================
-   FORZAR APLICACIÓN DEL DISEÑO ESPECTACULAR
-   ======================================== */
-.dashboard-container .main-content .mensaje-del-dia-section .mensaje-del-dia-widget-spectacular {
-  position: relative !important;
-  border-radius: 25px !important;
-  overflow: hidden !important;
-  min-height: 400px !important;
-  background: linear-gradient(135deg, 
-    rgba(106, 13, 173, 0.95) 0%, 
-    rgba(138, 43, 226, 0.9) 25%, 
-    rgba(147, 112, 219, 0.85) 50%, 
-    rgba(186, 85, 211, 0.9) 75%, 
-    rgba(106, 13, 173, 0.95) 100%
-  ) !important;
-  box-shadow: 
-    0 20px 60px rgba(106, 13, 173, 0.4),
-    0 8px 32px rgba(138, 43, 226, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  animation: mensaje-pulse 4s ease-in-out infinite !important;
-}
-
-/* Asegurar que la imagen del ángel se muestre */
-.mensaje-del-dia-widget-spectacular .mensaje-angel-background-layer {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  z-index: 1 !important;
-}
-
-.mensaje-del-dia-widget-spectacular .mensaje-angel-image {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center right !important;
-  filter: brightness(1.3) contrast(1.1) saturate(0.8) hue-rotate(10deg) !important;
-  opacity: 0.4 !important;
-  animation: angel-float 6s ease-in-out infinite !important;
-}
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'tirada': return <TiradaAngelical onVolver={() => setActiveSection('home')} />;
+      case 'canalizaciones': return <CanalizacionesSonoterapia onVolver={() => setActiveSection('home')} />;
+      case 'terapias': return <TerapiasLimpiezas onVolver={() => setActiveSection('home')} />;
+      case 'academia': return <AcademiaAngelical onVolver={() => setActiveSection('home')} />;
+      case 'mensaje': return <MensajeDelDia onVolver={() => setActiveSection('home')} />;
+      case 'blog': return <BlogPodcast onVolver={() => setActiveSection('home')} />;
+      case 'tienda': return <TiendaAngelical onVolver={() => setActiveSection('home')} />;
+      case 'eventos':
+        return (
+          <div className="eventos-completos">
+            <div className="eventos-header">
+              <button onClick={() => setActiveSection('home')} className="btn-volver">
+                ← Volver al Dashboard
+              </button>
+              <h2>Calendario de Eventos Angelicales</h2>
+            </div>
+            <div className="eventos-grid">
+              {eventos.map(evento => {
+                const estaInscrito = eventosInscritos.includes(evento.id);
+                const fechaEvento = new Date(evento.fecha);
+                const esCompleto = evento.inscritos >= evento.cupos;
+                
+                return (
+                  <div key={evento.id} className={`evento-card-completa ${estaInscrito ? 'inscrito' : ''}`}>
+                    <div className="evento-header-completa">
+                      <div className="evento-fecha-completa">
+                        <span className="dia">{fechaEvento.getDate()}</span>
+                        <span className="mes">{fechaEvento.toLocaleDateString('es-ES', { month: 'long' })}</span>
+                      </div>
+                      <span className={`categoria-badge ${evento.categoria.toLowerCase()}`}>
+                        {evento.categoria}
+                      </span>
+                    </div>
+                    
+                    <h3>{evento.titulo}</h3>
+                    <p className="evento-descripcion">{evento.descripcion}</p>
+                    
+                    <div className="evento-detalles-completa">
+                      <div className="detalle">
+                        <Clock size={16} />
+                        <span>{evento.hora} - {evento.duracion}</span>
+                      </div>
+                      <div className="detalle">
+                        <MapPin size={16} />
+                        <span>{evento.modalidad} - {evento.ubicacion}</span>
+                      </div>
+                      <div className="detalle">
+                        <Users size={16} />
+                        <span>{evento.inscritos}/{evento.cupos} participantes</span>
+                      </div>
+                      <div className="detalle">
+                        <User size={16} />
+                        <span>{evento.instructor}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="evento-footer-completa">
+                      <span className="precio">{evento.precio}</span>
+                      {estaInscrito ? (
+                        <button className="btn-inscrito" onClick={() => toggleInscripcion(evento.id)}>
+                          <Star size={16} />
+                          Cancelar Inscripción
+                        </button>
+                      ) : (
+                        <button 
+                          className={`btn-inscribir-completa ${esCompleto ? 'completo' : ''}`}
+                          onClick={() => !esCompleto && toggleInscripcion(evento.id)}
+                          disabled={esCompleto}
+                        >
+                          {esCompleto ? 'Evento Completo' : 'Inscribirse Ahora'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      default:
+        return (
+          <div className="dashboard-home">
+            <div className="bienvenida-usuario">
+              <h2>¡Bienvenido de nuevo, {userData.nombre} {userData.apellido}!</h2>
+              <p>Tu camino espiritual continúa evolucionando.</p>
+            </div>
+
+            <h3 className="titulo-dashboard">Dashboard Personal</h3>
+
+            {/* Fondo angelical con transparencia */}
+            <div
+              className="seccion-dashboard relative overflow-hidden rounded-xl shadow-md p-6 flex flex-col md:flex-row items-center md:items-start gap-6"
+              style={{
+                backgroundImage: `url(${fondoMarmoleado})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              {/* Capa de transparencia */}
+              <div className="absolute inset-0 bg-white/40 z-0 pointer-events-none rounded-xl" />
+
+              {/* Imagen del ángel */}
+              <div className="relative z-10">
+                <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
+              </div>
+
+              {/* Tarjetas métricas */}
+              <div className="bloque-metricas relative z-10 grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="metrica-card"><img src={iconNivel} /><span>Nivel</span><strong>{userData.nivelEspiritual}</strong></div>
+                <div className="metrica-card"><img src={iconPuntos} /><span>Puntos de luz</span><strong>{userData.puntosDeLuz}</strong></div>
+                <div className="metrica-card"><img src={iconDias} /><span>Días consecutivos</span><strong>{userData.diasConsecutivos}</strong></div>
+                <div className="metrica-card"><img src={iconSonoterapia} /><span>Sonoterapias</span><strong>{userData.sonoterapiasCompletadas}</strong></div>
+                <div className="metrica-card"><img src={iconCanalizaciones} /><span>Canalizaciones</span><strong>{userData.canalizacionesEscuchadas}</strong></div>
+                <div className="metrica-card"><img src={iconCursos} /><span>Cursos</span><strong>{userData.cursosFinalizados}</strong></div>
+              </div>
+            </div>
+
+            {/* Mensaje del Día */}
+            {renderMensajeDelDia()}
+
+            {/* Calendario de Eventos */}
+            {renderCalendarioEventos()}
+
+            <h3 className="subtitulo-apps">Explora nuestras aplicaciones angelicales:</h3>
+            <div className="grid-aplicaciones">
+              {[
+                { id: 'tirada', icon: <Heart />, titulo: 'Apertura Angelica', desc: 'Conecta con la sabiduría de los ángeles', disponible: true },
+                { id: 'canalizaciones', icon: <Headphones />, titulo: 'Canalizaciones y Sonoterapia', desc: 'Frecuencias sagradas de sanación', disponible: true },
+                { id: 'terapias', icon: <Zap />, titulo: 'Terapias y Limpiezas', desc: 'Sanación angelica profunda', disponible: true },
+                { id: 'academia', icon: <GraduationCap />, titulo: 'Academia Angelica', desc: 'Formación espiritual completa', disponible: true },
+                { id: 'mensaje', icon: <MessageSquare />, titulo: 'Mensaje del Día', desc: 'Recibe una canalización espiritual', disponible: true },
+                { id: 'blog', icon: <Mic />, titulo: 'Blog & Podcast', desc: 'Contenido espiritual diario', disponible: true },
+                { id: 'tienda', icon: <ShoppingCart />, titulo: 'Tienda Angélica', desc: 'Cartas y recursos espirituales', disponible: false },
+              ].map(app => (
+                <div key={app.id} className={`app-card ${app.id}`}>
+                  <div className="app-header">
+                    {app.icon}
+                    <span className={`disponibilidad ${app.disponible ? 'disponible' : 'proximamente'}`}>
+                      {app.disponible ? 'Disponible' : 'Próximamente'}
+                    </span>
+                  </div>
+                  <h4>{app.titulo}</h4>
+                  <p>{app.desc}</p>
+                  <button onClick={() => setActiveSection(app.id)}>Acceder</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="dashboard-container">
+      <aside className={`sidebar ${sidebarCollapsed ? 'collapsed' : ''}`}>
+        <div className="sidebar-header">
+          <img src={logo} alt="Logo JCA" className="sidebar-logo" />
+          {!sidebarCollapsed && <h3 className="sidebar-title">Plataforma Angélica</h3>}
+          <button 
+            className="sidebar-toggle"
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+          >
+            {sidebarCollapsed ? <Menu size={20} /> : <X size={20} />}
+          </button>
+        </div>
+        
+        <ul className="sidebar-nav">
+          {menuItems.map(item => {
+            const IconComponent = item.icon;
+            return (
+              <li 
+                key={item.id}
+                onClick={() => setActiveSection(item.id)}
+                className={activeSection === item.id ? 'active' : ''}
+                style={{ '--item-color': item.color }}
+              >
+                <IconComponent size={20} />
+                {!sidebarCollapsed && <span>{item.label}</span>}
+              </li>
+            );
+          })}
+        </ul>
+        
+        <div className="sidebar-footer">
+          <div className="user-info">
+            <div className="user-avatar" onClick={() => setShowSettings(true)}>
+              <User size={20} />
+            </div>
+            {!sidebarCollapsed && (
+              <div className="user-details">
+                <span className="user-email">{userData.username}</span>
+                <span className="user-role">{userData.rol}</span>
+              </div>
+            )}
+          </div>
+          {!sidebarCollapsed && (
+            <button onClick={onLogout} className="logout-button">
+              <LogOut size={16} />
+              Cerrar Sesión
+            </button>
+          )}
+        </div>
+      </aside>
+      
+      <main className={`main-content ${sidebarCollapsed ? 'expanded' : ''}`}>
+        {renderSection()}
+      </main>
+      
+      {showSettings && renderSettings()}
+    </div>
+  );
+};
+
+export default Dashboard;
 
