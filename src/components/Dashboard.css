@@ -432,20 +432,17 @@ body {
    ======================================== */
 .mensaje-del-dia-premium {
   position: relative;
-  height: 450px;
-  border-radius: 30px;
+  height: 280px;
+  border-radius: 25px;
   overflow: hidden;
-  background: linear-gradient(135deg, 
-    #6a0dad 0%, 
-    #8a2be2 25%, 
-    #9370db 50%, 
-    #ba55d3 75%, 
-    #6a0dad 100%
-  );
+  background-image: url('../assets/angel-mensaje.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: 
-    0 25px 80px rgba(106, 13, 173, 0.6),
-    0 15px 40px rgba(138, 43, 226, 0.4),
-    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+    0 15px 40px rgba(106, 13, 173, 0.3),
+    0 8px 20px rgba(138, 43, 226, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 215, 0, 0.3);
   animation: mensaje-glow 4s ease-in-out infinite;
 }
@@ -453,15 +450,15 @@ body {
 @keyframes mensaje-glow {
   0%, 100% { 
     box-shadow: 
-      0 25px 80px rgba(106, 13, 173, 0.6),
-      0 15px 40px rgba(138, 43, 226, 0.4),
-      inset 0 2px 0 rgba(255, 255, 255, 0.3);
+      0 15px 40px rgba(106, 13, 173, 0.3),
+      0 8px 20px rgba(138, 43, 226, 0.2),
+      inset 0 2px 0 rgba(255, 255, 255, 0.2);
   }
   50% { 
     box-shadow: 
-      0 35px 100px rgba(106, 13, 173, 0.8),
-      0 20px 50px rgba(138, 43, 226, 0.6),
-      inset 0 2px 0 rgba(255, 255, 255, 0.4);
+      0 20px 50px rgba(106, 13, 173, 0.4),
+      0 12px 25px rgba(138, 43, 226, 0.3),
+      inset 0 2px 0 rgba(255, 255, 255, 0.3);
   }
 }
 
@@ -505,13 +502,13 @@ body {
   height: 100%;
   background: linear-gradient(
     135deg,
-    rgba(106, 13, 173, 0.8) 0%,
-    rgba(138, 43, 226, 0.6) 25%,
-    rgba(147, 112, 219, 0.4) 50%,
-    rgba(186, 85, 211, 0.6) 75%,
-    rgba(106, 13, 173, 0.8) 100%
+    rgba(106, 13, 173, 0.6) 0%,
+    rgba(138, 43, 226, 0.4) 25%,
+    rgba(147, 112, 219, 0.2) 50%,
+    rgba(186, 85, 211, 0.4) 75%,
+    rgba(106, 13, 173, 0.6) 100%
   );
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(1px);
   z-index: 2;
 }
 
