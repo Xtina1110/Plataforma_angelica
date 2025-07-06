@@ -595,31 +595,32 @@ body {
 .mensaje-contenido-premium {
   position: relative;
   z-index: 4;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px;
+  padding: 15px 20px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(25px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 20px;
-  border-radius: 25px;
+  margin: 15px 20px;
+  border-radius: 20px;
   box-shadow: 
     0 15px 50px rgba(0, 0, 0, 0.2),
     inset 0 2px 0 rgba(255, 255, 255, 0.4);
+  min-height: 220px;
 }
 
 /* Fecha premium */
 .mensaje-fecha-premium {
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-bottom: 25px;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .fecha-icono {
-  font-size: 2rem;
+  font-size: 1.5rem;
   animation: icono-pulse 3s ease-in-out infinite;
   filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
 }
@@ -635,7 +636,7 @@ body {
 
 .fecha-texto {
   color: rgba(255, 255, 255, 0.95);
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   font-weight: 700;
   font-family: 'Playfair Display', serif;
   text-transform: capitalize;
@@ -653,13 +654,13 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 30px 0;
+  margin: 15px 0;
 }
 
 .comilla-apertura,
 .comilla-cierre {
   position: absolute;
-  font-size: 5rem;
+  font-size: 3rem;
   font-family: 'Playfair Display', serif;
   font-weight: 900;
   color: rgba(255, 215, 0, 0.9);
@@ -670,13 +671,13 @@ body {
 }
 
 .comilla-apertura {
-  top: -30px;
-  left: -20px;
+  top: -15px;
+  left: -10px;
 }
 
 .comilla-cierre {
-  bottom: -50px;
-  right: -20px;
+  bottom: -25px;
+  right: -10px;
 }
 
 @keyframes comilla-shimmer {
@@ -696,15 +697,15 @@ body {
 
 .texto-mensaje {
   color: rgba(255, 255, 255, 0.95);
-  font-size: 1.6rem;
-  line-height: 1.8;
+  font-size: 1.2rem;
+  line-height: 1.5;
   font-weight: 500;
   font-style: italic;
   font-family: 'Inter', sans-serif;
   text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.6),
     0 0 25px rgba(255, 255, 255, 0.2);
-  padding: 30px 50px;
+  padding: 15px 25px;
   margin: 0;
   position: relative;
   z-index: 1;
@@ -729,20 +730,20 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 25px;
+  margin-top: 10px;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
 }
 
 .arcangel-info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
 }
 
 .arcangel-nombre {
   color: rgba(255, 255, 255, 0.95);
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: 800;
   font-family: 'Playfair Display', serif;
   text-shadow: 
@@ -753,7 +754,7 @@ body {
 
 .arcangel-energia {
   color: rgba(255, 215, 0, 0.95);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   font-family: 'Inter', sans-serif;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -763,7 +764,7 @@ body {
 .btn-meditar-premium {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   background: linear-gradient(135deg, 
     rgba(255, 215, 0, 0.95) 0%, 
     rgba(255, 193, 7, 0.9) 50%, 
@@ -771,9 +772,9 @@ body {
   );
   color: rgba(106, 13, 173, 0.9);
   border: none;
-  border-radius: 30px;
-  padding: 15px 30px;
-  font-size: 1.1rem;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
   font-weight: 700;
   font-family: 'Inter', sans-serif;
   cursor: pointer;
@@ -1031,6 +1032,7 @@ body {
   border-radius: 20px;
   padding: 25px;
   margin-bottom: 30px;
+  margin-top: 40px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(106, 13, 173, 0.1);
 }
