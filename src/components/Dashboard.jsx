@@ -650,7 +650,6 @@ const Dashboard = ({ user, onLogout }) => {
               <LogOut size={16} />
               Cerrar Sesión
             </button>
-          </button>
           )}
         </div>
       </aside>
