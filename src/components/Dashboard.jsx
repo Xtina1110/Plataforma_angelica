@@ -354,6 +354,17 @@ const Dashboard = ({ user, onLogout }) => {
         {/* Overlay con gradientes angelicales */}
         <div className="mensaje-overlay-angelical"></div>
         
+        {/* Efectos de luz y partículas */}
+        <div className="mensaje-efectos-luz">
+          <div className="particula-luz particula-1"></div>
+          <div className="particula-luz particula-2"></div>
+          <div className="particula-luz particula-3"></div>
+          <div className="particula-luz particula-4"></div>
+          <div className="particula-luz particula-5"></div>
+          <div className="rayo-luz rayo-1"></div>
+          <div className="rayo-luz rayo-2"></div>
+        </div>
+        
         {/* Contenido del mensaje */}
         <div className="mensaje-contenido-premium">
           <div className="mensaje-fecha-premium">
@@ -384,7 +395,7 @@ const Dashboard = ({ user, onLogout }) => {
           {/* Botón Luz Interior en esquina superior derecha */}
           <button className="btn-luz-interior">
             <span className="luz-icono">✨</span>
-            <span className="luz-texto">{mensajeDelDia.energia}</span>
+            <span className="luz-texto">Luz Interior</span>
           </button>
         </div>
         
@@ -392,6 +403,7 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="bordes-angelicales">
           <div className="borde-esquina esquina-tl"></div>
           <div className="borde-esquina esquina-tr"></div>
+          <div className="borde-esquina esquina-bl"></div>
           <div className="borde-esquina esquina-br"></div>
         </div>
       </div>
@@ -593,7 +605,7 @@ const Dashboard = ({ user, onLogout }) => {
             {/* Calendario de Eventos */}
             {renderCalendarioEventos()}
 
-            <h3 className="titulo-dashboard">Aplicaciones angelicas</h3>
+            <h3 className="subtitulo-apps">Aplicaciones angelicas</h3>
             <div className="grid-aplicaciones">
               {[
                 { id: 'tirada', icon: <Heart />, titulo: 'Apertura Angelica', desc: 'Conecta con la sabiduría de los ángeles', disponible: true },
