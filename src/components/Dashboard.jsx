@@ -342,15 +342,6 @@ const Dashboard = ({ user, onLogout }) => {
     <div className="mensaje-del-dia-section">
       <h3 className="titulo-dashboard">Mensaje del Día</h3>
       <div className="mensaje-del-dia-premium">
-        {/* Imagen del ángel de fondo */}
-        <div className="mensaje-angel-fondo">
-          <img 
-            src="/assets/Mensajedeldia.png" 
-            alt="Ángel del día" 
-            className="angel-background-img"
-          />
-        </div>
-        
         {/* Overlay con gradientes angelicales */}
         <div className="mensaje-overlay-angelical"></div>
         
@@ -659,6 +650,7 @@ const Dashboard = ({ user, onLogout }) => {
               <LogOut size={16} />
               Cerrar Sesión
             </button>
+          </button>
           )}
         </div>
       </aside>
