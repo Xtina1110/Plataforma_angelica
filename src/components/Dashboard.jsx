@@ -23,7 +23,7 @@ import iconDias from '../assets/IconoDias.png';
 import iconSonoterapia from '../assets/IconoSonoterapia.png';
 import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
 import iconCursos from '../assets/IconoCursos.png';
-import mensajeDelDiaFondo from '../assets/MensajeDelDia.png';
+import mensajeDelDiaFondo from '../assets/Mensajedeldia.png';
 
 import './Dashboard.css';
 
