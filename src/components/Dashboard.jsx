@@ -1,5 +1,5 @@
 
-// src/Components/Dashboard.jsx
+// src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import {
   Home, Heart, Headphones, Zap, BookOpen, GraduationCap,
