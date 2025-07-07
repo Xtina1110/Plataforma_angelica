@@ -1,5 +1,5 @@
 
-// src/components/Dashboard.jsx
+// src/Components/Dashboard.jsx
 import React, { useState } from 'react';
 import {
   Home, Heart, Headphones, Zap, BookOpen, GraduationCap,
@@ -23,62 +23,75 @@ import iconDias from '../assets/IconoDias.png';
 import iconSonoterapia from '../assets/IconoSonoterapia.png';
 import iconCanalizaciones from '../assets/IconoCanalizaciones.png';
 import iconCursos from '../assets/IconoCursos.png';
-import mensajeDelDiaFondo from '../assets/Mensajedeldia.png';
+import mensajeDelDiaFondo from '../assets/MensajeDelDia.png';
 
 import './Dashboard.css';
 
-// CONTENIDO OMITIDO: toda la lógica anterior sigue igual
+const Dashboard = () => {
+  const [activeSection, setActiveSection] = useState('dashboard');
 
-// Modificamos el método renderMensajeDelDia para usar la nueva imagen
-const renderMensajeDelDia = () => (
-  <div className="mensaje-del-dia-section">
-    <h3 className="titulo-dashboard">Mensaje del Día</h3>
-    <div className="mensaje-del-dia-premium">
-      <div className="mensaje-angel-fondo">
-        <img 
-          src={mensajeDelDiaFondo} 
-          alt="Fondo angelical del mensaje del día" 
-          className="angel-background-img"
-        />
-      </div>
-      <div className="mensaje-overlay-angelical"></div>
-      <div className="mensaje-contenido-premium">
-        <div className="mensaje-fecha-premium">
-          <span className="fecha-icono">✨</span>
-          <span className="fecha-texto">{mensajeDelDia.fecha}</span>
+  const mensajeDelDia = {
+    fecha: "Lunes 7 de Julio",
+    mensaje: "Confía en la guía divina. Hoy se te abren puertas invisibles con luz.",
+    arcangel: "Arcángel Miguel",
+    energia: "Protección y Valentía"
+  };
+
+  const renderMensajeDelDia = () => (
+    <div className="mensaje-del-dia-section">
+      <h3 className="titulo-dashboard">Mensaje del Día</h3>
+      <div className="mensaje-del-dia-premium">
+        <div className="mensaje-angel-fondo">
+          <img 
+            src={mensajeDelDiaFondo} 
+            alt="Fondo angelical del mensaje del día" 
+            className="angel-background-img"
+          />
         </div>
-        <div className="mensaje-texto-premium">
-          <div className="comilla-apertura">"</div>
-          <p className="texto-mensaje">{mensajeDelDia.mensaje}</p>
-          <div className="comilla-cierre">"</div>
-        </div>
-        <div className="mensaje-arcangel-premium">
-          <div className="arcangel-info">
-            <span className="arcangel-nombre">- {mensajeDelDia.arcangel}</span>
-            <span className="arcangel-energia">{mensajeDelDia.energia}</span>
+        <div className="mensaje-overlay-angelical"></div>
+        <div className="mensaje-contenido-premium">
+          <div className="mensaje-fecha-premium">
+            <span className="fecha-icono">✨</span>
+            <span className="fecha-texto">{mensajeDelDia.fecha}</span>
           </div>
-          <button 
-            className="btn-meditar-premium"
-            onClick={() => setActiveSection('mensaje')}
-          >
-            <span className="btn-icono">💌</span>
-            <span className="btn-texto">Mensajes del Día</span>
+          <div className="mensaje-texto-premium">
+            <div className="comilla-apertura">"</div>
+            <p className="texto-mensaje">{mensajeDelDia.mensaje}</p>
+            <div className="comilla-cierre">"</div>
+          </div>
+          <div className="mensaje-arcangel-premium">
+            <div className="arcangel-info">
+              <span className="arcangel-nombre">- {mensajeDelDia.arcangel}</span>
+              <span className="arcangel-energia">{mensajeDelDia.energia}</span>
+            </div>
+            <button 
+              className="btn-meditar-premium"
+              onClick={() => setActiveSection('mensaje')}
+            >
+              <span className="btn-icono">💌</span>
+              <span className="btn-texto">Mensajes del Día</span>
+            </button>
+          </div>
+          <button className="btn-luz-interior">
+            <span className="luz-icono">✨</span>
+            <span className="luz-texto">Luz Interior</span>
           </button>
         </div>
-        <button className="btn-luz-interior">
-          <span className="luz-icono">✨</span>
-          <span className="luz-texto">Luz Interior</span>
-        </button>
-      </div>
-      <div className="bordes-angelicales">
-        <div className="borde-esquina esquina-tl"></div>
-        <div className="borde-esquina esquina-tr"></div>
-        <div className="borde-esquina esquina-bl"></div>
-        <div className="borde-esquina esquina-br"></div>
+        <div className="bordes-angelicales">
+          <div className="borde-esquina esquina-tl"></div>
+          <div className="borde-esquina esquina-tr"></div>
+          <div className="borde-esquina esquina-bl"></div>
+          <div className="borde-esquina esquina-br"></div>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 
-// CONTENIDO OMITIDO: resto del archivo sigue igual
+  return (
+    <div className="dashboard-container">
+      {renderMensajeDelDia()}
+    </div>
+  );
+};
 
+export default Dashboard;
