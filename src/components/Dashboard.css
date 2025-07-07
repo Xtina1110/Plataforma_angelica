@@ -435,7 +435,7 @@ body {
   height: 280px;
   border-radius: 25px;
   overflow: hidden;
-  background-image: url('../assets/angel-mensaje.jpg');
+  background-image: url('../assets/Mensaje del dia.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -444,7 +444,7 @@ body {
     0 8px 20px rgba(138, 43, 226, 0.2),
     inset 0 2px 0 rgba(255, 255, 255, 0.2);
   border: 2px solid rgba(255, 215, 0, 0.3);
-  animation: mensaje-glow 4s ease-in-out infinite;
+/*  animation: mensaje-glow 4s ease-in-out infinite; */
 }
 
 @keyframes mensaje-glow {
@@ -462,7 +462,7 @@ body {
   }
 }
 
-/* Imagen del ángel de fondo */
+/* Imagen del ángel de fondo 
 .mensaje-angel-fondo {
   position: absolute;
   top: 0;
@@ -480,7 +480,7 @@ body {
   filter: brightness(1.4) contrast(1.2) saturate(1.1) hue-rotate(15deg);
   opacity: 0.6;
   animation: angel-breathe 8s ease-in-out infinite;
-}
+} 
 
 @keyframes angel-breathe {
   0%, 100% { 
@@ -491,7 +491,7 @@ body {
     transform: scale(1.05) rotate(1deg);
     filter: brightness(1.6) contrast(1.3) saturate(1.2) hue-rotate(20deg);
   }
-}
+} */
 
 /* Overlay angelical */
 .mensaje-overlay-angelical {
