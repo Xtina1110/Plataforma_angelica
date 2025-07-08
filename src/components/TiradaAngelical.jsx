@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
 import './TiradaAngelical.css';
+import DorsoImg from './assets/Dorso.PNG';
 import { 
   ArrowLeft, Download, Users, Loader2, Star, Heart, Eye, Sparkles,
   ChevronRight, ChevronDown, ChevronUp, Maximize2, X, Play, Pause,
@@ -842,7 +843,7 @@ const SeleccionCartasSection = ({ tipoTirada, cartasSeleccionadas, cartasDisponi
             style={{ animationDelay: `${index * 0.05}s` }}
           >
             <div className="carta-reverso">
-              <img src="/assets/Dorso.PNG" alt="Dorso de carta angelical" />
+              <img src={DorsoImg} alt="Dorso de carta angelical" />
             </div>
           </div>
         ))}
@@ -875,7 +876,7 @@ const RevelacionSection = ({ carta, cartaActual, totalCartas, tipoTirada, onSigu
 
         <div className="carta-contenido">
           <div className="carta-imagen">
-            <img src="/assets/Dorso.PNG" alt="Dorso de carta angelical" />
+            <img src={DorsoImg} alt="Dorso de carta angelical" />
             <div className="imagen-overlay">
               <div className="energia-badge">{carta.energia}</div>
             </div>
@@ -944,7 +945,7 @@ const ResumenSection = ({ cartasSeleccionadas, temaSeleccionado, tipoTirada, gen
         {cartasSeleccionadas.map((carta, index) => (
           <div key={index} className="carta-resumen-item">
             <div className="carta-mini">
-              <img src="/assets/Dorso.PNG" alt="Dorso de carta angelical" />
+              <img src={DorsoImg} alt="Dorso de carta angelical" />
             </div>
             <div className="carta-resumen-info">
               <h3>{carta.nombre}</h3>
