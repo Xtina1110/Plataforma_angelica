@@ -381,7 +381,7 @@ const Dashboard = ({ user, onLogout }) => {
     <div className="calendario-eventos-widget">
       <div className="calendario-header">
         <Calendar className="calendario-icon" />
-        <h3>Próximos Eventos</h3>
+        <h3 className="titulo-dashboard">Próximos Eventos</h3>
       </div>
       <div className="eventos-lista">
         {eventos.slice(0, 3).map(evento => {
