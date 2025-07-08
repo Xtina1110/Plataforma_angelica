@@ -842,7 +842,10 @@ const SeleccionCartasSection = ({ tipoTirada, cartasSeleccionadas, cartasDisponi
             style={{ animationDelay: `${index * 0.05}s` }}
           >
             <div className="carta-reverso">
-              <img src="/Dorso.PNG" alt="Dorso de carta angelical" />
+              <div className="dorso-angelical">
+                <div className="simbolo-central">✨</div>
+                <div className="patron-dorado"></div>
+              </div>
             </div>
           </div>
         ))}
@@ -875,7 +878,10 @@ const RevelacionSection = ({ carta, cartaActual, totalCartas, tipoTirada, onSigu
 
         <div className="carta-contenido">
           <div className="carta-imagen">
-            <img src="/Dorso.PNG" alt="Dorso de carta angelical" />
+            <div className="dorso-angelical">
+              <div className="simbolo-central">✨</div>
+              <div className="patron-dorado"></div>
+            </div>
             <div className="imagen-overlay">
               <div className="energia-badge">{carta.energia}</div>
             </div>
@@ -944,7 +950,10 @@ const ResumenSection = ({ cartasSeleccionadas, temaSeleccionado, tipoTirada, gen
         {cartasSeleccionadas.map((carta, index) => (
           <div key={index} className="carta-resumen-item">
             <div className="carta-mini">
-              <img src="/Dorso.PNG" alt="Dorso de carta angelical" />
+              <div className="dorso-angelical">
+                <div className="simbolo-central">✨</div>
+                <div className="patron-dorado"></div>
+              </div>
             </div>
             <div className="carta-resumen-info">
               <h3>{carta.nombre}</h3>
