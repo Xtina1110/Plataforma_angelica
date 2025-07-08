@@ -840,7 +840,7 @@
 
 .carta-mazo {
   aspect-ratio: 2/3;
-  background: linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%);
+  background: transparent;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
