@@ -628,16 +628,16 @@ const TiradaAngelical = ({ onVolver }) => {
 const BienvenidaSection = ({ onContinuar }) => {
   return (
     <div className="seccion-bienvenida">
-      <div className="bienvenida-hero">
-        <h2>Bienvenido a tu Consulta Angelical</h2>
-        <p>Los ángeles están listos para compartir su sabiduría contigo. Toma un momento para centrarte y formular tu pregunta en tu corazón.</p>
-      </div>
-      
       <div className="bienvenida-preparacion">
-        <h3>Preparación para tu Tirada</h3>
+        <h3 className="titulo-dashboard">Preparación para tu Tirada</h3>
+        <p className="descripcion-preparacion">Los ángeles están listos para compartir su sabiduría contigo. Toma un momento para centrarte y formular tu pregunta en tu corazón.</p>
+        
         <div className="preparacion-grid">
           <div className="preparacion-item-card">
             <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%)' }}>
+              <div className="card-icon-white">
+                <Heart size={20} color="white" />
+              </div>
               <span className="card-status">Paso 1</span>
             </div>
             <div className="card-content">
@@ -647,6 +647,9 @@ const BienvenidaSection = ({ onContinuar }) => {
           </div>
           <div className="preparacion-item-card">
             <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%)' }}>
+              <div className="card-icon-white">
+                <Target size={20} color="white" />
+              </div>
               <span className="card-status">Paso 2</span>
             </div>
             <div className="card-content">
@@ -656,6 +659,9 @@ const BienvenidaSection = ({ onContinuar }) => {
           </div>
           <div className="preparacion-item-card">
             <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)' }}>
+              <div className="card-icon-white">
+                <Sparkles size={20} color="white" />
+              </div>
               <span className="card-status">Paso 3</span>
             </div>
             <div className="card-content">
