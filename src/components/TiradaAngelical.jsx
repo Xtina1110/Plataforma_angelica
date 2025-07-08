@@ -526,7 +526,7 @@ const TiradaAngelical = ({ onVolver }) => {
   const nuevaTirada = () => {
     updateTiradaState({
       fase: 'bienvenida',
-      tipoTirada: 3,
+      tipoTirada: null,
       temaSeleccionado: null,
       cartasSeleccionadas: [],
       cartaActual: 0,
@@ -555,29 +555,17 @@ const TiradaAngelical = ({ onVolver }) => {
     <div className="tirada-contenido">
       {/* Fase 1: Bienvenida */}
       {tiradaState.fase === 'bienvenida' && (
-        <BienvenidaSection onContinuar={() => irAFase('seleccion-tipo')} />
+        <BienvenidaSection onContinuar={() => irAFase('seleccion-consolidada')} />
       )}
 
-      {/* Fase 2: Selección de tipo */}
-      {tiradaState.fase === 'seleccion-tipo' && (
-        <SeleccionTipoSection 
+      {/* Fase 2: Selección Consolidada (Tipo + Tema) */}
+      {tiradaState.fase === 'seleccion-consolidada' && (
+        <SeleccionConsolidadaSection 
           tipoTirada={tiradaState.tipoTirada}
-          consultaEnVivo={tiradaState.consultaEnVivo}
-          onSeleccionarTipo={seleccionarTipoTirada}
-          onToggleConsulta={toggleConsultaEnVivo}
-          onContinuar={() => irAFase('seleccion-tema')}
-        />
-      )}
-
-      {/* Fase 3: Selección de tema */}
-      {tiradaState.fase === 'seleccion-tema' && (
-        <SeleccionTemaSection 
           temaSeleccionado={tiradaState.temaSeleccionado}
-          consultaEnVivo={tiradaState.consultaEnVivo}
-          tipoTirada={tiradaState.tipoTirada}
+          onSeleccionarTipo={seleccionarTipoTirada}
           onSeleccionarTema={seleccionarTema}
-          onIniciarBarajado={iniciarBarajado}
-          onSolicitarConsulta={solicitarConsultaEnVivo}
+          onContinuar={iniciarBarajado}
         />
       )}
 
