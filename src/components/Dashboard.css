@@ -780,43 +780,107 @@ body {
 }
 
 .app-card {
-  background: white !important;
-  border-radius: 20px !important;
-  padding: 25px !important;
-  text-align: center !important;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
-  transition: all 0.3s ease !important;
-  position: relative !important;
-  border-top: 6px solid #6a0dad !important;
-  border: 2px solid #000 !important;
+  background: white;
+  border-radius: 15px;
+  padding: 0;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.app-card[data-app="apertura"] {
-  border-top-color: #00bcd4; /* Cyan - Apertura Angelica */
+.app-status {
+  padding: 15px 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: right;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.app-card[data-app="sonoterapia"] {
-  border-top-color: #9c27b0; /* Púrpura - Sonoterapia */
+.app-status.disponible {
+  background: #4caf50;
 }
 
-.app-card[data-app="terapias"] {
-  border-top-color: #e91e63; /* Rosa - Terapias */
+.app-status.proximamente {
+  background: #ff5722;
+  animation: blink 2s infinite;
 }
 
-.app-card[data-app="academia"] {
-  border-top-color: #4caf50; /* Verde - Academia */
+.app-card[data-app="apertura"] .app-status {
+  background: #00bcd4;
 }
 
-.app-card[data-app="mensaje"] {
-  border-top-color: #673ab7; /* Púrpura oscuro - Mensaje del Día */
+.app-card[data-app="sonoterapia"] .app-status {
+  background: #9c27b0;
 }
 
-.app-card[data-app="blog"] {
-  border-top-color: #e91e63; /* Rosa - Blog & Podcast */
+.app-card[data-app="terapias"] .app-status {
+  background: #e91e63;
 }
 
-.app-card[data-app="tienda"] {
-  border-top-color: #ff5722; /* Naranja/Rojo - Tienda Angelica */
+.app-card[data-app="academia"] .app-status {
+  background: #4caf50;
+}
+
+.app-card[data-app="mensaje"] .app-status {
+  background: #673ab7;
+}
+
+.app-card[data-app="blog"] .app-status {
+  background: #e91e63;
+}
+
+.app-card[data-app="tienda"] .app-status {
+  background: #ff5722;
+}
+
+.app-icon {
+  color: white;
+  font-size: 24px;
+}
+
+.app-card h3 {
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 15px 20px 5px 20px;
+  text-align: left;
+}
+
+.app-card p {
+  color: #666;
+  font-size: 14px;
+  margin: 0 20px 20px 20px;
+  text-align: left;
+}
+
+.btn-acceder {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 0 20px 20px 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: calc(100% - 40px);
+}
+
+.btn-acceder:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  transform: translateY(-2px);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.7; }
 }
 
 .app-card:hover {
@@ -1385,5 +1449,73 @@ body {
 @keyframes parpadeo {
   0%, 50% { opacity: 1; }
   25%, 75% { opacity: 0.7; }
+}
+
+
+.app-status {
+  padding: 15px 20px !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  text-align: right !important;
+  margin: 0 !important;
+  border-radius: 15px 15px 0 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.app-icon {
+  color: white !important;
+  font-size: 24px !important;
+  margin: 0 !important;
+}
+
+.app-card h3 {
+  color: #333 !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  margin: 15px 20px 5px 20px !important;
+  text-align: left !important;
+}
+
+.app-card p {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin: 0 20px 20px 20px !important;
+  text-align: left !important;
+}
+
+.btn-acceder {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  margin: 0 20px 20px 20px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  width: calc(100% - 40px) !important;
+}
+
+.btn-acceder:hover {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  transform: translateY(-2px) !important;
+}
+
+.btn-acceder.disabled {
+  background: linear-gradient(135deg, #ff5722, #f4511e) !important;
+  cursor: not-allowed !important;
+}
+
+.proximamente {
+  animation: blink 2s infinite !important;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.7; }
 }
 
