@@ -30,10 +30,10 @@ const Dashboard = ({ user, onLogout }) => {
   const [showSettings, setShowSettings] = useState(false);
 
   const [userData, setUserData] = useState({
-    nombre: user?.displayName || user?.name || 'Usuario',
-    apellido: user?.lastName || '',
-    email: user?.email || 'usuario@email.com',
-    username: user?.email || 'usuario@email.com',
+    nombre: user?.displayName || user?.name || 'Juan Carlos',
+    apellido: user?.lastName || 'Pérez',
+    email: user?.email || 'demo@test.com',
+    username: user?.email || 'demo@test.com',
     rol: 'Usuario Premium',
     telefono: '+34 600 123 456',
     fechaNacimiento: '1985-03-15',
@@ -532,7 +532,7 @@ const Dashboard = ({ user, onLogout }) => {
         return (
           <div className="dashboard-home">
             <div className="bienvenida-usuario">
-              <h2>¡Bienvenido de nuevo, {user?.displayName || user?.name || user?.email || 'Usuario'}!</h2>
+              <h2>¡Bienvenido de nuevo, {user?.displayName || user?.name || user?.email || userData.nombre + ' ' + userData.apellido}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
