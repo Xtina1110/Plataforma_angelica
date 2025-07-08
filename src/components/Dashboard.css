@@ -306,11 +306,11 @@ body {
 }
 
 .imagen-angel-dashboard {
-  width: 400px;
-  height: auto;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(106, 13, 173, 0.2);
-  transition: transform 0.3s ease;
+  width: 500px !important;
+  height: auto !important;
+  border-radius: 15px !important;
+  box-shadow: 0 10px 25px rgba(106, 13, 173, 0.2) !important;
+  transition: transform 0.3s ease !important;
 }
 
 .imagen-angel-dashboard:hover {
@@ -780,16 +780,17 @@ body {
 }
 
 .app-card {
-  background: white;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  position: relative;
-  border-top: 6px solid;
+  background: white !important;
+  border-radius: 20px !important;
+  padding: 25px !important;
+  text-align: center !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  border-top: 6px solid #6a0dad !important;
+  border: 2px solid #000 !important;
 }
 
-/* Colores de líneas superiores según la aplicación */
 .app-card[data-app="apertura"] {
   border-top-color: #00bcd4; /* Cyan - Apertura Angelica */
 }
@@ -799,11 +800,11 @@ body {
 }
 
 .app-card[data-app="terapias"] {
-  border-top-color: #e91e63; /* Rosa - Terapias y Limpiezas */
+  border-top-color: #e91e63; /* Rosa - Terapias */
 }
 
 .app-card[data-app="academia"] {
-  border-top-color: #4caf50; /* Verde - Academia Angelica */
+  border-top-color: #4caf50; /* Verde - Academia */
 }
 
 .app-card[data-app="mensaje"] {
