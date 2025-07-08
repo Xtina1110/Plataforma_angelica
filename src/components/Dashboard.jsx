@@ -346,7 +346,7 @@ const Dashboard = ({ user, onLogout }) => {
         <div className="mensaje-angel-fondo">
           <img 
             src="/angel-mensaje.jpg" 
-            alt="Ángel celestial" 
+            alt="Ángel del día" 
             className="angel-background-img"
           />
         </div>
