@@ -205,7 +205,7 @@ body {
 .logout-button {
   width: 100%;
   padding: 10px;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  background: linear-gradient(135deg, #6a0dad, #8a2be2);
   color: white;
   border: none;
   border-radius: 8px;
@@ -219,9 +219,9 @@ body {
 }
 
 .logout-button:hover {
-  background: linear-gradient(135deg, #ff5252, #e53935);
+  background: linear-gradient(135deg, #8a2be2, #9c27b0);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+  box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
 }
 
 /* ========================================
@@ -231,7 +231,7 @@ body {
   flex: 1;
   padding: 30px;
   overflow-y: auto;
-  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+  background: #ffffff;
   transition: all 0.3s ease;
 }
 
@@ -306,7 +306,7 @@ body {
 }
 
 .imagen-angel-dashboard {
-  width: 200px;
+  width: 400px;
   height: auto;
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(106, 13, 173, 0.2);
@@ -373,7 +373,8 @@ body {
   border-radius: 25px;
   overflow: hidden;
   background: transparent;
-  border: 2px solid rgba(255, 215, 0, 0.3);
+  border: none;
+  box-shadow: none;
 }
 
 @keyframes mensaje-glow {
@@ -765,26 +766,54 @@ body {
 .ver-todos-eventos:hover {
   background: linear-gradient(135deg, #8a2be2, #9c27b0);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(106, 13, 173, 0.3);
-}
-
-/* ========================================
-   GRID DE APLICACIONES
+  box-shadow: 0 5px 15px rgba(106, 13, 173, /* ========================================
+   APLICACIONES ANGELICAS
    ======================================== */
-.grid-aplicaciones {
+.aplicaciones-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .app-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
+  background: white;
+  border-radius: 15px;
   padding: 25px;
-  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border-top: 6px solid;
+}
+
+/* Colores de líneas superiores según la aplicación */
+.app-card[data-app="apertura"] {
+  border-top-color: #00bcd4; /* Cyan - Apertura Angelica */
+}
+
+.app-card[data-app="sonoterapia"] {
+  border-top-color: #9c27b0; /* Púrpura - Sonoterapia */
+}
+
+.app-card[data-app="terapias"] {
+  border-top-color: #e91e63; /* Rosa - Terapias y Limpiezas */
+}
+
+.app-card[data-app="academia"] {
+  border-top-color: #4caf50; /* Verde - Academia Angelica */
+}
+
+.app-card[data-app="mensaje"] {
+  border-top-color: #673ab7; /* Púrpura oscuro - Mensaje del Día */
+}
+
+.app-card[data-app="blog"] {
+  border-top-color: #e91e63; /* Rosa - Blog & Podcast */
+}
+
+.app-card[data-app="tienda"] {
+  border-top-color: #ff5722; /* Naranja/Rojo - Tienda Angelica */
+}10px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
@@ -1318,5 +1347,39 @@ body {
   .comilla-cierre {
     font-size: 40px;
   }
+}
+
+
+
+/* ========================================
+   ESTADOS DE APLICACIONES
+   ======================================== */
+.app-status {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+}
+
+.app-status.disponible {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.app-status.proximamente {
+  background: linear-gradient(135deg, #ff5722, #ff7043);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 87, 34, 0.3);
+  animation: parpadeo 2s infinite;
+}
+
+@keyframes parpadeo {
+  0%, 50% { opacity: 1; }
+  25%, 75% { opacity: 0.7; }
 }
 
