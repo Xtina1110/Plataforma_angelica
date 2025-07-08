@@ -569,12 +569,8 @@ const Dashboard = ({ user, onLogout }) => {
             {/* Mensaje del Día */}
             {renderMensajeDelDia()}
 
-            {/* Calendario de Eventos */}
-            {renderCalendarioEventos()}
-
-            {/* TARJETAS DE APLICACIONES - DISEÑO EXACTO SEGÚN IMAGEN */}
             <h3 className="titulo-dashboard">Aplicaciones angelicas</h3>
-            <div className="aplicaciones-grid-figura2">
+            <div className="aplicaciones-grid-correcto">
               {[
                 { id: 'tirada', icon: <Heart />, titulo: 'Apertura Angelica', desc: 'Conecta con la sabiduría de los ángeles', disponible: true, color: '#00bcd4' },
                 { id: 'canalizaciones', icon: <Headphones />, titulo: 'Canalizaciones y Sonoterapia', desc: 'Frecuencias sagradas de sanación', disponible: true, color: '#9c27b0' },
@@ -584,23 +580,23 @@ const Dashboard = ({ user, onLogout }) => {
                 { id: 'blog', icon: <Mic />, titulo: 'Blog & Podcast', desc: 'Contenido espiritual diario', disponible: true, color: '#e91e63' },
                 { id: 'tienda', icon: <ShoppingCart />, titulo: 'Tienda Angélica', desc: 'Cartas y recursos espirituales', disponible: false, color: '#ff5722' }
               ].map(app => (
-                <div key={app.id} className="app-card-figura2">
+                <div key={app.id} className="app-card-correcto">
                   {/* Header con color específico */}
-                  <div className="app-header-figura2" style={{ backgroundColor: app.color }}>
-                    <div className="app-icon-figura2">
+                  <div className="app-header-correcto" style={{ backgroundColor: app.color }}>
+                    <div className="app-icon-correcto">
                       {React.cloneElement(app.icon, { size: 24, color: 'white' })}
                     </div>
-                    <span className="app-status-figura2">
+                    <span className="app-status-correcto">
                       {app.disponible ? 'Disponible' : 'Próximamente'}
                     </span>
                   </div>
                   
                   {/* Contenido de la tarjeta */}
-                  <div className="app-content-figura2">
-                    <h4 className="app-title-figura2">{app.titulo}</h4>
-                    <p className="app-desc-figura2">{app.desc}</p>
+                  <div className="app-content-correcto">
+                    <h4 className="app-title-correcto">{app.titulo}</h4>
+                    <p className="app-desc-correcto">{app.desc}</p>
                     <button 
-                      className="app-button-figura2"
+                      className="app-button-correcto"
                       onClick={() => app.disponible && setActiveSection(app.id)}
                       disabled={!app.disponible}
                     >
