@@ -44,30 +44,7 @@ const useTirada = () => {
   return context;
 };
 
-// Datos de configuración
-const tiposDeCartas = {
-  3: {
-    nombre: 'Tirada Rápida',
-    descripcion: 'Guía inmediata para tu situación actual',
-    icono: '⚡',
-    color: 'from-blue-500 to-cyan-500',
-    posiciones: ['Pasado/Causa', 'Presente/Situación', 'Futuro/Resultado']
-  },
-  6: {
-    nombre: 'Tirada Completa',
-    descripcion: 'Análisis profundo de tu camino espiritual',
-    icono: '🔮',
-    color: 'from-purple-500 to-pink-500',
-    posiciones: ['Situación Actual', 'Desafío', 'Pasado', 'Futuro', 'Corona/Meta', 'Resultado Final']
-  },
-  9: {
-    nombre: 'Tirada Maestra',
-    descripción: 'Revelación completa de tu destino angelical',
-    icono: '✨',
-    color: 'from-yellow-500 to-orange-500',
-    posiciones: ['Yo Interior', 'Situación', 'Desafío', 'Pasado Distante', 'Pasado Reciente', 'Futuro Posible', 'Tu Enfoque', 'Influencias Externas', 'Esperanzas y Miedos']
-  }
-};
+// Datos de configuración - ELIMINADO tiposDeCartas global para evitar conflictos
 
 const temasConsulta = [
   {
@@ -671,9 +648,10 @@ const BienvenidaSection = ({ onContinuar }) => {
 // Componente de Selección Consolidada (Tipo + Tema)
 const SeleccionConsolidadaSection = ({ tipoTirada, temaSeleccionado, onSeleccionarTipo, onSeleccionarTema, onContinuar }) => {
   const tiposDeCartas = {
-    1: { nombre: 'Carta Única', descripcion: 'Una respuesta directa y clara' },
-    3: { nombre: 'Pasado, Presente, Futuro', descripcion: 'Visión completa de tu situación' },
-    5: { nombre: 'Cruz Angelical', descripcion: 'Análisis profundo y detallado' }
+    3: { nombre: 'Pasado, Presente, Futuro', descripcion: 'Visión completa de tu situación temporal' },
+    6: { nombre: 'Cruz Angelical', descripcion: 'Análisis profundo y detallado de tu camino' },
+    9: { nombre: 'Tirada Maestra', descripcion: 'Revelación completa de tu destino angelical' },
+    'vivo': { nombre: 'Consulta en Vivo', descripcion: 'Sesión personalizada con angelólogo certificado' }
   };
 
   const temasConsulta = [
@@ -694,21 +672,27 @@ const SeleccionConsolidadaSection = ({ tipoTirada, temaSeleccionado, onSeleccion
           <p className="descripcion-preparacion">Selecciona el número de cartas según la profundidad de guía que buscas</p>
           
           <div className="tipos-grid-consolidada">
-            {Object.entries(tiposDeCartas).map(([numero, tipo]) => (
+            {Object.entries(tiposDeCartas).map(([tipo, info]) => (
               <div
-                key={numero}
-                className={`tipo-card-consolidada ${tipoTirada === parseInt(numero) ? 'seleccionado' : ''}`}
-                onClick={() => onSeleccionarTipo(parseInt(numero))}
+                key={tipo}
+                className={`tipo-card-consolidada ${tipoTirada === tipo ? 'seleccionado' : ''}`}
+                onClick={() => onSeleccionarTipo(tipo)}
               >
-                <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%)' }}>
+                <div className="card-header-cinta" style={{ 
+                  background: tipo === 'vivo' 
+                    ? 'linear-gradient(135deg, #ff9800 0%, #f57c00 100%)' 
+                    : 'linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%)' 
+                }}>
                   <div className="card-icon-white">
-                    <Star size={20} color="white" />
+                    {tipo === 'vivo' ? <Users size={20} color="white" /> : <Star size={20} color="white" />}
                   </div>
-                  <span className="card-status">{numero} {numero === '1' ? 'Carta' : 'Cartas'}</span>
+                  <span className="card-status">
+                    {tipo === 'vivo' ? 'En Vivo' : `${tipo} Cartas`}
+                  </span>
                 </div>
                 <div className="card-content">
-                  <h4>{tipo.nombre}</h4>
-                  <p>{tipo.descripcion}</p>
+                  <h4>{info.nombre}</h4>
+                  <p>{info.descripcion}</p>
                 </div>
               </div>
             ))}
@@ -757,7 +741,7 @@ const SeleccionConsolidadaSection = ({ tipoTirada, temaSeleccionado, onSeleccion
           </div>
           <button className="btn-continuar" onClick={onContinuar}>
             <ChevronRight size={20} />
-            Continuar con la Tirada
+            {tipoTirada === 'vivo' ? 'Solicitar Consulta' : 'Continuar con la Tirada'}
           </button>
         </div>
       )}
