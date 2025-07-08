@@ -264,7 +264,35 @@
 /* BIENVENIDA SECTION - ESTILO TARJETAS */
 .seccion-bienvenida {
   text-align: left; /* Cambiado de center a left */
-  padding: 40px 20px;
+  padding: 20px 20px 40px 20px; /* Reducido padding superior para subir contenido */
+}
+
+/* Contenido principal con segunda capa de fondo */
+.tirada-main-content {
+  position: relative;
+  z-index: 2;
+  background: white;
+  min-height: calc(100vh - 160px); /* Ajustado para el nuevo header más margen */
+  padding: 20px;
+  margin: 0 20px 20px 20px; /* Margen consistente */
+  border-radius: 20px; /* Bordes redondeados */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tirada-main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/MarmolAzulApertura.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.5; /* 50% de transparencia */
+  z-index: -1;
+  border-radius: 20px;
 }
 
 /* Título principal con línea azul como Dashboard */
@@ -419,6 +447,100 @@
   color: #666;
   line-height: 1.5;
   margin: 0;
+}
+
+/* ========================================
+   SECCIÓN CONSOLIDADA - TIPO + TEMA
+   ======================================== */
+.seccion-seleccion-consolidada {
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.seleccion-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.columna-seleccion {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.tipos-grid-consolidada,
+.temas-grid-consolidada {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.tipo-card-consolidada,
+.tema-card-consolidada {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.tipo-card-consolidada:hover,
+.tema-card-consolidada:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tipo-card-consolidada.seleccionado,
+.tema-card-consolidada.seleccionado {
+  border-color: #4fc3f7;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(79, 195, 247, 0.3);
+}
+
+.resumen-seleccion {
+  margin-top: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.resumen-contenido h4 {
+  color: #0288d1;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.resumen-contenido p {
+  margin: 5px 0;
+  color: #666;
+}
+
+/* Responsive para la sección consolidada */
+@media (max-width: 768px) {
+  .seleccion-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .resumen-seleccion {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
 }
 
 /* BOTONES */
