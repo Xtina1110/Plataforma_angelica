@@ -459,7 +459,7 @@ const TiradaAngelical = ({ onVolver }) => {
             </div>
             <div className="hero-text">
               <h1 className="hero-title">Apertura Angelical</h1>
-              <p className="hero-description">Conecta con la sabiduría celestial a través de las cartas angelicales</p>
+              <p className="hero-description">Conecta con la sabiduría celestial a través de tus angeles</p>
             </div>
           </div>
           
@@ -629,9 +629,6 @@ const BienvenidaSection = ({ onContinuar }) => {
   return (
     <div className="seccion-bienvenida">
       <div className="bienvenida-hero">
-        <div className="hero-icono">
-          <Sparkles size={48} />
-        </div>
         <h2>Bienvenido a tu Consulta Angelical</h2>
         <p>Los ángeles están listos para compartir su sabiduría contigo. Toma un momento para centrarte y formular tu pregunta en tu corazón.</p>
       </div>
@@ -640,25 +637,31 @@ const BienvenidaSection = ({ onContinuar }) => {
         <h3>Preparación para tu Tirada</h3>
         <div className="preparacion-grid">
           <div className="preparacion-item-card">
-            <div className="item-header">
-              <div className="item-icono">🧘‍♀️</div>
+            <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%)' }}>
+              <span className="card-status">Paso 1</span>
+            </div>
+            <div className="card-content">
               <h4>Centra tu Mente</h4>
+              <p>Respira profundamente y libera cualquier tensión o preocupación</p>
             </div>
-            <p>Respira profundamente y libera cualquier tensión o preocupación</p>
           </div>
           <div className="preparacion-item-card">
-            <div className="item-header">
-              <div className="item-icono">💭</div>
+            <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%)' }}>
+              <span className="card-status">Paso 2</span>
+            </div>
+            <div className="card-content">
               <h4>Formula tu Pregunta</h4>
+              <p>Piensa claramente en lo que deseas saber o el área donde necesitas guía</p>
             </div>
-            <p>Piensa claramente en lo que deseas saber o el área donde necesitas guía</p>
           </div>
           <div className="preparacion-item-card">
-            <div className="item-header">
-              <div className="item-icono">🙏</div>
-              <h4>Abre tu Corazón</h4>
+            <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)' }}>
+              <span className="card-status">Paso 3</span>
             </div>
-            <p>Mantente receptivo a los mensajes que los ángeles tienen para ti</p>
+            <div className="card-content">
+              <h4>Abre tu Corazón</h4>
+              <p>Mantente receptivo a los mensajes que los ángeles tienen para ti</p>
+            </div>
           </div>
         </div>
       </div>
