@@ -680,47 +680,99 @@ const BienvenidaSection = ({ onContinuar }) => {
   );
 };
 
-// Componente de Selección de Tipo
-const SeleccionTipoSection = ({ tipoTirada, consultaEnVivo, onSeleccionarTipo, onToggleConsulta, onContinuar }) => {
+// Componente de Selección Consolidada (Tipo + Tema)
+const SeleccionConsolidadaSection = ({ tipoTirada, temaSeleccionado, onSeleccionarTipo, onSeleccionarTema, onContinuar }) => {
+  const tiposDeCartas = {
+    1: { nombre: 'Carta Única', descripcion: 'Una respuesta directa y clara' },
+    3: { nombre: 'Pasado, Presente, Futuro', descripcion: 'Visión completa de tu situación' },
+    5: { nombre: 'Cruz Angelical', descripcion: 'Análisis profundo y detallado' }
+  };
+
+  const temasConsulta = [
+    { id: 'amor', nombre: 'Amor y Relaciones', descripcion: 'Asuntos del corazón y vínculos', color: '#e91e63' },
+    { id: 'trabajo', nombre: 'Trabajo y Carrera', descripcion: 'Desarrollo profesional y laboral', color: '#4caf50' },
+    { id: 'salud', nombre: 'Salud y Bienestar', descripcion: 'Equilibrio físico y emocional', color: '#ff9800' },
+    { id: 'dinero', nombre: 'Dinero y Abundancia', descripcion: 'Prosperidad y recursos', color: '#ffc107' },
+    { id: 'familia', nombre: 'Familia y Hogar', descripcion: 'Relaciones familiares y hogar', color: '#9c27b0' },
+    { id: 'espiritual', nombre: 'Crecimiento Espiritual', descripcion: 'Evolución y propósito de vida', color: '#673ab7' }
+  ];
+
   return (
-    <div className="seccion-seleccion-tipo">
-      <div className="seccion-header">
-        <div className="header-icono">
-          <BookOpen size={32} />
-        </div>
-        <h2>Elige el tipo de tirada</h2>
-        <p>Selecciona el número de cartas según la profundidad de guía que buscas</p>
-      </div>
-
-      <div className="tipos-grid">
-        {Object.entries(tiposDeCartas).map(([numero, tipo]) => (
-          <div
-            key={numero}
-            className={`tipo-card ${tipoTirada === parseInt(numero) ? 'seleccionado' : ''}`}
-            onClick={() => onSeleccionarTipo(parseInt(numero))}
-          >
-            <div className="card-icono">{tipo.icono}</div>
-            <h3>{tipo.nombre}</h3>
-            <p>{tipo.descripcion}</p>
-            <div className="card-badge">{numero} cartas</div>
+    <div className="seccion-seleccion-consolidada">
+      <div className="seleccion-container">
+        {/* Columna Izquierda - Tipo de Tirada */}
+        <div className="columna-seleccion">
+          <h3 className="titulo-dashboard">Elige el tipo de tirada</h3>
+          <p className="descripcion-preparacion">Selecciona el número de cartas según la profundidad de guía que buscas</p>
+          
+          <div className="tipos-grid-consolidada">
+            {Object.entries(tiposDeCartas).map(([numero, tipo]) => (
+              <div
+                key={numero}
+                className={`tipo-card-consolidada ${tipoTirada === parseInt(numero) ? 'seleccionado' : ''}`}
+                onClick={() => onSeleccionarTipo(parseInt(numero))}
+              >
+                <div className="card-header-cinta" style={{ background: 'linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%)' }}>
+                  <div className="card-icon-white">
+                    <Star size={20} color="white" />
+                  </div>
+                  <span className="card-status">{numero} {numero === '1' ? 'Carta' : 'Cartas'}</span>
+                </div>
+                <div className="card-content">
+                  <h4>{tipo.nombre}</h4>
+                  <p>{tipo.descripcion}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-        
-        <div
-          className={`tipo-card consulta-vivo ${consultaEnVivo ? 'seleccionado' : ''}`}
-          onClick={onToggleConsulta}
-        >
-          <div className="card-icono">👩‍💻</div>
-          <h3>Consulta en Vivo</h3>
-          <p>Sesión personalizada con un angelólogo certificado</p>
-          <div className="card-badge">En vivo</div>
+        </div>
+
+        {/* Columna Derecha - Tema de Consulta */}
+        <div className="columna-seleccion">
+          <h3 className="titulo-dashboard">Elige el tema de tu consulta</h3>
+          <p className="descripcion-preparacion">Selecciona el área de tu vida sobre la que deseas recibir guía angelical</p>
+          
+          <div className="temas-grid-consolidada">
+            {temasConsulta.map((tema) => (
+              <div
+                key={tema.id}
+                className={`tema-card-consolidada ${temaSeleccionado === tema.id ? 'seleccionado' : ''}`}
+                onClick={() => onSeleccionarTema(tema.id)}
+              >
+                <div className="card-header-cinta" style={{ background: `linear-gradient(135deg, ${tema.color} 0%, ${tema.color}dd 100%)` }}>
+                  <div className="card-icon-white">
+                    {tema.id === 'amor' && <Heart size={20} color="white" />}
+                    {tema.id === 'trabajo' && <Target size={20} color="white" />}
+                    {tema.id === 'salud' && <Heart size={20} color="white" />}
+                    {tema.id === 'dinero' && <Star size={20} color="white" />}
+                    {tema.id === 'familia' && <Heart size={20} color="white" />}
+                    {tema.id === 'espiritual' && <Sparkles size={20} color="white" />}
+                  </div>
+                  <span className="card-status">Disponible</span>
+                </div>
+                <div className="card-content">
+                  <h4>{tema.nombre}</h4>
+                  <p>{tema.descripcion}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <button className="btn-continuar" onClick={onContinuar}>
-        <ChevronRight size={20} />
-        Continuar
-      </button>
+      {tipoTirada && temaSeleccionado && (
+        <div className="resumen-seleccion">
+          <div className="resumen-contenido">
+            <h4>Tu selección:</h4>
+            <p><strong>Tipo:</strong> {tiposDeCartas[tipoTirada]?.nombre}</p>
+            <p><strong>Tema:</strong> {temasConsulta.find(t => t.id === temaSeleccionado)?.nombre}</p>
+          </div>
+          <button className="btn-continuar" onClick={onContinuar}>
+            <ChevronRight size={20} />
+            Continuar con la Tirada
+          </button>
+        </div>
+      )}
     </div>
   );
 };
