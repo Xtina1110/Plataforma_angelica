@@ -1,4 +1,3 @@
-// src/components/Dashboard.jsx
 import React, { useState } from 'react';
 import {
   Home, Heart, Headphones, Zap, BookOpen, GraduationCap,
@@ -31,10 +30,10 @@ const Dashboard = ({ user, onLogout }) => {
   const [showSettings, setShowSettings] = useState(false);
 
   const [userData, setUserData] = useState({
-    nombre: user?.displayName || 'Juan Carlos',
-    apellido: user?.lastName || 'Pérez',
-    email: user?.email || 'demo@test.com',
-    username: user?.username || 'demo@test.com',
+    nombre: user?.displayName || user?.name || 'Usuario',
+    apellido: user?.lastName || '',
+    email: user?.email || 'usuario@email.com',
+    username: user?.email || 'usuario@email.com',
     rol: 'Usuario Premium',
     telefono: '+34 600 123 456',
     fechaNacimiento: '1985-03-15',
@@ -342,36 +341,11 @@ const Dashboard = ({ user, onLogout }) => {
     <div className="mensaje-del-dia-section">
       <h3 className="titulo-dashboard">Mensaje del Día</h3>
       <div className="mensaje-del-dia-premium">
-        {/* Imagen del ángel de fondo */}
-        <div className="mensaje-angel-fondo">
-          <img 
-            src="/angel-mensaje.jpg" 
-            alt="Ángel del día" 
-            className="angel-background-img"
-          />
-        </div>
-        
         {/* Overlay con gradientes angelicales */}
         <div className="mensaje-overlay-angelical"></div>
         
-        {/* Efectos de luz y partículas */}
-        <div className="mensaje-efectos-luz">
-          <div className="particula-luz particula-1"></div>
-          <div className="particula-luz particula-2"></div>
-          <div className="particula-luz particula-3"></div>
-          <div className="particula-luz particula-4"></div>
-          <div className="particula-luz particula-5"></div>
-          <div className="rayo-luz rayo-1"></div>
-          <div className="rayo-luz rayo-2"></div>
-        </div>
-        
         {/* Contenido del mensaje */}
         <div className="mensaje-contenido-premium">
-          <div className="mensaje-fecha-premium">
-            <span className="fecha-icono">✨</span>
-            <span className="fecha-texto">{mensajeDelDia.fecha}</span>
-          </div>
-          
           <div className="mensaje-texto-premium">
             <div className="comilla-apertura">"</div>
             <p className="texto-mensaje">{mensajeDelDia.mensaje}</p>
@@ -381,29 +355,22 @@ const Dashboard = ({ user, onLogout }) => {
           <div className="mensaje-arcangel-premium">
             <div className="arcangel-info">
               <span className="arcangel-nombre">- {mensajeDelDia.arcangel}</span>
-              <span className="arcangel-energia">{mensajeDelDia.energia}</span>
             </div>
-            <button 
-              className="btn-meditar-premium"
-              onClick={() => setActiveSection('mensaje')}
-            >
-              <span className="btn-icono">💌</span>
-              <span className="btn-texto">Mensajes del Día</span>
-            </button>
           </div>
           
-          {/* Botón Luz Interior en esquina superior derecha */}
-          <button className="btn-luz-interior">
-            <span className="luz-icono">✨</span>
-            <span className="luz-texto">Luz Interior</span>
+          {/* Botón en esquina superior derecha con la energía del mensaje del día */}
+          <button 
+            className="btn-luz-interior"
+            onClick={() => setActiveSection('mensaje')}
+          >
+            <span className="luz-icono">💌</span>
+            <span className="luz-texto">{mensajeDelDia.energia}</span>
           </button>
         </div>
         
         {/* Bordes decorativos angelicales */}
         <div className="bordes-angelicales">
-          <div className="borde-esquina esquina-tl"></div>
           <div className="borde-esquina esquina-tr"></div>
-          <div className="borde-esquina esquina-bl"></div>
           <div className="borde-esquina esquina-br"></div>
         </div>
       </div>
@@ -565,7 +532,7 @@ const Dashboard = ({ user, onLogout }) => {
         return (
           <div className="dashboard-home">
             <div className="bienvenida-usuario">
-              <h2>¡Bienvenido de nuevo, {userData.nombre} {userData.apellido}!</h2>
+              <h2>¡Bienvenido de nuevo, {user?.displayName || user?.name || user?.email || userData.nombre}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
 
@@ -583,9 +550,9 @@ const Dashboard = ({ user, onLogout }) => {
               {/* Capa de transparencia */}
               <div className="absolute inset-0 bg-white/40 z-0 pointer-events-none rounded-xl" />
 
-              {/* Imagen del ángel */}
+              {/* Imagen del ángel - MÁS GRANDE según figura 4 */}
               <div className="relative z-10">
-                <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard grande" />
+                <img src={iconoAngelDashboard} alt="Ángel" className="imagen-angel-dashboard" />
               </div>
 
               {/* Tarjetas métricas */}
