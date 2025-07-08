@@ -572,27 +572,41 @@ const Dashboard = ({ user, onLogout }) => {
             {/* Calendario de Eventos */}
             {renderCalendarioEventos()}
 
-            <h3 className="subtitulo-apps">Aplicaciones angelicas</h3>
-            <div className="grid-aplicaciones">
+            {/* TARJETAS DE APLICACIONES - DISEÑO EXACTO SEGÚN IMAGEN */}
+            <h3 className="titulo-dashboard">Aplicaciones angelicas</h3>
+            <div className="aplicaciones-grid-figura2">
               {[
-                { id: 'tirada', icon: <Heart />, titulo: 'Apertura Angelica', desc: 'Conecta con la sabiduría de los ángeles', disponible: true },
-                { id: 'canalizaciones', icon: <Headphones />, titulo: 'Canalizaciones y Sonoterapia', desc: 'Frecuencias sagradas de sanación', disponible: true },
-                { id: 'terapias', icon: <Zap />, titulo: 'Terapias y Limpiezas', desc: 'Sanación angelica profunda', disponible: true },
-                { id: 'academia', icon: <GraduationCap />, titulo: 'Academia Angelica', desc: 'Formación espiritual completa', disponible: true },
-                { id: 'mensaje', icon: <MessageSquare />, titulo: 'Mensaje del Día', desc: 'Recibe una canalización espiritual', disponible: true },
-                { id: 'blog', icon: <Mic />, titulo: 'Blog & Podcast', desc: 'Contenido espiritual diario', disponible: true },
-                { id: 'tienda', icon: <ShoppingCart />, titulo: 'Tienda Angélica', desc: 'Cartas y recursos espirituales', disponible: false },
+                { id: 'tirada', icon: <Heart />, titulo: 'Apertura Angelica', desc: 'Conecta con la sabiduría de los ángeles', disponible: true, color: '#00bcd4' },
+                { id: 'canalizaciones', icon: <Headphones />, titulo: 'Canalizaciones y Sonoterapia', desc: 'Frecuencias sagradas de sanación', disponible: true, color: '#9c27b0' },
+                { id: 'terapias', icon: <Zap />, titulo: 'Terapias y Limpiezas', desc: 'Sanación angelica profunda', disponible: true, color: '#e91e63' },
+                { id: 'academia', icon: <GraduationCap />, titulo: 'Academia Angelica', desc: 'Formación espiritual completa', disponible: true, color: '#4caf50' },
+                { id: 'mensaje', icon: <MessageSquare />, titulo: 'Mensaje del Día', desc: 'Recibe una canalización espiritual', disponible: true, color: '#673ab7' },
+                { id: 'blog', icon: <Mic />, titulo: 'Blog & Podcast', desc: 'Contenido espiritual diario', disponible: true, color: '#e91e63' },
+                { id: 'tienda', icon: <ShoppingCart />, titulo: 'Tienda Angélica', desc: 'Cartas y recursos espirituales', disponible: false, color: '#ff5722' }
               ].map(app => (
-                <div key={app.id} className={`app-card ${app.id}`}>
-                  <div className="app-header">
-                    {app.icon}
-                    <span className={`disponibilidad ${app.disponible ? 'disponible' : 'proximamente'}`}>
+                <div key={app.id} className="app-card-figura2">
+                  {/* Header con color específico */}
+                  <div className="app-header-figura2" style={{ backgroundColor: app.color }}>
+                    <div className="app-icon-figura2">
+                      {React.cloneElement(app.icon, { size: 24, color: 'white' })}
+                    </div>
+                    <span className="app-status-figura2">
                       {app.disponible ? 'Disponible' : 'Próximamente'}
                     </span>
                   </div>
-                  <h4>{app.titulo}</h4>
-                  <p>{app.desc}</p>
-                  <button onClick={() => setActiveSection(app.id)}>Acceder</button>
+                  
+                  {/* Contenido de la tarjeta */}
+                  <div className="app-content-figura2">
+                    <h4 className="app-title-figura2">{app.titulo}</h4>
+                    <p className="app-desc-figura2">{app.desc}</p>
+                    <button 
+                      className="app-button-figura2"
+                      onClick={() => app.disponible && setActiveSection(app.id)}
+                      disabled={!app.disponible}
+                    >
+                      Acceder
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
