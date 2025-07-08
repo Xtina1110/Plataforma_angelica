@@ -28,6 +28,61 @@ const Dashboard = ({ user, onLogout }) => {
   const [activeSection, setActiveSection] = useState('home');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+
+  // Estado del carrito de compra global
+  const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
+
+  // Función para agregar items al carrito
+  const addToCart = (item) => {
+    const existingItem = cartItems.find(cartItem => cartItem.id === item.id && cartItem.type === item.type);
+    
+    if (existingItem) {
+      setCartItems(cartItems.map(cartItem => 
+        cartItem.id === item.id && cartItem.type === item.type
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      ));
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+    }
+    
+    // Actualizar total
+    updateCartTotal();
+  };
+
+  // Función para remover items del carrito
+  const removeFromCart = (itemId, itemType) => {
+    setCartItems(cartItems.filter(item => !(item.id === itemId && item.type === itemType)));
+    updateCartTotal();
+  };
+
+  // Función para actualizar cantidad
+  const updateQuantity = (itemId, itemType, newQuantity) => {
+    if (newQuantity <= 0) {
+      removeFromCart(itemId, itemType);
+      return;
+    }
+    
+    setCartItems(cartItems.map(item => 
+      item.id === itemId && item.type === itemType
+        ? { ...item, quantity: newQuantity }
+        : item
+    ));
+    updateCartTotal();
+  };
+
+  // Función para actualizar el total del carrito
+  const updateCartTotal = () => {
+    const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    setCartTotal(total);
+  };
+
+  // Actualizar total cuando cambie cartItems
+  React.useEffect(() => {
+    updateCartTotal();
+  }, [cartItems]);
 
   const [userData, setUserData] = useState({
     nombre: user?.displayName || user?.name || 'Usuario',
@@ -214,6 +269,75 @@ const Dashboard = ({ user, onLogout }) => {
     { id: 'blog', icon: Mic, label: 'Blog & Podcast', color: '#ce93d8' },
     { id: 'tienda', icon: ShoppingCart, label: 'Tienda Angelica', color: '#ff8a65' },
   ];
+
+  const renderCart = () => (
+    <div className="cart-modal-overlay" onClick={() => setShowCart(false)}>
+      <div className="cart-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="cart-header">
+          <h2>Carrito de Compra</h2>
+          <button onClick={() => setShowCart(false)} className="close-cart">
+            <X size={24} />
+          </button>
+        </div>
+        
+        <div className="cart-content">
+          {cartItems.length === 0 ? (
+            <div className="cart-empty">
+              <ShoppingCart size={48} />
+              <p>Tu carrito está vacío</p>
+              <span>Agrega productos desde cualquier sección de la plataforma</span>
+            </div>
+          ) : (
+            <div className="cart-items">
+              {cartItems.map((item, index) => (
+                <div key={`${item.type}-${item.id}-${index}`} className="cart-item">
+                  <div className="cart-item-info">
+                    <h4>{item.name}</h4>
+                    <p className="cart-item-type">{item.type}</p>
+                    <p className="cart-item-description">{item.description}</p>
+                  </div>
+                  <div className="cart-item-controls">
+                    <div className="quantity-controls">
+                      <button onClick={() => updateQuantity(item.id, item.type, item.quantity - 1)}>-</button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => updateQuantity(item.id, item.type, item.quantity + 1)}>+</button>
+                    </div>
+                    <div className="cart-item-price">
+                      <span className="unit-price">{item.price}€ c/u</span>
+                      <span className="total-price">{(item.price * item.quantity).toFixed(2)}€</span>
+                    </div>
+                    <button 
+                      className="remove-item"
+                      onClick={() => removeFromCart(item.id, item.type)}
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {cartItems.length > 0 && (
+          <div className="cart-footer">
+            <div className="cart-total">
+              <span className="total-label">Total: </span>
+              <span className="total-amount">{cartTotal.toFixed(2)}€</span>
+            </div>
+            <div className="cart-actions">
+              <button className="btn-clear-cart" onClick={() => setCartItems([])}>
+                Vaciar Carrito
+              </button>
+              <button className="btn-checkout">
+                Proceder al Pago
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 
   const renderSettings = () => (
     <div className="settings-modal-overlay" onClick={() => setShowSettings(false)}>
@@ -531,7 +655,7 @@ const Dashboard = ({ user, onLogout }) => {
       default:
         return (
           <div className="dashboard-home">
-            <div className="bienvenida-usuario">
+            <div className="bienvenida-usuario-premium">
               <h2>¡Bienvenido de nuevo, {user?.displayName || user?.name || user?.email || userData.nombre}!</h2>
               <p>Tu camino espiritual continúa evolucionando.</p>
             </div>
@@ -657,6 +781,18 @@ const Dashboard = ({ user, onLogout }) => {
               </div>
             )}
           </div>
+          
+          {/* Botón del carrito */}
+          <div className="cart-button-container">
+            <button onClick={() => setShowCart(true)} className="cart-button">
+              <ShoppingCart size={16} />
+              {!sidebarCollapsed && <span>Carrito</span>}
+              {cartItems.length > 0 && (
+                <span className="cart-badge">{cartItems.length}</span>
+              )}
+            </button>
+          </div>
+          
           {!sidebarCollapsed && (
             <button onClick={onLogout} className="logout-button">
               <LogOut size={16} />
@@ -671,6 +807,7 @@ const Dashboard = ({ user, onLogout }) => {
       </main>
       
       {showSettings && renderSettings()}
+      {showCart && renderCart()}
     </div>
   );
 };
