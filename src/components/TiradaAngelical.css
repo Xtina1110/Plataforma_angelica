@@ -28,7 +28,7 @@
   left: -20px;
   right: -20px;
   bottom: -20px;
-  background: url('./assets/MarmolAzulApertura.png');
+  background: url('/assets/MarmolAzulApertura.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -271,7 +271,7 @@
 .titulo-dashboard {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #333;
+  color: #0288d1; /* Color azul */
   margin-bottom: 15px;
   position: relative;
   padding-bottom: 15px;
