@@ -441,22 +441,18 @@ const TiradaAngelical = ({ onVolver }) => {
     updateTiradaState({ temaSeleccionado: tema });
   };
 
+  const toggleAudio = () => {
+    setAudioReproduciendo(!audioReproduciendo);
+  };
+
   return (
     <div className="tirada-angelical-container">
-      {/* Header Barra Superior */}
+      {/* Header Barra Superior - CORREGIDO */}
       <div className="tirada-hero-header">
         <div className="hero-background"></div>
         <div className="hero-overlay"></div>
         
         <div className="hero-content">
-          <button
-            onClick={onVolver}
-            className="btn-volver-hero"
-          >
-            <ArrowLeft className="w-4 h-4" /> 
-            Volver al Dashboard
-          </button>
-          
           <div className="hero-main-content">
             <div className="hero-icon">
               <Heart className="w-6 h-6" />
@@ -465,6 +461,21 @@ const TiradaAngelical = ({ onVolver }) => {
               <h1 className="hero-title">Apertura Angelical</h1>
               <p className="hero-description">Conecta con la sabiduría celestial a través de las cartas angelicales</p>
             </div>
+          </div>
+          
+          <div className="hero-actions">
+            <button className="btn-audio-hero" onClick={toggleAudio}>
+              {audioReproduciendo ? <VolumeX size={20} /> : <Volume2 size={20} />}
+              {audioReproduciendo ? 'Silenciar' : 'Audio'}
+            </button>
+            
+            <button
+              onClick={onVolver}
+              className="btn-volver-hero"
+            >
+              <ArrowLeft className="w-4 h-4" /> 
+              Volver al Dashboard
+            </button>
           </div>
         </div>
       </div>
@@ -540,107 +551,80 @@ const TiradaAngelical = ({ onVolver }) => {
     alert('Tu solicitud de Consulta en Vivo ha sido recibida. Un angelólogo se pondrá en contacto contigo pronto.');
   };
 
-  const toggleAudio = () => {
-    setAudioReproduciendo(!audioReproduciendo);
-  };
-
   return (
-    <div className="tirada-angelical-moderna">
-      {/* Header */}
-      <div className="tirada-header">
-        <div className="header-content">
-          <button onClick={onVolver} className="btn-volver">
-            <ArrowLeft size={20} />
-            Volver al Dashboard
-          </button>
-          <div className="header-title">
-            <h1>🃏 Tirada Angelical</h1>
-            <p>Conecta con la sabiduría celestial a través de las cartas angelicales</p>
-          </div>
-          <div className="header-actions">
-            <button className="btn-audio" onClick={toggleAudio}>
-              {audioReproduciendo ? <VolumeX size={20} /> : <Volume2 size={20} />}
-              {audioReproduciendo ? 'Silenciar' : 'Audio'}
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className="tirada-contenido">
+      {/* Fase 1: Bienvenida */}
+      {tiradaState.fase === 'bienvenida' && (
+        <BienvenidaSection onContinuar={() => irAFase('seleccion-tipo')} />
+      )}
 
-      {/* Contenido principal */}
-      <div className="tirada-contenido">
-        {/* Fase 1: Bienvenida */}
-        {tiradaState.fase === 'bienvenida' && (
-          <BienvenidaSection onContinuar={() => irAFase('seleccion-tipo')} />
-        )}
+      {/* Fase 2: Selección de tipo */}
+      {tiradaState.fase === 'seleccion-tipo' && (
+        <SeleccionTipoSection 
+          tipoTirada={tiradaState.tipoTirada}
+          consultaEnVivo={tiradaState.consultaEnVivo}
+          onSeleccionarTipo={seleccionarTipoTirada}
+          onToggleConsulta={toggleConsultaEnVivo}
+          onContinuar={() => irAFase('seleccion-tema')}
+        />
+      )}
 
-        {/* Fase 2: Selección de tipo */}
-        {tiradaState.fase === 'seleccion-tipo' && (
-          <SeleccionTipoSection 
-            tipoTirada={tiradaState.tipoTirada}
-            consultaEnVivo={tiradaState.consultaEnVivo}
-            onSeleccionarTipo={seleccionarTipoTirada}
-            onToggleConsulta={toggleConsultaEnVivo}
-            onContinuar={() => irAFase('seleccion-tema')}
-          />
-        )}
+      {/* Fase 3: Selección de tema */}
+      {tiradaState.fase === 'seleccion-tema' && (
+        <SeleccionTemaSection 
+          temaSeleccionado={tiradaState.temaSeleccionado}
+          consultaEnVivo={tiradaState.consultaEnVivo}
+          tipoTirada={tiradaState.tipoTirada}
+          onSeleccionarTema={seleccionarTema}
+          onIniciarBarajado={iniciarBarajado}
+          onSolicitarConsulta={solicitarConsultaEnVivo}
+        />
+      )}
 
-        {/* Fase 3: Selección de tema */}
-        {tiradaState.fase === 'seleccion-tema' && (
-          <SeleccionTemaSection 
-            temaSeleccionado={tiradaState.temaSeleccionado}
-            consultaEnVivo={tiradaState.consultaEnVivo}
-            tipoTirada={tiradaState.tipoTirada}
-            onSeleccionarTema={seleccionarTema}
-            onIniciarBarajado={iniciarBarajado}
-            onSolicitarConsulta={solicitarConsultaEnVivo}
-          />
-        )}
+      {/* Fase 4: Barajando */}
+      {tiradaState.fase === 'barajando' && (
+        <BarajandoSection />
+      )}
 
-        {/* Fase 4: Barajando */}
-        {tiradaState.fase === 'barajando' && (
-          <BarajandoSection />
-        )}
+      {/* Fase 5: Selección de cartas */}
+      {tiradaState.fase === 'seleccion-cartas' && (
+        <SeleccionCartasSection 
+          tipoTirada={tiradaState.tipoTirada}
+          cartasSeleccionadas={tiradaState.cartasSeleccionadas}
+          cartasDisponibles={cartasDisponibles}
+          onSeleccionarCarta={seleccionarCarta}
+        />
+      )}
 
-        {/* Fase 5: Selección de cartas */}
-        {tiradaState.fase === 'seleccion-cartas' && (
-          <SeleccionCartasSection 
-            tipoTirada={tiradaState.tipoTirada}
-            cartasSeleccionadas={tiradaState.cartasSeleccionadas}
-            cartasDisponibles={cartasDisponibles}
-            onSeleccionarCarta={seleccionarCarta}
-          />
-        )}
+      {/* Fase 6: Revelación */}
+      {tiradaState.fase === 'revelacion' && (
+        <RevelacionSection 
+          carta={tiradaState.cartasSeleccionadas[tiradaState.cartaActual]}
+          cartaActual={tiradaState.cartaActual}
+          totalCartas={tiradaState.cartasSeleccionadas.length}
+          tipoTirada={tiradaState.tipoTirada}
+          onSiguiente={siguienteCarta}
+        />
+      )}
 
-        {/* Fase 6: Revelación */}
-        {tiradaState.fase === 'revelacion' && (
-          <RevelacionSection 
-            carta={tiradaState.cartasSeleccionadas[tiradaState.cartaActual]}
-            cartaActual={tiradaState.cartaActual}
-            totalCartas={tiradaState.cartasSeleccionadas.length}
-            tipoTirada={tiradaState.tipoTirada}
-            onSiguiente={siguienteCarta}
-          />
-        )}
-
-        {/* Fase 7: Resumen */}
-        {tiradaState.fase === 'resumen' && (
-          <ResumenSection 
-            cartasSeleccionadas={tiradaState.cartasSeleccionadas}
-            temaSeleccionado={tiradaState.temaSeleccionado}
-            tipoTirada={tiradaState.tipoTirada}
-            generandoPDF={generandoPDF}
-            onExportarPDF={exportarPDF}
-            onNuevaTirada={nuevaTirada}
-            onSolicitarConsulta={solicitarConsultaEnVivo}
-          />
-        )}
-      </div>
+      {/* Fase 7: Resumen */}
+      {tiradaState.fase === 'resumen' && (
+        <ResumenSection 
+          cartasSeleccionadas={tiradaState.cartasSeleccionadas}
+          temaSeleccionado={tiradaState.temaSeleccionado}
+          tipoTirada={tiradaState.tipoTirada}
+          generandoPDF={generandoPDF}
+          onExportarPDF={exportarPDF}
+          onNuevaTirada={nuevaTirada}
+          onSolicitarConsulta={solicitarConsultaEnVivo}
+        />
+      )}
     </div>
   );
   }
 };
 
-// Componente de Bienvenida
+// Componente de Bienvenida - CORREGIDO
 const BienvenidaSection = ({ onContinuar }) => {
   return (
     <div className="seccion-bienvenida">
@@ -655,19 +639,25 @@ const BienvenidaSection = ({ onContinuar }) => {
       <div className="bienvenida-preparacion">
         <h3>Preparación para tu Tirada</h3>
         <div className="preparacion-grid">
-          <div className="preparacion-item">
-            <div className="item-icono">🧘‍♀️</div>
-            <h4>Centra tu Mente</h4>
+          <div className="preparacion-item-card">
+            <div className="item-header">
+              <div className="item-icono">🧘‍♀️</div>
+              <h4>Centra tu Mente</h4>
+            </div>
             <p>Respira profundamente y libera cualquier tensión o preocupación</p>
           </div>
-          <div className="preparacion-item">
-            <div className="item-icono">💭</div>
-            <h4>Formula tu Pregunta</h4>
+          <div className="preparacion-item-card">
+            <div className="item-header">
+              <div className="item-icono">💭</div>
+              <h4>Formula tu Pregunta</h4>
+            </div>
             <p>Piensa claramente en lo que deseas saber o el área donde necesitas guía</p>
           </div>
-          <div className="preparacion-item">
-            <div className="item-icono">🙏</div>
-            <h4>Abre tu Corazón</h4>
+          <div className="preparacion-item-card">
+            <div className="item-header">
+              <div className="item-icono">🙏</div>
+              <h4>Abre tu Corazón</h4>
+            </div>
             <p>Mantente receptivo a los mensajes que los ángeles tienen para ti</p>
           </div>
         </div>
