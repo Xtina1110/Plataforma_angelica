@@ -569,6 +569,9 @@ const Dashboard = ({ user, onLogout }) => {
             {/* Mensaje del Día */}
             {renderMensajeDelDia()}
 
+            {/* Calendario de Eventos */}
+            {renderCalendarioEventos()}
+
             <h3 className="titulo-dashboard">Aplicaciones angelicas</h3>
             <div className="aplicaciones-grid-correcto">
               {[
