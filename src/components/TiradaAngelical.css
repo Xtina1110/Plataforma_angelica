@@ -13,8 +13,28 @@
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   line-height: 1.6;
-  background: linear-gradient(135deg, #fafafa 0%, #f0f0ff 25%, #fff8e1 50%, #f3e5f5 75%, #e8f5e8 100%);
   min-height: 100vh;
+  position: relative;
+  margin: 10px;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.tirada-angelical-container::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  background: url('./assets/MarmolAzulApertura.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  z-index: -1;
+  border-radius: 35px;
 }
 
 /* ========================================
@@ -247,28 +267,34 @@
   padding: 40px 20px;
 }
 
-.bienvenida-hero {
-  margin-bottom: 50px;
-  text-align: left; /* Alineado a la izquierda */
-}
-
-.bienvenida-hero h2 {
-  font-size: 2.2rem;
+/* Título principal con línea azul como Dashboard */
+.titulo-dashboard {
+  font-size: 1.8rem;
   font-weight: 700;
   color: #333;
   margin-bottom: 15px;
-  background: linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  position: relative;
+  padding-bottom: 15px;
 }
 
-.bienvenida-hero p {
+.titulo-dashboard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #4fc3f7 0%, #0288d1 100%);
+  border-radius: 2px;
+}
+
+/* Descripción debajo de la línea */
+.descripcion-preparacion {
   font-size: 1.1rem;
   color: #666;
   line-height: 1.6;
+  margin-bottom: 40px;
   max-width: 600px;
-  margin: 0; /* Eliminado auto para alinear a la izquierda */
 }
 
 .bienvenida-preparacion h3 {
@@ -351,9 +377,20 @@
   height: 60px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 20px;
   position: relative;
+}
+
+.card-icon-white {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
 }
 
 .card-status {
